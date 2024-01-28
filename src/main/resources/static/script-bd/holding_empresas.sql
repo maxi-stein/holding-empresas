@@ -27,6 +27,12 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `areas_asesoradas`
 --
 
+DROP DATABASE IF EXISTS holing_empresas;
+
+CREATE DATABASE holing_empresas;
+
+USE holing_empresas;
+
 CREATE TABLE `areas_asesoradas` (
   `id_empleado_area` int(11) NOT NULL,
   `id_area_mercado_asesorada` int(11) NOT NULL,
