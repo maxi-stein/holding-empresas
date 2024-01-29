@@ -19,6 +19,12 @@
 -- Table structure for table `areas_asesoradas`
 --
 
+DROP DATABASE IF EXISTS holing_empresas;
+
+CREATE DATABASE holing_empresas;
+
+USE holing_empresas;
+
 DROP TABLE IF EXISTS `areas_asesoradas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
