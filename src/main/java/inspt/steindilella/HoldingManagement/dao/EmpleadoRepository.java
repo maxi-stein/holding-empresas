@@ -1,4 +1,7 @@
 package inspt.steindilella.HoldingManagement.dao;
 
-public class EmpleadoDAO {
+import inspt.steindilella.HoldingManagement.entity.Empleado;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EmpleadoRepository extends JpaRepository<Empleado,Integer> {
 }
