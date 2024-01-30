@@ -11,9 +11,6 @@ public abstract class Empleado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "tipo")
-    private String tipo;
-
     @Column(name = "nombre")
     private String nombre;
 
@@ -28,14 +25,6 @@ public abstract class Empleado {
 
     public Integer getId() {
         return id;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public String getNombre() {
@@ -66,7 +55,6 @@ public abstract class Empleado {
     public String toString() {
         return "Empleado{" +
                 "id=" + id +
-                ", tipo='" + tipo + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", eliminado=" + eliminado +
