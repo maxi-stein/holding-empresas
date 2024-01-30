@@ -19,11 +19,11 @@
 -- Table structure for table `areas_asesoradas`
 --
 
-DROP DATABASE IF EXISTS holing_empresas;
+DROP DATABASE IF EXISTS holding_empresas;
 
-CREATE DATABASE holing_empresas;
+CREATE DATABASE holding_empresas;
 
-USE holing_empresas;
+USE holding_empresas;
 
 DROP TABLE IF EXISTS `areas_asesoradas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
