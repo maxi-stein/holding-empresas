@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: localhost    Database: holing_empresas
+-- Host: localhost    Database: holding_empresas
 -- ------------------------------------------------------
 -- Server version	8.1.0
 
@@ -86,8 +86,8 @@ DROP TABLE IF EXISTS `areas_mercado`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `areas_mercado` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
-  `descripcion` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `descripcion` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `eliminado` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -168,7 +168,7 @@ DROP TABLE IF EXISTS `ciudades`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ciudades` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `eliminado` int NOT NULL,
   `id_pais` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -196,11 +196,11 @@ DROP TABLE IF EXISTS `empleados`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `empleados` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `tipo` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
-  `nombre` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
-  `apellido` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
-  `titulacion` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `direccion` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `tipo` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `apellido` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `titulacion` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `direccion` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `id_empresa` int DEFAULT NULL,
   `eliminado` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -228,7 +228,7 @@ DROP TABLE IF EXISTS `empresas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `empresas` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `sede_id` int NOT NULL,
   `fecha_inicio` date NOT NULL,
   `facturacion` decimal(10,0) NOT NULL,
@@ -258,14 +258,14 @@ DROP TABLE IF EXISTS `paises`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `paises` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `PBI` decimal(10,0) NOT NULL,
-  `capital` int DEFAULT NULL,
+  `capital_id` int DEFAULT NULL,
   `habitantes` bigint NOT NULL,
   `eliminado` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `capital` (`capital`),
-  CONSTRAINT `capital` FOREIGN KEY (`capital`) REFERENCES `ciudades` (`id`)
+  KEY `capital` (`capital_id`),
+  CONSTRAINT `capital` FOREIGN KEY (`capital_id`) REFERENCES `ciudades` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -316,4 +316,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-29 15:28:24
+-- Dump completed on 2024-01-30 21:28:18
