@@ -89,7 +89,8 @@ CREATE TABLE `areas_mercado` (
   `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `descripcion` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `eliminado` int NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -174,7 +175,7 @@ CREATE TABLE `ciudades` (
   PRIMARY KEY (`id`),
   KEY `id_pais` (`id_pais`),
   CONSTRAINT `id_pais` FOREIGN KEY (`id_pais`) REFERENCES `paises` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,6 +235,7 @@ CREATE TABLE `empresas` (
   `facturacion` decimal(10,0) NOT NULL,
   `eliminado` int NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   KEY `sede` (`sede_id`),
   CONSTRAINT `sede` FOREIGN KEY (`sede_id`) REFERENCES `ciudades` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -264,6 +266,7 @@ CREATE TABLE `paises` (
   `habitantes` bigint NOT NULL,
   `eliminado` int NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   KEY `capital` (`capital_id`),
   CONSTRAINT `capital` FOREIGN KEY (`capital_id`) REFERENCES `ciudades` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -316,4 +319,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-30 21:28:18
+-- Dump completed on 2024-01-30 23:55:23
