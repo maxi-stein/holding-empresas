@@ -1,13 +1,39 @@
 package inspt.steindilella.HoldingManagement.service;
 
+import inspt.steindilella.HoldingManagement.dao.AreasMercadoDAO;
 import inspt.steindilella.HoldingManagement.entity.AreasMercado;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+@Service
+public class AreasMercadoService implements AreasMercadoServiceInterface {
 
-public interface AreasMercadoService {
-    AreasMercado getById();
-    List<AreasMercado> getAll();
-    void save(AreasMercado area);
-    void update(AreasMercado area);
-    void delete(Integer id);
+    private AreasMercadoDAO areasDAO;
+
+    @Override
+    public AreasMercado getById() {
+        return null;
+    }
+
+    @Override
+    public List<AreasMercado> getAll() {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public void save(AreasMercado area) {
+        areasDAO.save(area);
+    }
+
+    @Override
+    public void update(AreasMercado area) {
+
+    }
+
+    @Override
+    public void delete(Integer id) {
+
+    }
 }
