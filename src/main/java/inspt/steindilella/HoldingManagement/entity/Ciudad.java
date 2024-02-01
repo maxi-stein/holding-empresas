@@ -16,10 +16,6 @@ public class Ciudad {
     @Column(name = "eliminado")
     private Integer eliminado;
 
-    //Ciudad capital referenciada en Pais
-    @OneToOne(mappedBy = "capital", cascade = CascadeType.ALL) //si elimino el pais, debo eliminar la capital
-    private Pais pais_capital;
-
     //Pais al cual la Ciudad pertenece (no-capital)
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "id_pais", referencedColumnName = "id")
@@ -49,13 +45,7 @@ public class Ciudad {
         this.eliminado = eliminado;
     }
 
-    public Pais getPais_capital() {
-        return pais_capital;
-    }
 
-    public void setPais_capital(Pais pais_capital) {
-        this.pais_capital = pais_capital;
-    }
 
     public Pais getPais_ciudad() {
         return pais_ciudad;
@@ -80,7 +70,7 @@ public class Ciudad {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", eliminado=" + eliminado +
-                ", pais =" + pais_capital.getNombre() +
+                ", pais =" + pais_ciudad.getNombre() +
                 '}';
     }
 }
