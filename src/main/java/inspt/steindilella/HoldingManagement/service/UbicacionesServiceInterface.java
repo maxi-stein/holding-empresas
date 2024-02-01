@@ -13,6 +13,7 @@ public interface UbicacionesServiceInterface {
     void savePais(Pais pais);
     void updatePais(Pais pais);
     void deletePais(Integer id);
+    void cambiarCapital(Pais pais, Ciudad ciudad);
 
     List<Ciudad> getAllCiudades();
     void saveCiudad(Ciudad ciudad);

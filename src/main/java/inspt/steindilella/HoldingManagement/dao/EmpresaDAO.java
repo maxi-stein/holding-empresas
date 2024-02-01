@@ -24,7 +24,7 @@ public class EmpresaDAO implements EmpresaDAOInterface {
 
     @Override
     public List<Empresa> getAll() {
-        TypedQuery<Empresa> empresas = entityManager.createNamedQuery("SELECT e FROM Empresa e ORDER BY e.nombre ASC",Empresa.class);
+        TypedQuery<Empresa> empresas = entityManager.createQuery("SELECT e FROM Empresa e ORDER BY e.nombre ASC",Empresa.class);
         return empresas.getResultList();
     }
 

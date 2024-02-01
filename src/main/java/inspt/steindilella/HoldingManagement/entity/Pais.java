@@ -84,6 +84,10 @@ public class Pais {
         this.eliminado = eliminado;
     }
 
+    public List<Ciudad> getCiudades() {
+        return ciudad;
+    }
+
     public Pais() {
     }
 

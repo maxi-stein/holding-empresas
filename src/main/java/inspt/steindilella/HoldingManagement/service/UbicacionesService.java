@@ -51,6 +51,21 @@ public class UbicacionesService implements UbicacionesServiceInterface {
     }
 
     @Override
+    @Transactional
+    public void cambiarCapital(Pais pais, Ciudad ciudad) {
+        List<Ciudad> ciudades = pais.getCiudades();
+
+        if(ciudades.contains(ciudad)){
+            pais.setCapital(ciudad);
+            ciudad.setPais_ciudad(pais);
+            ubicacionesDAO.updatePais(pais);
+        }
+        else{
+            //todo: manejar error
+        }
+    }
+
+    @Override
     public List<Ciudad> getAllCiudades() {
         return ubicacionesDAO.getAllCiudades();
     }
