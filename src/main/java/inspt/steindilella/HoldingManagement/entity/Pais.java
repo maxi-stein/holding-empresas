@@ -3,6 +3,7 @@ package inspt.steindilella.HoldingManagement.entity;
 import jakarta.persistence.*;
 
 import java.math.BigInteger;
+import java.util.List;
 
 @Entity
 @Table(name = "paises")
@@ -25,8 +26,9 @@ public class Pais {
     private Ciudad capital;
 
     //Cada ciudad esta asociada a un Pais al cual pertenece.
-    @OneToOne(mappedBy = "pais_ciudad", cascade = CascadeType.ALL)
-    private Ciudad ciudad;
+    @OneToMany(mappedBy = "pais_ciudad",
+            cascade = CascadeType.ALL)
+    private List<Ciudad> ciudad;
 
     @Column(name = "habitantes")
     private BigInteger habitantes;
@@ -66,14 +68,6 @@ public class Pais {
         this.capital = capital;
     }
 
-    public Ciudad getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(Ciudad ciudad) {
-        this.ciudad = ciudad;
-    }
-
     public BigInteger getHabitantes() {
         return habitantes;
     }
@@ -107,7 +101,6 @@ public class Pais {
                 ", nombre='" + nombre + '\'' +
                 ", pbi=" + pbi +
                 ", capital=" + capital +
-                ", ciudad=" + ciudad +
                 ", habitantes=" + habitantes +
                 ", eliminado=" + eliminado +
                 '}';

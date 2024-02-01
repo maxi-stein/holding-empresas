@@ -21,7 +21,7 @@ public class Ciudad {
     private Pais pais_capital;
 
     //Pais al cual la Ciudad pertenece (no-capital)
-    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "id_pais", referencedColumnName = "id")
     private Pais pais_ciudad;
 
@@ -80,8 +80,7 @@ public class Ciudad {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", eliminado=" + eliminado +
-                ", pais_capital =" + pais_capital +
-                ", pais_ciudad=" + pais_ciudad +
+                ", pais =" + pais_capital.getNombre() +
                 '}';
     }
 }
