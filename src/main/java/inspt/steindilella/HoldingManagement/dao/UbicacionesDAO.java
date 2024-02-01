@@ -44,13 +44,13 @@ public class UbicacionesDAO implements UbicacionesDAOInterface {
 
     @Override
     public List<Pais> getAllPaises() {
-        TypedQuery<Pais> paises = entityManager.createNamedQuery("SELECT e FROM Pais e ORDER BY e.nombre ASC", Pais.class);
+        TypedQuery<Pais> paises = entityManager.createQuery("SELECT p FROM Pais p ORDER BY p.nombre ASC", Pais.class);
         return paises.getResultList();
     }
 
     @Override
     public List<Ciudad> getAllCiudades() {
-        TypedQuery<Ciudad> ciudades = entityManager.createNamedQuery("SELECT e FROM Ciudad e ORDER BY e.nombre ASC", Ciudad.class);
+        TypedQuery<Ciudad> ciudades = entityManager.createQuery("SELECT c FROM Ciudad c ORDER BY c.nombre ASC", Ciudad.class);
         return ciudades.getResultList();
     }
 
