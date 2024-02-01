@@ -6,7 +6,8 @@ import inspt.steindilella.HoldingManagement.entity.Pais;
 import java.util.List;
 
 public interface UbicacionesDAOInterface {
-    void save(Pais pais,Ciudad ciudad);
+    void save(Pais pais);
+    void save(Ciudad ciudad);
 
     Pais getPaisById(Integer id);
     Ciudad getCiudadById(Integer id);
@@ -17,7 +18,8 @@ public interface UbicacionesDAOInterface {
     void updatePais(Pais pais);
     void updateCiudad(Ciudad ciudad);
 
-    void deleteCiudad(Ciudad ciudad);
+    void deleteCiudad(Integer id);
+    void deletePais(Integer id);
 
 
 }

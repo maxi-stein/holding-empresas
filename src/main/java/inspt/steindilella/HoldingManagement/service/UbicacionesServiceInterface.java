@@ -10,7 +10,7 @@ public interface UbicacionesServiceInterface {
     Ciudad getCiudadById(Integer id);
 
     List<Pais> getAllPaises();
-    void save(Pais pais, Ciudad ciudad);
+    void savePais(Pais pais);
     void updatePais(Pais pais);
     void deletePais(Integer id);
 

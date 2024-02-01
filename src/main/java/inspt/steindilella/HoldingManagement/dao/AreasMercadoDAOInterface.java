@@ -5,7 +5,7 @@ import inspt.steindilella.HoldingManagement.entity.AreasMercado;
 import java.util.List;
 
 public interface AreasMercadoDAOInterface {
-    AreasMercado getById();
+    AreasMercado getById(Integer id);
     List<AreasMercado> getAll();
     void save(AreasMercado area);
     void update(AreasMercado area);

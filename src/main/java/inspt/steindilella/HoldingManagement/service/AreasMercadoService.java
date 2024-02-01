@@ -12,13 +12,13 @@ public class AreasMercadoService implements AreasMercadoServiceInterface {
     private AreasMercadoDAOInterface areasDAO;
 
     @Override
-    public AreasMercado getById() {
-        return null;
+    public AreasMercado getById(Integer id) {
+        return areasDAO.getById(id);
     }
 
     @Override
     public List<AreasMercado> getAll() {
-        return null;
+        return areasDAO.getAll();
     }
 
     @Override
@@ -28,12 +28,14 @@ public class AreasMercadoService implements AreasMercadoServiceInterface {
     }
 
     @Override
+    @Transactional
     public void update(AreasMercado area) {
-
+        areasDAO.update(area);
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) {
-
+        areasDAO.delete(id);
     }
 }

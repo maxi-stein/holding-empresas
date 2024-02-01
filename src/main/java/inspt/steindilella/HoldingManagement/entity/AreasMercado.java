@@ -37,6 +37,30 @@ public class AreasMercado {
         this.id = id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Integer getEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(Integer eliminado) {
+        this.eliminado = eliminado;
+    }
+
     @Override
     public String toString() {
         return "AreasMercado{" +

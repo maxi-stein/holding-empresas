@@ -1,11 +1,16 @@
 package inspt.steindilella.HoldingManagement;
 
 import inspt.steindilella.HoldingManagement.dao.AreasMercadoDAOInterface;
+import inspt.steindilella.HoldingManagement.dao.UbicacionesDAOInterface;
 import inspt.steindilella.HoldingManagement.entity.AreasMercado;
+import inspt.steindilella.HoldingManagement.entity.Ciudad;
+import inspt.steindilella.HoldingManagement.entity.Pais;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.math.BigInteger;
 
 @SpringBootApplication
 public class HoldingManagementApplication {
@@ -15,20 +20,20 @@ public class HoldingManagementApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(AreasMercadoDAOInterface dao) {
+	public CommandLineRunner commandLineRunner(AreasMercadoDAOInterface areaDao, UbicacionesDAOInterface ubiDao) {
 		return runner -> {
-			testSaveUbicacion(dao);
+			testSaveUbicacion(areaDao,ubiDao);
 		};
 	}
 
-	private void testSaveUbicacion(AreasMercadoDAOInterface dao) {
-		//Pais pais = new Pais("Uruguay",1500.0,new BigInteger("100000"));
-		//Ciudad ciudad = new Ciudad("Montevideo",pais);
+	private void testSaveUbicacion(AreasMercadoDAOInterface areaDao, UbicacionesDAOInterface ubiDao) {
+		Pais pais = new Pais("Uruguay",1500.0,new BigInteger("100000"));
+		Ciudad ciudad = new Ciudad("Montevideo",pais);
 
-		//dao.save(pais,ciudad);
+		ubiDao.save(ciudad);
 
 		AreasMercado areaPrueba = new AreasMercado("Consultora Financiera", "Analistas de mercados financieros.");
-		dao.save(areaPrueba);
+		areaDao.save(areaPrueba);
 	}
 
 
