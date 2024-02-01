@@ -1,9 +1,13 @@
 package inspt.steindilella.HoldingManagement.entity;
 
 import jakarta.persistence.*;
+
+import java.util.List;
+
 @Entity
 @Table(name = "empresas")
 public class Empresa {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,9 +25,12 @@ public class Empresa {
     private String facturacion;
 
     @Column(name = "eliminado")
-    private String eliminado;
+    private Integer eliminado;
 
-     public Empresa() {
+    @OneToMany(mappedBy = "empresa",fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Vendedor.class)
+    private List<Empleado> vendedores;
+
+    public Empresa() {
 
     }
 
@@ -59,11 +66,11 @@ public class Empresa {
         this.facturacion = facturacion;
     }
 
-    public String getEliminado() {
+    public Integer getEliminado() {
         return eliminado;
     }
 
-    public void setEliminado(String eliminado) {
+    public void setEliminado(Integer eliminado) {
         this.eliminado = eliminado;
     }
 

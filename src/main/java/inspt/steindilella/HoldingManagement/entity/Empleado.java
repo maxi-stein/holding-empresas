@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING)
 public abstract class Empleado {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,6 +22,12 @@ public abstract class Empleado {
     private Integer eliminado;
 
     public Empleado() {
+    }
+
+    public Empleado(String nombre, String apellido) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        eliminado=0;
     }
 
     public Integer getId() {

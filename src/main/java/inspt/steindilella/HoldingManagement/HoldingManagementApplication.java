@@ -22,19 +22,21 @@ public class HoldingManagementApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(AreasMercadoDAOInterface areaDao, UbicacionesDAOInterface ubiDao) {
 		return runner -> {
-			testSaveUbicacion(areaDao,ubiDao);
+			//testUbicacion(ubiDao);
+			//testArea(areaDao);
 		};
 	}
 
-	private void testSaveUbicacion(AreasMercadoDAOInterface areaDao, UbicacionesDAOInterface ubiDao) {
-		Pais pais = new Pais("Uruguay",1500.0,new BigInteger("100000"));
-		Ciudad ciudad = new Ciudad("Montevideo",pais);
-
-		ubiDao.save(ciudad);
-
+	private void testArea(AreasMercadoDAOInterface areaDao) {
 		AreasMercado areaPrueba = new AreasMercado("Consultora Financiera", "Analistas de mercados financieros.");
 		areaDao.save(areaPrueba);
 	}
 
+	private void testUbicacion(UbicacionesDAOInterface ubiDao) {
+		Pais pais = new Pais("Uruguay",1500.0,new BigInteger("100000"));
+		Ciudad ciudad = new Ciudad("Montevideo",pais);
+
+		ubiDao.save(ciudad);
+	}
 
 }

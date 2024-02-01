@@ -12,7 +12,6 @@ import java.util.List;
 @Service
 public class UbicacionesService implements UbicacionesServiceInterface {
 
-
     private UbicacionesDAOInterface ubicacionesDAO;
 
     @Autowired
