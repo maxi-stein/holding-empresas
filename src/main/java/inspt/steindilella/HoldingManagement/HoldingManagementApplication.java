@@ -1,6 +1,6 @@
 package inspt.steindilella.HoldingManagement;
 
-import inspt.steindilella.HoldingManagement.dao.AreasMercadoDAO;
+import inspt.steindilella.HoldingManagement.dao.AreasMercadoDAOInterface;
 import inspt.steindilella.HoldingManagement.entity.AreasMercado;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,13 +15,13 @@ public class HoldingManagementApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(AreasMercadoDAO dao) {
+	public CommandLineRunner commandLineRunner(AreasMercadoDAOInterface dao) {
 		return runner -> {
 			testSaveUbicacion(dao);
 		};
 	}
 
-	private void testSaveUbicacion(AreasMercadoDAO dao) {
+	private void testSaveUbicacion(AreasMercadoDAOInterface dao) {
 		//Pais pais = new Pais("Uruguay",1500.0,new BigInteger("100000"));
 		//Ciudad ciudad = new Ciudad("Montevideo",pais);
 

@@ -2,22 +2,62 @@ package inspt.steindilella.HoldingManagement.dao;
 
 import inspt.steindilella.HoldingManagement.entity.Ciudad;
 import inspt.steindilella.HoldingManagement.entity.Pais;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface UbicacionesDAO {
-    void save(Pais pais,Ciudad ciudad);
+@Repository
+public class UbicacionesDAO implements UbicacionesDAOInterface {
 
-    Pais getPaisById(Integer id);
-    Ciudad getCiudadById(Integer id);
+    private EntityManager entityManager;
 
-    List<Pais> getAllPaises();
-    List<Ciudad> getAllCiudades();
+    @Autowired
+    public UbicacionesDAO(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
-    void updatePais(Pais pais);
-    void updateCiudad(Ciudad ciudad);
+    @Override
+    @Transactional
+    public void save(Pais pais, Ciudad ciudad) {
+        entityManager.persist(pais);
+        entityManager.persist(ciudad);
+    }
 
-    void deleteCiudad(Ciudad ciudad);
+    @Override
+    public Pais getPaisById(Integer id) {
+        return null;
+    }
 
+    @Override
+    public Ciudad getCiudadById(Integer id) {
+        return null;
+    }
 
+    @Override
+    public List<Pais> getAllPaises() {
+        return null;
+    }
+
+    @Override
+    public List<Ciudad> getAllCiudades() {
+        return null;
+    }
+
+    @Override
+    public void updatePais(Pais pais) {
+
+    }
+
+    @Override
+    public void updateCiudad(Ciudad ciudad) {
+
+    }
+
+    @Override
+    public void deleteCiudad(Ciudad ciudad) {
+
+    }
 }

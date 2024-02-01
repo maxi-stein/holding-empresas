@@ -1,6 +1,6 @@
 package inspt.steindilella.HoldingManagement.service;
 
-import inspt.steindilella.HoldingManagement.dao.UbicacionesDAO;
+import inspt.steindilella.HoldingManagement.dao.UbicacionesDAOInterface;
 import inspt.steindilella.HoldingManagement.entity.Ciudad;
 import inspt.steindilella.HoldingManagement.entity.Pais;
 import jakarta.transaction.Transactional;
@@ -12,7 +12,7 @@ import java.util.List;
 public class UbicacionesService implements UbicacionesServiceInterface {
 
     @Autowired
-    private UbicacionesDAO ubicacionesDAO;
+    private UbicacionesDAOInterface ubicacionesDAO;
 
 
     @Override
