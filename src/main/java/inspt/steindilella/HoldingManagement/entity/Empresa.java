@@ -3,29 +3,29 @@ package inspt.steindilella.HoldingManagement.entity;
 import jakarta.persistence.*;
 @Entity
 @Table(name = "empresas")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Empresa {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Integer id;
+public class Empresa {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-        @Column(name = "nombre")
-        private String nombre;
+    @Column(name = "nombre")
+    private String nombre;
 
-        @Column(name = "sede_id")
-        private String sede;
+    @Column(name = "sede_id")
+    private String sede;
 
-        @Column(name = "fecha_inicio")
-        private Integer inicio;
+    @Column(name = "fecha_inicio")
+    private Integer inicio;
 
-        @Column(name = "facturacion")
-        private String facturacion;
+    @Column(name = "facturacion")
+    private String facturacion;
 
-        @Column(name = "eliminado")
-        private String eliminado;
+    @Column(name = "eliminado")
+    private String eliminado;
 
-         public Empresa() {
-        }
+     public Empresa() {
+
+    }
 
     public String getNombre() {
         return nombre;

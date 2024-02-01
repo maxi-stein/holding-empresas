@@ -16,6 +16,7 @@ public interface UbicacionesDAO {
 
     void updatePais(Pais pais);
     void updateCiudad(Ciudad ciudad);
+
     void deleteCiudad(Ciudad ciudad);
 
 

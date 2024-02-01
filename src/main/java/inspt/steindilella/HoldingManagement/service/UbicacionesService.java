@@ -1,22 +1,67 @@
 package inspt.steindilella.HoldingManagement.service;
 
+import inspt.steindilella.HoldingManagement.dao.UbicacionesDAO;
 import inspt.steindilella.HoldingManagement.entity.Ciudad;
 import inspt.steindilella.HoldingManagement.entity.Pais;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+@Service
+public class UbicacionesService implements UbicacionesServiceInterface {
 
-public interface UbicacionesService {
-    Pais getPaisById(Integer id);
-    Ciudad getCiudadById(Integer id);
+    @Autowired
+    private UbicacionesDAO ubicacionesDAO;
 
-    List<Pais> getAllPaises();
-    void save(Pais pais, Ciudad ciudad);
-    void updatePais(Pais pais);
-    void deletePais(Integer id);
 
-    List<Ciudad> getAllCiudades();
-    void saveCiudad(Ciudad ciudad);
-    void updateCiudad(Ciudad ciudad);
-    void deleteCiudad(Integer id);
+    @Override
+    public Pais getPaisById(Integer id) {
+        return null;
+    }
 
+    @Override
+    public Ciudad getCiudadById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public List<Pais> getAllPaises() {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public void save(Pais pais, Ciudad ciudad) {
+        ubicacionesDAO.save(pais,ciudad);
+    }
+
+    @Override
+    public void updatePais(Pais pais) {
+
+    }
+
+    @Override
+    public void deletePais(Integer id) {
+
+    }
+
+    @Override
+    public List<Ciudad> getAllCiudades() {
+        return null;
+    }
+
+    @Override
+    public void saveCiudad(Ciudad ciudad) {
+    }
+
+    @Override
+    public void updateCiudad(Ciudad ciudad) {
+
+    }
+
+    @Override
+    public void deleteCiudad(Integer id) {
+
+    }
 }
