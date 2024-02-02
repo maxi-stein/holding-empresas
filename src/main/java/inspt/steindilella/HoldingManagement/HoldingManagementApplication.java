@@ -26,7 +26,8 @@ public class HoldingManagementApplication {
 		return runner -> {
 			//testUbicacion(ubiDao);
 			//testArea(areaDao);
-			testEmpresa(emp, ubiDao);
+			//testEmpresa(emp, ubiDao);
+			testAsesor(emp);
 		};
 	}
 
@@ -52,6 +53,10 @@ public class HoldingManagementApplication {
 		System.out.println(emp.getVendedoresPorEmpresa(2));
 		System.out.println(emp.getAreasMercadoPorEmpresa(2));
 		System.out.println(emp.getCiudadesPorEmpresa(2));
+	}
+
+	private void testAsesor(EmpresaServiceInterface emp){
+		System.out.println(emp.getAreasMercadoPorEmpresa(2));
 	}
 
 }

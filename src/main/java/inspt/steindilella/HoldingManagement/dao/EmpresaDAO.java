@@ -1,9 +1,6 @@
 package inspt.steindilella.HoldingManagement.dao;
 
-import inspt.steindilella.HoldingManagement.entity.AreasMercado;
-import inspt.steindilella.HoldingManagement.entity.Ciudad;
-import inspt.steindilella.HoldingManagement.entity.Empleado;
-import inspt.steindilella.HoldingManagement.entity.Empresa;
+import inspt.steindilella.HoldingManagement.entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -55,6 +52,14 @@ public class EmpresaDAO implements EmpresaDAOInterface {
         empresaQuery.setParameter("idEmpresa",id);
 
         return empresaQuery.getSingleResult().getCiudades();
+    }
+
+    @Override
+    public List<Empleado> getAsesoresPorEmpresa(Integer id) {
+        TypedQuery<Empresa> empresaQuery = entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.asesores WHERE e.id = :idEmpresa", Empresa.class);
+        empresaQuery.setParameter("idEmpresa",id);
+
+        return empresaQuery.getSingleResult().getAsesores();
     }
 
     @Override

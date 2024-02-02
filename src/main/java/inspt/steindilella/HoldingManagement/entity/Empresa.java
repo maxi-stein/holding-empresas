@@ -37,10 +37,17 @@ public class Empresa {
     private List<Empleado> vendedores;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
-                fetch = FetchType.LAZY)
+            fetch = FetchType.LAZY)
     @JoinTable( name = "ciudad_empresa",
-                joinColumns = @JoinColumn(name = "id_empresa_ubicada"),
-                inverseJoinColumns = @JoinColumn(name = "id_ciudad_empresa"))
+            joinColumns = @JoinColumn(name = "id_ciudad_empresa"),
+            inverseJoinColumns = @JoinColumn(name = "id_empresa_ubicada"))
+    private List<Empleado> asesores;
+
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+                fetch = FetchType.LAZY)
+    @JoinTable( name = "asesores_empresa",
+            joinColumns = @JoinColumn(name = "id_empleado_empresa"),
+            inverseJoinColumns = @JoinColumn(name = "id_empresa_relacion"))
     private List<Ciudad> ciudades;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
@@ -49,6 +56,7 @@ public class Empresa {
             joinColumns = @JoinColumn(name = "id_empresa_mercados"),
             inverseJoinColumns = @JoinColumn(name = "id_area_mercado_empresa"))
     private List<AreasMercado> areasMercados;
+
 
     public Empresa() {
 
@@ -104,6 +112,10 @@ public class Empresa {
 
     public List<Empleado> getVendedores() {
         return vendedores;
+    }
+
+    public List<Empleado> getAsesores() {
+        return asesores;
     }
 
     public List<Ciudad> getCiudades() {

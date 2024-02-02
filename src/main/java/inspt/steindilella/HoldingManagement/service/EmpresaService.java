@@ -46,6 +46,11 @@ public class EmpresaService implements EmpresaServiceInterface{
     }
 
     @Override
+    public List<Empleado> getAsesoresPorEmpresa(Integer id) {
+        return empresaDAO.getAsesoresPorEmpresa(id);
+    }
+
+    @Override
     public void save(Empresa empresa) {
         empresaDAO.save(empresa);
     }
