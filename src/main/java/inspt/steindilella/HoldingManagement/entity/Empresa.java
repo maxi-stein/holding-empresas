@@ -2,6 +2,8 @@ package inspt.steindilella.HoldingManagement.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -15,23 +17,42 @@ public class Empresa {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "sede_id")
-    private String sede;
+    @OneToOne
+    @JoinColumn(name = "sede_id",referencedColumnName = "id")
+    private Ciudad sede;
 
     @Column(name = "fecha_inicio")
-    private Integer inicio;
+    private LocalDate inicio;
 
     @Column(name = "facturacion")
-    private String facturacion;
+    private BigDecimal facturacion;
 
     @Column(name = "eliminado")
     private Integer eliminado;
 
-    @OneToMany(mappedBy = "empresa",fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Vendedor.class)
+    @OneToMany(mappedBy = "empresa",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            targetEntity = Vendedor.class)
     private List<Empleado> vendedores;
+
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+                fetch = FetchType.LAZY)
+    @JoinTable( name = "ciudad_empresa",
+                joinColumns = @JoinColumn(name = "id_empresa_ubicada"),
+                inverseJoinColumns = @JoinColumn(name = "id_ciudad_empresa"))
+    private List<Ciudad> ciudades;
 
     public Empresa() {
 
+    }
+
+    public Empresa(String nombre, Ciudad sede, LocalDate inicio, BigDecimal facturacion) {
+        this.nombre = nombre;
+        this.sede = sede;
+        this.inicio = inicio;
+        this.facturacion = facturacion;
+        eliminado=0;
     }
 
     public String getNombre() {
@@ -42,27 +63,27 @@ public class Empresa {
         this.nombre = nombre;
     }
 
-    public String getSede() {
+    public Ciudad getSede() {
         return sede;
     }
 
-    public void setSede(String sede) {
+    public void setSede(Ciudad sede) {
         this.sede = sede;
     }
 
-    public Integer getInicio() {
+    public LocalDate getInicio() {
         return inicio;
     }
 
-    public void setInicio(Integer inicio) {
+    public void setInicio(LocalDate inicio) {
         this.inicio = inicio;
     }
 
-    public String getFacturacion() {
+    public BigDecimal getFacturacion() {
         return facturacion;
     }
 
-    public void setFacturacion(String facturacion) {
+    public void setFacturacion(BigDecimal facturacion) {
         this.facturacion = facturacion;
     }
 
@@ -79,7 +100,7 @@ public class Empresa {
         return "Empresa{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", sede='" + sede + '\'' +
+                ", sede='" + sede.getNombre() + '\'' +
                 ", inicio=" + inicio +
                 ", facturacion='" + facturacion + '\'' +
                 ", eliminado='" + eliminado + '\'' +

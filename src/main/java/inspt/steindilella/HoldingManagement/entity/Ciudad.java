@@ -2,6 +2,8 @@ package inspt.steindilella.HoldingManagement.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "ciudades")
 public class Ciudad {
@@ -20,6 +22,13 @@ public class Ciudad {
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "id_pais", referencedColumnName = "id")
     private Pais pais_ciudad;
+
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+            fetch = FetchType.LAZY)
+    @JoinTable(name = "ciudad_empresa",
+            joinColumns = @JoinColumn(name = "id_ciudad_empresa"),
+            inverseJoinColumns = @JoinColumn(name = "id_empresa_ubicada"))
+    private List<Empresa> empresas;
 
     public Integer getId() {
         return id;

@@ -3,9 +3,11 @@ package inspt.steindilella.HoldingManagement.service;
 import inspt.steindilella.HoldingManagement.dao.EmpresaDAOInterface;
 import inspt.steindilella.HoldingManagement.entity.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class EmpresaService implements EmpresaServiceInterface{
 
     EmpresaDAOInterface empresaDAO;
