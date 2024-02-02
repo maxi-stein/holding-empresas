@@ -38,9 +38,9 @@ public class Empresa {
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
             fetch = FetchType.LAZY)
-    @JoinTable( name = "ciudad_empresa",
-            joinColumns = @JoinColumn(name = "id_ciudad_empresa"),
-            inverseJoinColumns = @JoinColumn(name = "id_empresa_ubicada"))
+    @JoinTable( name = "asesores_empresa",
+            joinColumns = @JoinColumn(name = "id_empresa_relacion"),
+            inverseJoinColumns = @JoinColumn(name = "id_empleado_empresa"))
     private List<Empleado> asesores;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+@Entity
 @DiscriminatorValue("ases")
 public class Asesor extends Empleado {
 
@@ -19,6 +20,13 @@ public class Asesor extends Empleado {
                 joinColumns = @JoinColumn(name = "id_empleado_empresa"),
                 inverseJoinColumns = @JoinColumn(name = "id_empresa_relacion"))
     private List<Empresa> empresasAsesoradas;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinTable( name = "areas_asesoradas",
+            joinColumns = @JoinColumn(name = "id_empleado_area"),
+            inverseJoinColumns = @JoinColumn(name = "id_area_mercado_asesorada"))
+    private List<AreasMercado> areasAsesoradas;
 
     public Asesor() {
     }

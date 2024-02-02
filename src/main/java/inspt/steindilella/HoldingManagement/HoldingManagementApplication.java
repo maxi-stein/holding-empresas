@@ -57,6 +57,7 @@ public class HoldingManagementApplication {
 
 	private void testAsesor(EmpresaServiceInterface emp){
 		System.out.println(emp.getAreasMercadoPorEmpresa(2));
+		System.out.println(emp.getAsesoresPorEmpresa(2));
 	}
 
 }

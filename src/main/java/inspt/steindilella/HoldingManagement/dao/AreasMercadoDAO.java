@@ -1,6 +1,7 @@
 package inspt.steindilella.HoldingManagement.dao;
 
 import inspt.steindilella.HoldingManagement.entity.AreasMercado;
+import inspt.steindilella.HoldingManagement.entity.Empleado;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -27,6 +28,14 @@ public class AreasMercadoDAO implements AreasMercadoDAOInterface {
     public List<AreasMercado> getAll() {
         TypedQuery<AreasMercado> getAll = entityManager.createQuery("SELECT e FROM AreasMercado e ORDER BY e.nombre ASC", AreasMercado.class);
         return getAll.getResultList();
+    }
+
+    @Override
+    public List<Empleado> getAsesoresPorArea(Integer id) {
+        TypedQuery<AreasMercado> areaMerc = entityManager.createQuery("SELECT a FROM AreasMercado a FETCH JOIN a.asesores WHERE a.id = :idArea", AreasMercado.class);
+        areaMerc.setParameter("idArea",id);
+
+        return areaMerc.getSingleResult().getAsesores();
     }
 
     @Override
