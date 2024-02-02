@@ -14,7 +14,7 @@ public class AsesorEmpresa {
     @ManyToOne
     @MapsId("asesorId") //el nombre del atributo en AsesorEmpresaId (el que hace referencia a id_empleado_empresa)
     @JoinColumn(name = "id_empleado_empresa")
-    private Empleado asesor;
+    private Asesor asesor;
 
     @ManyToOne
     @MapsId("empresaId") //el nombre del atributo en AsesorEmpresaId (el que hace referencia a id_empleado_empresa)
@@ -24,7 +24,7 @@ public class AsesorEmpresa {
     @Column(name = "fecha_inicio")
     private LocalDate fechaInicio;
 
-    public AsesorEmpresa(Empleado asesor, Empresa empresa, LocalDate fechaInicio) {
+    public AsesorEmpresa(Asesor asesor, Empresa empresa, LocalDate fechaInicio) {
         this.asesor = asesor;
         this.empresa = empresa;
         this.fechaInicio = fechaInicio;
@@ -45,11 +45,11 @@ public class AsesorEmpresa {
         this.id = id;
     }
 
-    public Empleado getAsesor() {
+    public Asesor getAsesor() {
         return asesor;
     }
 
-    public void setAsesor(Empleado asesor) {
+    public void setAsesor(Asesor asesor) {
         this.asesor = asesor;
     }
 

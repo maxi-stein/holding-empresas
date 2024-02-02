@@ -2,6 +2,7 @@ package inspt.steindilella.HoldingManagement.service;
 
 import inspt.steindilella.HoldingManagement.dao.EmpleadosDAOInterface;
 import inspt.steindilella.HoldingManagement.entity.Empleado;
+import inspt.steindilella.HoldingManagement.entity.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,11 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     @Override
     public List<Empleado> getEmpleadosPorEmpresa(Integer id) {
         return getEmpleadosPorEmpresa(id);
+    }
+
+    @Override
+    public List<Empresa> getEmpresasAsesoradas(Integer id) {
+        return empDao.getEmpresasAsesoradas(id);
     }
 
     @Override
