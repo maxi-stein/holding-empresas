@@ -2,6 +2,8 @@ package inspt.steindilella.HoldingManagement.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @DiscriminatorValue("vend")
 public class Vendedor extends Empleado{
@@ -13,6 +15,10 @@ public class Vendedor extends Empleado{
     fetch = FetchType.LAZY)
     @JoinColumn(name = "id_empresa")
     private Empresa empresa;
+
+    @OneToMany(mappedBy = "vendedorCaptados",
+                cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    private List<VendedorCaptado> vendedoresCaptados;
 
     public Vendedor() {
     }
