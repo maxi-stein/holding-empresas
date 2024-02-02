@@ -55,11 +55,11 @@ public class EmpresaDAO implements EmpresaDAOInterface {
     }
 
     @Override
-    public List<Empleado> getAsesoresPorEmpresa(Integer id) {
-        TypedQuery<Empresa> empresaQuery = entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.asesores WHERE e.id = :idEmpresa", Empresa.class);
-        empresaQuery.setParameter("idEmpresa",id);
+    public List<Asesor> getAsesoresPorEmpresa(Empresa empr) {
+        TypedQuery<Asesor> empresaQuery = entityManager.createQuery("SELECT e.asesor FROM AsesorEmpresa e WHERE e.empresa = :empr", Asesor.class);
+        empresaQuery.setParameter("empr",empr);
 
-        return empresaQuery.getSingleResult().getAsesores();
+        return empresaQuery.getResultList();
     }
 
     @Override

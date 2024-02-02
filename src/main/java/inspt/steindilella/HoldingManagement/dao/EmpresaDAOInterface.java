@@ -11,7 +11,7 @@ public interface EmpresaDAOInterface {
     List<AreasMercado> getAreasMercadoPorEmpresa(Integer id);
     List<Empleado> getVendedoresPorEmpresa(Integer id);
     List<Ciudad> getCiudadesPorEmpresa(Integer id);
-    List<Empleado> getAsesoresPorEmpresa(Integer id);
+    List<Asesor> getAsesoresPorEmpresa(Empresa empr);
 
     void save(Empresa empresa);
     void update(Empresa empresa);

@@ -1,10 +1,7 @@
 package inspt.steindilella.HoldingManagement.service;
 
 import inspt.steindilella.HoldingManagement.dao.EmpresaDAOInterface;
-import inspt.steindilella.HoldingManagement.entity.AreasMercado;
-import inspt.steindilella.HoldingManagement.entity.Ciudad;
-import inspt.steindilella.HoldingManagement.entity.Empleado;
-import inspt.steindilella.HoldingManagement.entity.Empresa;
+import inspt.steindilella.HoldingManagement.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,8 +43,8 @@ public class EmpresaService implements EmpresaServiceInterface{
     }
 
     @Override
-    public List<Empleado> getAsesoresPorEmpresa(Integer id) {
-        return empresaDAO.getAsesoresPorEmpresa(id);
+    public List<Asesor> getAsesoresPorEmpresa(Integer id) {
+        return empresaDAO.getAsesoresPorEmpresa(empresaDAO.getById(id));
     }
 
     @Override

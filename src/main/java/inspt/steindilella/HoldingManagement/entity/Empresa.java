@@ -30,18 +30,16 @@ public class Empresa {
     @Column(name = "eliminado")
     private Integer eliminado;
 
+    //Vendedores de la empresa
     @OneToMany(mappedBy = "empresa",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             targetEntity = Vendedor.class)
     private List<Empleado> vendedores;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
-            fetch = FetchType.LAZY)
-    @JoinTable( name = "asesores_empresa",
-            joinColumns = @JoinColumn(name = "id_empresa_relacion"),
-            inverseJoinColumns = @JoinColumn(name = "id_empleado_empresa"))
-    private List<Empleado> asesores;
+    //Una empresa tiene muchos AsesorEmpresa donde se detalla cada asesor junto a su fecha inicio
+    @OneToMany(mappedBy = "empresa",  cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}) //el atributo de AsesorEmpresa
+    private List<AsesorEmpresa> asesores;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
                 fetch = FetchType.LAZY)
@@ -114,7 +112,7 @@ public class Empresa {
         return vendedores;
     }
 
-    public List<Empleado> getAsesores() {
+    public List<AsesorEmpresa> getAsesores() {
         return asesores;
     }
 

@@ -14,12 +14,9 @@ public class Asesor extends Empleado {
     @Column(name = "direccion")
     private String direccion;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-                cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    @JoinTable( name = "asesores_empresa",
-                joinColumns = @JoinColumn(name = "id_empleado_empresa"),
-                inverseJoinColumns = @JoinColumn(name = "id_empresa_relacion"))
-    private List<Empresa> empresasAsesoradas;
+    //Un asesor tiene un listado de AsesorEmpresa donde se detalla cada empresa a la que trabaja junto a su fecha de inicio
+    @OneToMany(mappedBy = "asesor", cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}) //el atributo de AsesorEmpresa
+    private List<AsesorEmpresa> empresasAsesoradas;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
@@ -53,12 +50,8 @@ public class Asesor extends Empleado {
         this.direccion = direccion;
     }
 
-    public List<Empresa> getEmpresasAsesoradas() {
+    public List<AsesorEmpresa> getEmpresasAsesoradas() {
         return empresasAsesoradas;
-    }
-
-    public void setEmpresasAsesoradas(List<Empresa> empresasAsesoradas) {
-        this.empresasAsesoradas = empresasAsesoradas;
     }
 
     @Override
