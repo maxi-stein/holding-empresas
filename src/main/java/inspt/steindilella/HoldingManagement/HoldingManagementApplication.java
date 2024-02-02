@@ -1,10 +1,8 @@
 package inspt.steindilella.HoldingManagement;
 
-import inspt.steindilella.HoldingManagement.entity.AreasMercado;
-import inspt.steindilella.HoldingManagement.entity.Ciudad;
-import inspt.steindilella.HoldingManagement.entity.Empresa;
-import inspt.steindilella.HoldingManagement.entity.Pais;
+import inspt.steindilella.HoldingManagement.entity.*;
 import inspt.steindilella.HoldingManagement.service.AreasMercadoServiceInterface;
+import inspt.steindilella.HoldingManagement.service.EmpleadoServiceInterface;
 import inspt.steindilella.HoldingManagement.service.EmpresaServiceInterface;
 import inspt.steindilella.HoldingManagement.service.UbicacionesServiceInterface;
 import org.springframework.boot.CommandLineRunner;
@@ -13,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.math.BigInteger;
+import java.util.List;
 
 @SpringBootApplication
 public class HoldingManagementApplication {
@@ -22,12 +21,13 @@ public class HoldingManagementApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(AreasMercadoServiceInterface areaDao, UbicacionesServiceInterface ubiDao, EmpresaServiceInterface emp) {
+	public CommandLineRunner commandLineRunner(AreasMercadoServiceInterface areaDao, UbicacionesServiceInterface ubiDao, EmpresaServiceInterface emp, EmpleadoServiceInterface esiDao) {
 		return runner -> {
 			//testUbicacion(ubiDao);
 			//testArea(areaDao);
 			//testEmpresa(emp, ubiDao);
-			testAsesor(emp);
+			//testAsesor(emp);
+			testEmpresaAsesorada(esiDao);
 		};
 	}
 
@@ -58,6 +58,14 @@ public class HoldingManagementApplication {
 	private void testAsesor(EmpresaServiceInterface emp){
 		System.out.println(emp.getAreasMercadoPorEmpresa(2));
 		System.out.println(emp.getAsesoresPorEmpresa(2));
+	}
+
+	public void testEmpresaAsesorada(EmpleadoServiceInterface esiDao){
+		List<Empresa> listEmpresas = esiDao.getEmpresasAsesoradas(12);
+
+		for(Empresa element : listEmpresas){
+			System.out.println("Empresa: "+element.getNombre());
+		}
 	}
 
 }

@@ -63,14 +63,19 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
 
         List<Empresa> empresasAsesoradas = new ArrayList<>();
 
-        List<AsesorEmpresa> ae = asesor.getEmpresasAsesoradas();
+        // Realizar una segunda consulta para cargar la colección debido a Hibernate podría ignorar la carga perezosa y cargar todas las entidades relacionadas de inmediato. En lugar de eso, puedes realizar una segunda consulta para obtener las empresas asociadas.
+        List<AsesorEmpresa> ae = entityManager.createQuery(
+                        "SELECT ae FROM AsesorEmpresa ae WHERE ae.asesor = :asesor", AsesorEmpresa.class)
+                .setParameter("asesor", asesor)
+                .getResultList();
 
-        for(AsesorEmpresa element : ae){
+        for (AsesorEmpresa element : ae) {
             empresasAsesoradas.add(element.getEmpresa());
         }
 
         return empresasAsesoradas;
     }
+
 
     @Override
     @Transactional
