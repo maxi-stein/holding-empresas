@@ -1,5 +1,8 @@
 package inspt.steindilella.HoldingManagement.dao;
 
+import inspt.steindilella.HoldingManagement.entity.AreasMercado;
+import inspt.steindilella.HoldingManagement.entity.Ciudad;
+import inspt.steindilella.HoldingManagement.entity.Empleado;
 import inspt.steindilella.HoldingManagement.entity.Empresa;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -28,6 +31,30 @@ public class EmpresaDAO implements EmpresaDAOInterface {
     public List<Empresa> getAll() {
         TypedQuery<Empresa> empresas = entityManager.createQuery("SELECT e FROM Empresa e ORDER BY e.nombre ASC",Empresa.class);
         return empresas.getResultList();
+    }
+
+    @Override
+    public List<AreasMercado> getAreasMercadoPorEmpresa(Integer id) {
+        TypedQuery<Empresa> empresaQuery = entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.areasMercados WHERE e.id = :idEmpresa", Empresa.class);
+        empresaQuery.setParameter("idEmpresa",id);
+
+        return empresaQuery.getSingleResult().getAreasMercados();
+    }
+
+    @Override
+    public List<Empleado> getVendedoresPorEmpresa(Integer id) {
+        TypedQuery<Empresa> empresaQuery = entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.vendedores WHERE e.id = :idEmpresa", Empresa.class);
+        empresaQuery.setParameter("idEmpresa",id);
+
+        return empresaQuery.getSingleResult().getVendedores();
+    }
+
+    @Override
+    public List<Ciudad> getCiudadesPorEmpresa(Integer id) {
+        TypedQuery<Empresa> empresaQuery = entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.ciudades WHERE e.id = :idEmpresa", Empresa.class);
+        empresaQuery.setParameter("idEmpresa",id);
+
+        return empresaQuery.getSingleResult().getCiudades();
     }
 
     @Override

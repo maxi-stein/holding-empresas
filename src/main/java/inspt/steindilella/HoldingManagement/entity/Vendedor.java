@@ -34,6 +34,7 @@ public class Vendedor extends Empleado{
     public String toString() {
         return "Vendedor{" +
                 "direccion='" + direccion + '\'' +
+                super.toString() +
                 '}';
     }
 }

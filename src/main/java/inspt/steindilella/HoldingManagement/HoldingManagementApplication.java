@@ -12,9 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.time.LocalDate;
 
 @SpringBootApplication
 public class HoldingManagementApplication {
@@ -47,8 +45,13 @@ public class HoldingManagementApplication {
 	}
 
 	private void testEmpresa(EmpresaServiceInterface emp, UbicacionesServiceInterface ubi){
-		Ciudad ciudad = ubi.getCiudadById(2);
-		emp.save(new Empresa("Empresita",ciudad, LocalDate.now(),new BigDecimal("123485674.5")));
+		//Ciudad ciudad = ubi.getCiudadById(2);
+		//emp.save(new Empresa("Empresita",ciudad, LocalDate.now(),new BigDecimal("123485674.5")));
+
+		Empresa empresa = emp.getById(2);
+		System.out.println(emp.getVendedoresPorEmpresa(2));
+		System.out.println(emp.getAreasMercadoPorEmpresa(2));
+		System.out.println(emp.getCiudadesPorEmpresa(2));
 	}
 
 }

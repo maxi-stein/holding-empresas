@@ -2,6 +2,8 @@ package inspt.steindilella.HoldingManagement.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "areas_mercado")
 public class AreasMercado {
@@ -18,6 +20,13 @@ public class AreasMercado {
 
     @Column(name = "eliminado")
     private Integer eliminado;
+
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+            fetch = FetchType.LAZY)
+    @JoinTable( name = "areas_empresa",
+            joinColumns = @JoinColumn(name = "id_area_mercado_empresa"),
+            inverseJoinColumns = @JoinColumn(name = "id_empresa_mercados"))
+    private List<Empresa> empresas;
 
     public AreasMercado() {
         eliminado=0;

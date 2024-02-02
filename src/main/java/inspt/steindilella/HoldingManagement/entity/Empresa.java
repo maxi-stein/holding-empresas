@@ -43,6 +43,13 @@ public class Empresa {
                 inverseJoinColumns = @JoinColumn(name = "id_ciudad_empresa"))
     private List<Ciudad> ciudades;
 
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+            fetch = FetchType.LAZY)
+    @JoinTable( name = "areas_empresa",
+            joinColumns = @JoinColumn(name = "id_empresa_mercados"),
+            inverseJoinColumns = @JoinColumn(name = "id_area_mercado_empresa"))
+    private List<AreasMercado> areasMercados;
+
     public Empresa() {
 
     }
@@ -93,6 +100,18 @@ public class Empresa {
 
     public void setEliminado(Integer eliminado) {
         this.eliminado = eliminado;
+    }
+
+    public List<Empleado> getVendedores() {
+        return vendedores;
+    }
+
+    public List<Ciudad> getCiudades() {
+        return ciudades;
+    }
+
+    public List<AreasMercado> getAreasMercados() {
+        return areasMercados;
     }
 
     @Override
