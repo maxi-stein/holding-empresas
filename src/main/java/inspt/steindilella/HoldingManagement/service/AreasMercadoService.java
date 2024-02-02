@@ -4,6 +4,7 @@ import inspt.steindilella.HoldingManagement.dao.AreasMercadoDAOInterface;
 import inspt.steindilella.HoldingManagement.entity.AreasMercado;
 import inspt.steindilella.HoldingManagement.entity.Empleado;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,10 @@ import java.util.List;
 public class AreasMercadoService implements AreasMercadoServiceInterface {
 
     private AreasMercadoDAOInterface areasDAO;
+    @Autowired
+    public AreasMercadoService(AreasMercadoDAOInterface areasDAO) {
+        this.areasDAO = areasDAO;
+    }
 
     @Override
     public AreasMercado getById(Integer id) {
