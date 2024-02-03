@@ -54,6 +54,18 @@ public class Asesor extends Empleado {
         return empresasAsesoradas;
     }
 
+    public void setEmpresasAsesoradas(List<AsesorEmpresa> empresasAsesoradas) {
+        this.empresasAsesoradas = empresasAsesoradas;
+    }
+
+    public List<AreasMercado> getAreasAsesoradas() {
+        return areasAsesoradas;
+    }
+
+    public void setAreasAsesoradas(List<AreasMercado> areasAsesoradas) {
+        this.areasAsesoradas = areasAsesoradas;
+    }
+
     @Override
     public String toString() {
         return "Asesor{" +

@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootApplication
@@ -34,7 +35,18 @@ public class HoldingManagementApplication {
 			//testVendedores(esiDao);
 			//testAgregarVendedor(emp,esiDao);
 			//testDesvincularVendedor(emp,esiDao);
+			//testAgregarAsesor(emp);
+			testDesvincularAsesor(emp,esiDao); //todo: no elimina!! verificar
 		};
+	}
+
+	private void testDesvincularAsesor(EmpresaServiceInterface emp, EmpleadoServiceInterface esiDao) {
+		emp.desvincularAsesor((Asesor) esiDao.getById(19),2);
+	}
+
+	private void testAgregarAsesor(EmpresaServiceInterface emp) {
+		emp.agregarAsesor(new Asesor("Pedro","Castelli","El mas capo","Calle Falsa 123"),
+				LocalDate.now(),2);
 	}
 
 	private void testDesvincularVendedor(EmpresaServiceInterface emp, EmpleadoServiceInterface esiDao) {

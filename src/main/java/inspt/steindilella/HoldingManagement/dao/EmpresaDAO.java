@@ -63,9 +63,24 @@ public class EmpresaDAO implements EmpresaDAOInterface {
     }
 
     @Override
+    public List<AsesorEmpresa> getAsesoresPorEmpresaConFechaInicio(Empresa empr) {
+        TypedQuery<AsesorEmpresa> empresaQuery = entityManager
+                .createQuery("SELECT e.asesores FROM Empresa e WHERE e.id = :idEmpr", AsesorEmpresa.class);
+        empresaQuery.setParameter("idEmpr",empr.getId());
+
+        return empresaQuery.getResultList();
+    }
+
+    @Override
     @Transactional
     public void save(Empresa empresa) {
         entityManager.persist(empresa);
+    }
+
+    @Override
+    @Transactional
+    public void save(AsesorEmpresa asesorEmpresa) {
+        entityManager.persist(asesorEmpresa);
     }
 
     @Override
@@ -81,4 +96,12 @@ public class EmpresaDAO implements EmpresaDAOInterface {
         empresa.setEliminado(1);
         update(empresa);
     }
+
+    @Override
+    @Transactional
+    public void delete(AsesorEmpresa asesorEmpresa) {
+        entityManager.remove(asesorEmpresa);
+    }
+
+
 }

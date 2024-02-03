@@ -143,7 +143,6 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
         return fechaCaptado.getFechaCaptado();
     }
 
-
     @Override
     @Transactional
     public void save(Empleado emp) {
@@ -162,5 +161,4 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
         emp.setEliminado(1);
         entityManager.merge(emp);
     }
-
 }

@@ -3,9 +3,11 @@ package inspt.steindilella.HoldingManagement.service;
 import inspt.steindilella.HoldingManagement.dao.EmpleadosDAOInterface;
 import inspt.steindilella.HoldingManagement.dao.EmpresaDAOInterface;
 import inspt.steindilella.HoldingManagement.entity.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -52,6 +54,7 @@ public class EmpresaService implements EmpresaServiceInterface{
     }
 
     @Override
+    @Transactional
     public void agregarVendedor(Vendedor vendedor, Integer id) {
         //cargo la empresa
         Empresa empresa = empresaDAO.getById(id);
@@ -79,6 +82,7 @@ public class EmpresaService implements EmpresaServiceInterface{
     }
 
     @Override
+    @Transactional
     public void desvincularVendedor(Vendedor vendedor, Integer id) {
         Empresa empresa = empresaDAO.getById(id);
 
@@ -106,7 +110,72 @@ public class EmpresaService implements EmpresaServiceInterface{
     }
 
     @Override
-    public void agregarAsesor(Asesor asesor, Integer id) {
+    @Transactional
+    public void agregarAsesor(Asesor asesor, LocalDate fechaInicio, Integer idEmpresa) {
+        Empresa empresa = empresaDAO.getById(idEmpresa);
+
+        //verifico que exista la empresa
+        if(empresa != null){
+
+            //cargo sus asesores y se los seteo
+            List<AsesorEmpresa> asesores = empresaDAO.getAsesoresPorEmpresaConFechaInicio(empresa);
+            empresa.setAsesores(asesores);
+
+            //creo la id embebida
+            AsesorEmpresaId idEmbebida = new AsesorEmpresaId(empresa.getId(),asesor.getId());
+
+            //creo la instancia de AsesorEmpresa con la id embebida
+            AsesorEmpresa asesorEmpresa = new AsesorEmpresa(idEmbebida,asesor,empresa,fechaInicio);
+
+            //verifico que el asesor no trabaje en la empresa
+            for(AsesorEmpresa ase : empresa.getAsesores()){
+                if(ase.getAsesor().getId().equals(asesor.getId())){
+                    //todo: manejar exception
+                    System.out.println("El asesor ya asesora la empresa!");
+                }
+            }
+
+            empresa.agregarAsesor(asesorEmpresa);
+
+            empresaDAO.save(asesorEmpresa);
+        }
+        else{
+            //todo: manejar exception si no existe la empresa
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public void desvincularAsesor(Asesor asesor,Integer idEmpresa) {
+        Empresa empresa = empresaDAO.getById(idEmpresa);
+
+        //verifico que exista la empresa
+        if(empresa != null){
+
+            //obtengo la lista de asesores
+            List<AsesorEmpresa> asesores = empresa.getAsesores();
+            AsesorEmpresa relacionEliminar = null;
+
+            //encuentro el asesor a eliminar
+            for(AsesorEmpresa element : asesores){
+                if(element.getAsesor().getId().equals(asesor.getId())){
+                    relacionEliminar = element;
+                }
+            }
+
+            //si no se encuentra -> error
+            if(relacionEliminar == null){
+                //todo:manejar exception
+                System.out.println("El asesor no trabaja para la empresa.");
+            }
+
+            empresaDAO.delete(relacionEliminar);
+        }
+        else{
+            //todo: manejar exception si no existe la empresa
+        }
+
 
     }
 

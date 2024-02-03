@@ -37,6 +37,7 @@ public class Empresa {
             targetEntity = Vendedor.class)
     private List<Empleado> vendedores;
 
+    //todo: cambiar de List<AsesorEmpresa> a Set<AsesorEmpresa> para evitar duplicados
     //Una empresa tiene muchos AsesorEmpresa donde se detalla cada asesor junto a su fecha inicio
     @OneToMany(mappedBy = "empresa",  cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}) //el atributo de AsesorEmpresa
     private List<AsesorEmpresa> asesores;
@@ -54,7 +55,6 @@ public class Empresa {
             joinColumns = @JoinColumn(name = "id_empresa_mercados"),
             inverseJoinColumns = @JoinColumn(name = "id_area_mercado_empresa"))
     private List<AreasMercado> areasMercados;
-
 
     public Empresa() {
 
@@ -120,6 +120,10 @@ public class Empresa {
         return asesores;
     }
 
+    public void setAsesores(List<AsesorEmpresa> asesores) {
+        this.asesores = asesores;
+    }
+
     public List<Ciudad> getCiudades() {
         return ciudades;
     }
@@ -158,5 +162,13 @@ public class Empresa {
 
         //elimino al vendedor del listado de vendedores
         vendedores.remove(vendedor);
+    }
+
+    public void agregarAsesor(AsesorEmpresa asesor){
+        asesores.add(asesor);
+    }
+
+    public void desvincularAsesor(AsesorEmpresa asesor){
+        asesores.remove(asesor);
     }
 }

@@ -1,8 +1,6 @@
 package inspt.steindilella.HoldingManagement.dao;
 
-import inspt.steindilella.HoldingManagement.entity.Empleado;
-import inspt.steindilella.HoldingManagement.entity.Empresa;
-import inspt.steindilella.HoldingManagement.entity.Vendedor;
+import inspt.steindilella.HoldingManagement.entity.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,8 +17,10 @@ public interface EmpleadosDAOInterface {
 
     List<Vendedor> getVendedoresCaptados(Integer idPadre);
     LocalDate getFechaCaptado(Integer idPadre, Integer idCaptado);
+
     void save(Empleado emp);
     void update(Empleado emp);
     void delete(Empleado emp);
+
 
 }
