@@ -12,8 +12,10 @@ public interface EmpresaServiceInterface {
     List<Ciudad> getCiudadesPorEmpresa(Integer id);
     List<Asesor> getAsesoresPorEmpresa(Integer id);
 
-    void agregarVendedorAEmpresa(Vendedor vendedor, Integer id);
+    void agregarVendedor(Vendedor vendedor, Integer id);
     void desvincularVendedor(Vendedor vendedor, Integer id);
+
+    void agregarAsesor(Asesor asesor, Integer id);
 
     void save(Empresa empresa);
     void update(Empresa empresa);

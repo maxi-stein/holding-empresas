@@ -52,11 +52,16 @@ public class EmpresaService implements EmpresaServiceInterface{
     }
 
     @Override
-    public void agregarVendedorAEmpresa(Vendedor vendedor, Integer id) {
-        Empresa empresa = empresaDAO.getByIdConVendedores(id);
+    public void agregarVendedor(Vendedor vendedor, Integer id) {
+        //cargo la empresa
+        Empresa empresa = empresaDAO.getById(id);
 
         //verifico que exista la empresa
         if(empresa != null){
+
+            //cargo sus vendedores y se los seteo
+            List<Empleado> vendedores = empresaDAO.getVendedoresPorEmpresa(id);
+            empresa.setVendedores(vendedores);
 
             //verifico que el empleado no trabaje en otra empresa
             if(vendedor.tieneEmpresaAsignada()){
@@ -75,10 +80,14 @@ public class EmpresaService implements EmpresaServiceInterface{
 
     @Override
     public void desvincularVendedor(Vendedor vendedor, Integer id) {
-        Empresa empresa = empresaDAO.getByIdConVendedores(id);
+        Empresa empresa = empresaDAO.getById(id);
 
         //verifico que exista la empresa
         if(empresa != null){
+
+            //cargo sus vendedores y se los seteo
+            List<Empleado> vendedores = empresaDAO.getVendedoresPorEmpresa(id);
+            empresa.setVendedores(vendedores);
 
             //verifico que el empleado trabaje en la empresa
             if(!Objects.equals(vendedor.getEmpresa().getId(), id) && !empresa.getVendedores().contains(vendedor)){
@@ -94,6 +103,11 @@ public class EmpresaService implements EmpresaServiceInterface{
         else{
             //todo: manejar exception si no existe la empresa
         }
+    }
+
+    @Override
+    public void agregarAsesor(Asesor asesor, Integer id) {
+
     }
 
     @Override

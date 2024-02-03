@@ -44,7 +44,7 @@ public class HoldingManagementApplication {
 
 	private void testAgregarVendedor(EmpresaServiceInterface emp, EmpleadoServiceInterface esiDao) {
 		Vendedor vendedor = (Vendedor) esiDao.getById(3);
-		emp.agregarVendedorAEmpresa(vendedor,3);
+		emp.agregarVendedor(vendedor,3);
 	}
 
 	private void testArea(AreasMercadoServiceInterface areaDao) {
