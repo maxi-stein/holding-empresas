@@ -6,6 +6,7 @@ import inspt.steindilella.HoldingManagement.entity.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -31,6 +32,11 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     @Override
     public List<Empleado> getEmpleadosPorEmpresa(Integer id) {
         return getEmpleadosPorEmpresa(id);
+    }
+
+    @Override
+    public LocalDate getFechaAsesorEmpresa(Integer idAsesor, Integer idEmpresa) {
+        return empDao.getFechaAsesorEmpresa(idAsesor, idEmpresa);
     }
 
     @Override

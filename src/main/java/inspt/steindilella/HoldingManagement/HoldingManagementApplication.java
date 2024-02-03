@@ -65,7 +65,10 @@ public class HoldingManagementApplication {
 
 		for(Empresa element : listEmpresas){
 			System.out.println("Empresa: "+element.getNombre());
+			System.out.println("Fecha Inicio: "+esiDao.getFechaAsesorEmpresa(12, element.getId()));
 		}
+
+
 	}
 
 }

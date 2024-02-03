@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +64,9 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
 
         List<Empresa> empresasAsesoradas = new ArrayList<>();
 
-        // Realizar una segunda consulta para cargar la colección debido a Hibernate podría ignorar la carga perezosa y cargar todas las entidades relacionadas de inmediato. En lugar de eso, puedes realizar una segunda consulta para obtener las empresas asociadas.
+        // Se realiza una segunda consulta para cargar la colección debido a Hibernate podría ignorar la carga perezosa LAZY
+        // y cargar todas las entidades relacionadas de inmediato.
+        // En lugar de eso, se realiza una segunda consulta para obtener las empresas asociadas.
         List<AsesorEmpresa> ae = entityManager.createQuery(
                         "SELECT ae FROM AsesorEmpresa ae WHERE ae.asesor = :asesor", AsesorEmpresa.class)
                 .setParameter("asesor", asesor)
@@ -74,6 +77,29 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
         }
 
         return empresasAsesoradas;
+    }
+
+    @Override
+    public LocalDate getFechaAsesorEmpresa(Integer idAsesor, Integer idEmpresa) {
+        TypedQuery<Asesor> queryAsesor = entityManager
+                .createQuery("SELECT a FROM Asesor a WHERE a.id = :idAsesor",Asesor.class);
+        queryAsesor.setParameter("idAsesor",idAsesor);
+
+        TypedQuery<Empresa> queryEmpresa = entityManager
+                .createQuery("SELECT e FROM Empresa e WHERE e.id = :idEmpresa",Empresa.class);
+        queryEmpresa.setParameter("idEmpresa",idEmpresa);
+
+
+        Asesor asesor = queryAsesor.getSingleResult();
+        Empresa empresa = queryEmpresa.getSingleResult();
+
+        AsesorEmpresa ae = entityManager.createQuery(
+                        "SELECT ae FROM AsesorEmpresa ae WHERE ae.asesor = :asesor AND ae.empresa = :empresa ", AsesorEmpresa.class)
+                .setParameter("asesor", asesor)
+                .setParameter("empresa", empresa)
+                .getSingleResult();
+
+        return ae.getFechaInicio();
     }
 
 
