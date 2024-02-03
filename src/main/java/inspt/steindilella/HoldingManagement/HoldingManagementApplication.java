@@ -32,8 +32,14 @@ public class HoldingManagementApplication {
 			//testAsesor(emp);
 			//testEmpresaAsesorada(esiDao);
 			//testVendedores(esiDao);
-			testAgregarVendedor(emp,esiDao);
+			//testAgregarVendedor(emp,esiDao);
+			//testDesvincularVendedor(emp,esiDao);
 		};
+	}
+
+	private void testDesvincularVendedor(EmpresaServiceInterface emp, EmpleadoServiceInterface esiDao) {
+		Vendedor vendedor = (Vendedor) esiDao.getById(3);
+		emp.desvincularVendedor(vendedor,3);
 	}
 
 	private void testAgregarVendedor(EmpresaServiceInterface emp, EmpleadoServiceInterface esiDao) {

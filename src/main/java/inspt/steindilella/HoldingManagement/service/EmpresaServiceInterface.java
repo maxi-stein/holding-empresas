@@ -13,6 +13,7 @@ public interface EmpresaServiceInterface {
     List<Asesor> getAsesoresPorEmpresa(Integer id);
 
     void agregarVendedorAEmpresa(Vendedor vendedor, Integer id);
+    void desvincularVendedor(Vendedor vendedor, Integer id);
 
     void save(Empresa empresa);
     void update(Empresa empresa);

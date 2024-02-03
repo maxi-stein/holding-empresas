@@ -36,6 +36,10 @@ public class Vendedor extends Empleado{
         this.direccion = direccion;
     }
 
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }

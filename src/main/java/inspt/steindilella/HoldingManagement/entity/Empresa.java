@@ -151,4 +151,12 @@ public class Empresa {
         //agrego el vendedor al listado de vendedores
         vendedores.add(vendedor);
     }
+
+    public void desvincularVendedor(Vendedor vendedor){
+        //desvinculo al vendedor de la empresa
+        vendedor.setEmpresa(null);
+
+        //elimino al vendedor del listado de vendedores
+        vendedores.remove(vendedor);
+    }
 }

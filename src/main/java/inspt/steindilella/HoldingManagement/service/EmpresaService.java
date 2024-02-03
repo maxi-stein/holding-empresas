@@ -1,20 +1,24 @@
 package inspt.steindilella.HoldingManagement.service;
 
+import inspt.steindilella.HoldingManagement.dao.EmpleadosDAOInterface;
 import inspt.steindilella.HoldingManagement.dao.EmpresaDAOInterface;
 import inspt.steindilella.HoldingManagement.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class EmpresaService implements EmpresaServiceInterface{
 
     EmpresaDAOInterface empresaDAO;
+    EmpleadosDAOInterface empleadoDAO;
 
     @Autowired
-    public EmpresaService(EmpresaDAOInterface empresaDAO) {
+    public EmpresaService(EmpresaDAOInterface empresaDAO, EmpleadosDAOInterface empleadoDAO) {
         this.empresaDAO = empresaDAO;
+        this.empleadoDAO = empleadoDAO;
     }
 
     @Override
@@ -63,6 +67,29 @@ public class EmpresaService implements EmpresaServiceInterface{
             empresa.agregarVendedor(vendedor);
 
             empresaDAO.update(empresa);
+        }
+        else{
+            //todo: manejar exception si no existe la empresa
+        }
+    }
+
+    @Override
+    public void desvincularVendedor(Vendedor vendedor, Integer id) {
+        Empresa empresa = empresaDAO.getByIdConVendedores(id);
+
+        //verifico que exista la empresa
+        if(empresa != null){
+
+            //verifico que el empleado trabaje en la empresa
+            if(!Objects.equals(vendedor.getEmpresa().getId(), id) && !empresa.getVendedores().contains(vendedor)){
+
+                //todo: manejar exception
+                System.out.println("El vendedor no puede ser desvinculado de la empresa ya que no trabaja en la misma");
+            }
+
+            empresa.desvincularVendedor(vendedor);
+
+            empleadoDAO.update(vendedor);
         }
         else{
             //todo: manejar exception si no existe la empresa
