@@ -74,7 +74,8 @@ public class HoldingManagementApplication {
 		List<Vendedor> listCaptados = esiDao.getVendedoresCaptados(4);
 
 		for(Vendedor v : listCaptados){
-			System.out.println("Nombre captado: "+ v.getNombre());
+			System.out.println("Vendedor captado: "+ v.getNombre()+" "+v.getApellido());
+			System.out.println("Fecha captacion: "+esiDao.getFechaCaptado(4,v.getId()));
 		}
 	}
 

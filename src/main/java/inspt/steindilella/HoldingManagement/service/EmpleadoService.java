@@ -40,6 +40,11 @@ public class EmpleadoService implements EmpleadoServiceInterface{
         return empDao.getFechaAsesorEmpresa(idAsesor, idEmpresa);
     }
 
+    @Override
+    public LocalDate getFechaCaptado(Integer idPadre, Integer idCaptado) {
+        return empDao.getFechaCaptado(idPadre,idCaptado);
+    }
+
 
 
     @Override

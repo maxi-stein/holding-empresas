@@ -122,6 +122,27 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
         return vendedoresCaptados;
     }
 
+    @Override
+    public LocalDate getFechaCaptado(Integer idPadre, Integer idCaptado) {
+        TypedQuery<Vendedor> queryPadre = entityManager
+                .createQuery("SELECT v FROM Vendedor v WHERE v.id = :idPadre", Vendedor.class);
+        queryPadre.setParameter("idPadre",idPadre);
+        Vendedor vendedorPadre = queryPadre.getSingleResult();
+
+        TypedQuery<Vendedor> queryCaptado = entityManager
+                .createQuery("SELECT v FROM Vendedor v WHERE v.id = :idCaptado", Vendedor.class);
+        queryCaptado.setParameter("idCaptado",idCaptado);
+        Vendedor captado = queryCaptado.getSingleResult();
+
+        VendedorCaptado fechaCaptado = entityManager.createQuery(
+                        "SELECT vc FROM VendedorCaptado vc WHERE vc.vendedorPadre = :vendedorPadre AND vc.vendedorCaptados = :captado ", VendedorCaptado.class)
+                .setParameter("vendedorPadre", vendedorPadre)
+                .setParameter("captado", captado)
+                .getSingleResult();
+
+        return fechaCaptado.getFechaCaptado();
+    }
+
 
     @Override
     @Transactional

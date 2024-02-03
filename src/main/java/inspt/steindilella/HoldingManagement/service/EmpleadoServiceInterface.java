@@ -11,6 +11,9 @@ public interface EmpleadoServiceInterface {
     Empleado getById(Integer id);
     List<Empleado> getAll();
     List<Empleado> getEmpleadosPorEmpresa(Integer id);
+
+    LocalDate getFechaCaptado(Integer idPadre, Integer idCaptado);
+
     List<Empresa> getEmpresasAsesoradas(Integer id);
 
     LocalDate getFechaAsesorEmpresa(Integer idAsesor, Integer idEmpresa);
