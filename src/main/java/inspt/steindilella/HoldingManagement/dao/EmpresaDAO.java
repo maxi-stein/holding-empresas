@@ -101,7 +101,7 @@ public class EmpresaDAO implements EmpresaDAOInterface {
     @Transactional
     public void delete(AsesorEmpresa asesorEmpresa) {
         entityManager.remove(asesorEmpresa);
+        asesorEmpresa.getEmpresa().getAsesores().remove(asesorEmpresa);
+        asesorEmpresa.getAsesor().getEmpresasAsesoradas().remove(asesorEmpresa);
     }
-
-
 }

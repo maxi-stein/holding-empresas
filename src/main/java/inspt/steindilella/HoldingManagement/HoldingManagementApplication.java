@@ -36,7 +36,7 @@ public class HoldingManagementApplication {
 			//testAgregarVendedor(emp,esiDao);
 			//testDesvincularVendedor(emp,esiDao);
 			//testAgregarAsesor(emp);
-			testDesvincularAsesor(emp,esiDao); //todo: no elimina!! verificar
+			//testDesvincularAsesor(emp,esiDao);
 		};
 	}
 
