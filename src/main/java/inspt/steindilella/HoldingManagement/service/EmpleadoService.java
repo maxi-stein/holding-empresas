@@ -32,7 +32,7 @@ public class EmpleadoService implements EmpleadoServiceInterface{
 
     @Override
     public List<Empleado> getEmpleadosPorEmpresa(Integer id) {
-        return getEmpleadosPorEmpresa(id);
+        return empDao.getEmpleadosPorEmpresa(id);
     }
 
     @Override
@@ -44,9 +44,7 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     public LocalDate getFechaCaptado(Integer idPadre, Integer idCaptado) {
         return empDao.getFechaCaptado(idPadre,idCaptado);
     }
-
-
-
+    
     @Override
     public List<Empresa> getEmpresasAsesoradas(Integer id) {
         return empDao.getEmpresasAsesoradas(id);
