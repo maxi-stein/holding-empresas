@@ -7,6 +7,8 @@ import java.util.List;
 public interface EmpresaDAOInterface {
 
     Empresa getById(Integer id);
+    Empresa getByIdConVendedores(Integer id);
+
     List<Empresa> getAll();
     List<AreasMercado> getAreasMercadoPorEmpresa(Integer id);
     List<Empleado> getVendedoresPorEmpresa(Integer id);

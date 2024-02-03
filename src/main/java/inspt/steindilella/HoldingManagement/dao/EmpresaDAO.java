@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -22,6 +23,31 @@ public class EmpresaDAO implements EmpresaDAOInterface {
     @Override
     public Empresa getById(Integer id) {
         return entityManager.find(Empresa.class,id);
+    }
+
+    @Override
+    public Empresa getByIdConVendedores(Integer id) {
+        //obtengo la empresa
+        Empresa emp = entityManager.find(Empresa.class,id);
+
+        //obtengo el listado de vendedores asociado a la empresa
+        TypedQuery<Vendedor> vendedorTypedQuery = entityManager
+                .createQuery("SELECT v FROM Vendedor v WHERE v.empresa = :emp", Vendedor.class);
+        vendedorTypedQuery.setParameter("emp",emp);
+
+        List<Vendedor> vendedores = vendedorTypedQuery.getResultList();
+
+        List<Empleado> empleados = new ArrayList<>();
+
+        //casteo los vendedores a Empleado
+        for(Vendedor element : vendedores){
+            empleados.add((Empleado) element);
+        }
+
+        //le cargo los vendedores a la empresa
+        emp.setVendedores(empleados);
+
+        return emp;
     }
 
     @Override

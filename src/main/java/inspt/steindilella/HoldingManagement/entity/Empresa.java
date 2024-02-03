@@ -128,6 +128,10 @@ public class Empresa {
         return areasMercados;
     }
 
+    public void setVendedores(List<Empleado> vendedores) {
+        this.vendedores = vendedores;
+    }
+
     @Override
     public String toString() {
         return "Empresa{" +
@@ -138,5 +142,13 @@ public class Empresa {
                 ", facturacion='" + facturacion + '\'' +
                 ", eliminado='" + eliminado + '\'' +
                 '}';
+    }
+
+    public void agregarVendedor(Vendedor vendedor){
+        //le cargo la empresa al vendedor
+        vendedor.setEmpresa(this);
+
+        //agrego el vendedor al listado de vendedores
+        vendedores.add(vendedor);
     }
 }

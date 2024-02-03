@@ -36,6 +36,13 @@ public class Vendedor extends Empleado{
         this.direccion = direccion;
     }
 
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    public boolean tieneEmpresaAsignada(){
+        return empresa != null;
+    }
 
     @Override
     public String toString() {

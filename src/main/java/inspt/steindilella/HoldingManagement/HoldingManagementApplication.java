@@ -21,15 +21,24 @@ public class HoldingManagementApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(AreasMercadoServiceInterface areaDao, UbicacionesServiceInterface ubiDao, EmpresaServiceInterface emp, EmpleadoServiceInterface esiDao) {
+	public CommandLineRunner commandLineRunner(AreasMercadoServiceInterface areaDao,
+											   UbicacionesServiceInterface ubiDao,
+											   EmpresaServiceInterface emp,
+											   EmpleadoServiceInterface esiDao) {
 		return runner -> {
 			//testUbicacion(ubiDao);
 			//testArea(areaDao);
 			//testEmpresa(emp, ubiDao);
 			//testAsesor(emp);
 			//testEmpresaAsesorada(esiDao);
-			testVendedores(esiDao);
+			//testVendedores(esiDao);
+			testAgregarVendedor(emp,esiDao);
 		};
+	}
+
+	private void testAgregarVendedor(EmpresaServiceInterface emp, EmpleadoServiceInterface esiDao) {
+		Vendedor vendedor = (Vendedor) esiDao.getById(3);
+		emp.agregarVendedorAEmpresa(vendedor,3);
 	}
 
 	private void testArea(AreasMercadoServiceInterface areaDao) {

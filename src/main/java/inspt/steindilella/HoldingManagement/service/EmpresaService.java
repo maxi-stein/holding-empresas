@@ -48,6 +48,28 @@ public class EmpresaService implements EmpresaServiceInterface{
     }
 
     @Override
+    public void agregarVendedorAEmpresa(Vendedor vendedor, Integer id) {
+        Empresa empresa = empresaDAO.getByIdConVendedores(id);
+
+        //verifico que exista la empresa
+        if(empresa != null){
+
+            //verifico que el empleado no trabaje en otra empresa
+            if(vendedor.tieneEmpresaAsignada()){
+                //todo: manejar exception
+                System.out.println("El vendedor no puede trabajar en mas de una empresa. ¿Desea desvincularlo de su empresa actual?");
+            }
+
+            empresa.agregarVendedor(vendedor);
+
+            empresaDAO.update(empresa);
+        }
+        else{
+            //todo: manejar exception si no existe la empresa
+        }
+    }
+
+    @Override
     public void save(Empresa empresa) {
         empresaDAO.save(empresa);
     }
