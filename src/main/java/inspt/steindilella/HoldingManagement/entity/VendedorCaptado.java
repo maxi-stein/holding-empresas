@@ -11,6 +11,11 @@ public class VendedorCaptado {
     @EmbeddedId
     private VendedorCaptadoId id;
 
+    @OneToOne
+    @MapsId("idVendedor")
+    @JoinColumn(name = "id_empleado")
+    private Vendedor vendedorPadre;
+
     @ManyToOne
     @MapsId("idVendedorCaptado")
     @JoinColumn(name = "id_empleado_captado")
@@ -20,6 +25,14 @@ public class VendedorCaptado {
     private LocalDate fechaCaptado;
 
     public VendedorCaptado() {
+    }
+
+    public Vendedor getVendedorPadre() {
+        return vendedorPadre;
+    }
+
+    public void setVendedorPadre(Vendedor vendedorPadre) {
+        this.vendedorPadre = vendedorPadre;
     }
 
     public VendedorCaptadoId getId() {

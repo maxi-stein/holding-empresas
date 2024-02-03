@@ -27,7 +27,8 @@ public class HoldingManagementApplication {
 			//testArea(areaDao);
 			//testEmpresa(emp, ubiDao);
 			//testAsesor(emp);
-			testEmpresaAsesorada(esiDao);
+			//testEmpresaAsesorada(esiDao);
+			testVendedores(esiDao);
 		};
 	}
 
@@ -67,8 +68,14 @@ public class HoldingManagementApplication {
 			System.out.println("Empresa: "+element.getNombre());
 			System.out.println("Fecha Inicio: "+esiDao.getFechaAsesorEmpresa(12, element.getId()));
 		}
+	}
 
+	public void testVendedores(EmpleadoServiceInterface esiDao){
+		List<Vendedor> listCaptados = esiDao.getVendedoresCaptados(4);
 
+		for(Vendedor v : listCaptados){
+			System.out.println("Nombre captado: "+ v.getNombre());
+		}
 	}
 
 }

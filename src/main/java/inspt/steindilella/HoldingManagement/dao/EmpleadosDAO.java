@@ -1,9 +1,6 @@
 package inspt.steindilella.HoldingManagement.dao;
 
-import inspt.steindilella.HoldingManagement.entity.Asesor;
-import inspt.steindilella.HoldingManagement.entity.AsesorEmpresa;
-import inspt.steindilella.HoldingManagement.entity.Empleado;
-import inspt.steindilella.HoldingManagement.entity.Empresa;
+import inspt.steindilella.HoldingManagement.entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -100,6 +97,29 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
                 .getSingleResult();
 
         return ae.getFechaInicio();
+    }
+
+    @Override
+    public List<Vendedor> getVendedoresCaptados(Integer idPadre) {
+        TypedQuery<Vendedor> query = entityManager
+                .createQuery("SELECT v FROM Vendedor v WHERE v.id = :idPadre", Vendedor.class);
+                query.setParameter("idPadre",idPadre);
+
+
+        Vendedor vendedor = query.getSingleResult();
+
+        List<Vendedor> vendedoresCaptados = new ArrayList<>();
+
+        List<VendedorCaptado> vc = entityManager.createQuery(
+                        "SELECT vc FROM VendedorCaptado vc WHERE vc.vendedorPadre = :vendedor", VendedorCaptado.class)
+                .setParameter("vendedor", vendedor)
+                .getResultList();
+
+        for (VendedorCaptado element : vc) {
+            vendedoresCaptados.add(element.getVendedorCaptados());
+        }
+
+        return vendedoresCaptados;
     }
 
 
