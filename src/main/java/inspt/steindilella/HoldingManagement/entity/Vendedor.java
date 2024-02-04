@@ -17,7 +17,7 @@ public class Vendedor extends Empleado{
     @JoinColumn(name = "id_empresa")
     private Empresa empresa;
 
-    @OneToMany(mappedBy = "vendedorCaptados",
+    @OneToMany(mappedBy = "vendedorCaptado",
                 cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private Set<VendedorCaptado> vendedoresCaptados;
 

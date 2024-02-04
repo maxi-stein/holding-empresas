@@ -68,8 +68,10 @@ public class EmpleadoService implements EmpleadoServiceInterface{
         if(Objects.equals(idEmpresaVendedor, idEmpresaVendedorCaptado)){
 
             //verifico que el vendedorCaptado no haya previamente captado al vendedor padre o alguno de sus captadores
-            if(){
-                //todo: aplicar alguna recursividad para evaluar
+            if(vendedorYaFueCaptado(idVendedor,idVendedorCaptado)){
+
+                //todo: manejar exception de vendedor captado en realidad captó al vendedor padre
+                System.out.println("Error. El vendedor id "+ idVendedor + " fue captado por el vendedor id " +  idVendedorCaptado + " o por alguno de sus captadores");
             }
             else{
                 empleadoDao.agregarVendedorCaptado(idVendedor,idVendedorCaptado,fechaCaptado);
@@ -79,6 +81,31 @@ public class EmpleadoService implements EmpleadoServiceInterface{
             //todo: manejar exception vendedores distintas empresas
             System.out.println("Los vendedores no pertenecen a la misma empresa");
         }
+    }
+
+    //Si existe un vendedor A que capta a un vendedor B, este metodo verifica que vendedor B no haya captado previamente a vendedor A o alguno de sus captadores
+    private boolean vendedorYaFueCaptado(Integer idVendedor, Integer idVendedorCaptado) {
+
+        //verifico que el vendedor B no fue captado por nadie
+        if(empleadoDao.getCaptadorDelVendedor(idVendedorCaptado) == null){
+
+            //si no fue captado por nadie, verifico que no haya captado al vendedor A o alguno de sus captadores
+            Set<Vendedor> v = empleadoDao.getVendedoresCaptados(idVendedorCaptado);
+
+            for(Vendedor element : v){
+                //"¿captó al vendedor A?"
+                if(element.getId().equals(idVendedor)){
+                    return true;
+                }
+                //si no es asi, itero sobre sus vendedores captados para ver si alguno de ellos ya captaron al vendedor A
+                if(vendedorYaFueCaptado(idVendedor,element.getId())){
+                    return true;
+                }
+            }
+        }
+
+        //vendedor B ya fue captado por alguien más
+        return true;
     }
 
     @Override

@@ -2,6 +2,7 @@ package inspt.steindilella.HoldingManagement.dao;
 
 import inspt.steindilella.HoldingManagement.entity.*;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,10 +120,29 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
                 .getResultList();
 
         for (VendedorCaptado element : vc) {
-            vendedoresCaptados.add(element.getVendedorCaptados());
+            vendedoresCaptados.add(element.getVendedorCaptado());
         }
 
         return vendedoresCaptados;
+    }
+
+    @Override
+    public Vendedor getCaptadorDelVendedor(Integer idCaptado) {
+
+        Vendedor v = null;
+
+        try{
+            TypedQuery<Vendedor> query = entityManager
+                    .createQuery("SELECT vc.vendedorPadre FROM VendedorCaptado vc WHERE vc.vendedorCaptado.id = :idCaptado ", Vendedor.class);
+            query.setParameter("idCaptado",idCaptado);
+
+            v = query.getSingleResult();
+        }
+        catch (NoResultException nre) {
+            return null;
+        }
+
+        return v;
     }
 
     @Override

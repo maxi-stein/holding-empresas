@@ -20,7 +20,7 @@ public class VendedorCaptado {
     @ManyToOne
     @MapsId("idVendedorCaptado")
     @JoinColumn(name = "id_empleado_captado")
-    private Vendedor vendedorCaptados;
+    private Vendedor vendedorCaptado;
 
     @Column(name = "fecha_captado")
     private LocalDate fechaCaptado;
@@ -31,7 +31,7 @@ public class VendedorCaptado {
     public VendedorCaptado(VendedorCaptadoId id, Vendedor vendedorPadre, Vendedor vendedorCaptados, LocalDate fechaCaptado) {
         this.id = id;
         this.vendedorPadre = vendedorPadre;
-        this.vendedorCaptados = vendedorCaptados;
+        this.vendedorCaptado = vendedorCaptados;
         this.fechaCaptado = fechaCaptado;
     }
 
@@ -51,12 +51,12 @@ public class VendedorCaptado {
         this.id = id;
     }
 
-    public Vendedor getVendedorCaptados() {
-        return vendedorCaptados;
+    public Vendedor getVendedorCaptado() {
+        return vendedorCaptado;
     }
 
-    public void setVendedorCaptados(Vendedor vendedorCaptados) {
-        this.vendedorCaptados = vendedorCaptados;
+    public void setVendedorCaptado(Vendedor vendedorCaptado) {
+        this.vendedorCaptado = vendedorCaptado;
     }
 
     public LocalDate getFechaCaptado() {
@@ -72,11 +72,11 @@ public class VendedorCaptado {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VendedorCaptado that = (VendedorCaptado) o;
-        return id.equals(that.id) && vendedorPadre.equals(that.vendedorPadre) && vendedorCaptados.equals(that.vendedorCaptados);
+        return id.equals(that.id) && vendedorPadre.equals(that.vendedorPadre) && vendedorCaptado.equals(that.vendedorCaptado);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, vendedorPadre, vendedorCaptados);
+        return Objects.hash(id, vendedorPadre, vendedorCaptado);
     }
 }
