@@ -186,4 +186,12 @@ public class Empresa {
     public void desvincularAsesor(AsesorEmpresa asesor){
         asesores.remove(asesor);
     }
+
+    public void agregarAreaMercado(AreasMercado area){
+        areasMercados.add(area);
+    }
+
+    public void quitarAreaMercado(AreasMercado area){
+        areasMercados.remove(area);
+    }
 }

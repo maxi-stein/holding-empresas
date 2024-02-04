@@ -36,7 +36,9 @@ public class HoldingManagementApplication {
 			//testDesvincularVendedor(emp,esiDao);
 			//testAgregarAsesor(emp);
 			//testDesvincularAsesor(emp,esiDao);
-			testAgregarVendedorCaptado(esiDao);
+			//testAgregarVendedorCaptado(esiDao);
+			//testVincularAreaEmpresa(areaDao, emp);
+			testDesvincularAreaEmpresa(areaDao, emp);
 		};
 	}
 
@@ -125,6 +127,30 @@ public class HoldingManagementApplication {
 		for(Vendedor v : listCaptados){
 			System.out.println("Vendedor captado: "+ v.getNombre()+" "+v.getApellido());
 			System.out.println("Fecha captacion: "+esiDao.getFechaCaptado(4,v.getId()));
+		}
+	}
+
+	public void testVincularAreaEmpresa(AreasMercadoServiceInterface areaDao, EmpresaServiceInterface emp){
+		AreasMercado area = areaDao.getById(3);
+		Empresa empresa = emp.getById(3);
+
+		emp.agregarAreaMercado(area, empresa.getId());
+
+		Set<AreasMercado> listadoAreas = emp.getAreasMercadoPorEmpresa(3);
+		for (AreasMercado listadoArea : listadoAreas) {
+			System.out.println("Empresa: "+empresa.getNombre()+" Cubre Area: "+listadoArea.getNombre());
+		}
+	}
+
+	public void testDesvincularAreaEmpresa(AreasMercadoServiceInterface areaDao, EmpresaServiceInterface emp){
+		AreasMercado area = areaDao.getById(3);
+		Empresa empresa = emp.getById(3);
+
+		emp.quitarAreaMercado(area, empresa.getId());
+
+		Set<AreasMercado> listadoAreas = emp.getAreasMercadoPorEmpresa(3);
+		for (AreasMercado listadoArea : listadoAreas) {
+			System.out.println("Empresa: "+empresa.getNombre()+" Cubre Area: "+listadoArea.getNombre());
 		}
 	}
 

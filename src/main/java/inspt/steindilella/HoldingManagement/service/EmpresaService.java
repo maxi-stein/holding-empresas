@@ -1,5 +1,6 @@
 package inspt.steindilella.HoldingManagement.service;
 
+import inspt.steindilella.HoldingManagement.dao.AreasMercadoDAOInterface;
 import inspt.steindilella.HoldingManagement.dao.EmpleadosDAOInterface;
 import inspt.steindilella.HoldingManagement.dao.EmpresaDAOInterface;
 import inspt.steindilella.HoldingManagement.entity.*;
@@ -16,11 +17,13 @@ public class EmpresaService implements EmpresaServiceInterface{
 
     EmpresaDAOInterface empresaDAO;
     EmpleadosDAOInterface empleadoDAO;
+    AreasMercadoDAOInterface areaDAO;
 
     @Autowired
-    public EmpresaService(EmpresaDAOInterface empresaDAO, EmpleadosDAOInterface empleadoDAO) {
+    public EmpresaService(EmpresaDAOInterface empresaDAO, EmpleadosDAOInterface empleadoDAO, AreasMercadoDAOInterface areaDAO) {
         this.empresaDAO = empresaDAO;
         this.empleadoDAO = empleadoDAO;
+        this.areaDAO = areaDAO;
     }
 
     @Override
@@ -193,5 +196,56 @@ public class EmpresaService implements EmpresaServiceInterface{
     @Override
     public void delete(Integer id) {
         empresaDAO.delete(id);
+    }
+
+    @Override
+    @Transactional
+    public void agregarAreaMercado(AreasMercado areaMercado, Integer id) {
+        //cargo la empresa
+        Empresa empresa = empresaDAO.getById(id);
+
+        //verifico que exista la empresa
+        if(empresa != null){
+
+            //agrego el area de mercado a la empresa
+            empresa.agregarAreaMercado(areaMercado);
+            //actualizo la empresa en la bbdd.
+            empresaDAO.update(empresa);
+        }
+        else{
+            //todo: manejar exception si no existe la empresa
+        }
+    }
+
+    @Override
+    @Transactional
+    public void quitarAreaMercado(AreasMercado areaMercado, Integer id) {
+        //cargo la empresa
+        Empresa empresa = empresaDAO.getById(id);
+        AreasMercado areaDesvinculada = null;
+
+        //verifico que exista la empresa y que contenga el area
+        if(empresa != null){
+            //itero la coleccion de areas hasta encontrar el area en cuestion
+            Set<AreasMercado> listadoAreas = empresa.getAreasMercados();
+
+            for(AreasMercado element : listadoAreas){
+                if(element.getId().equals(areaMercado.getId())){
+                    System.out.println("Se encontro el area");
+                    areaDesvinculada = element;
+                }
+            }
+
+            //quito el area de mercado a la empresa
+            empresa.quitarAreaMercado(areaDesvinculada);
+            //actualizo la empresa en la bbdd.
+            empresaDAO.update(empresa);
+
+
+        }
+        else{
+            //todo: manejar exception si no existe la empresa
+            System.out.println(empresaDAO.getAreasMercadoPorEmpresa(id).contains(areaMercado));
+        }
     }
 }
