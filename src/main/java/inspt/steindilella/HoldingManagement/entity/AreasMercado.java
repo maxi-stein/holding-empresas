@@ -2,7 +2,7 @@ package inspt.steindilella.HoldingManagement.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "areas_mercado")
@@ -26,14 +26,14 @@ public class AreasMercado {
     @JoinTable( name = "areas_empresa",
             joinColumns = @JoinColumn(name = "id_area_mercado_empresa"),
             inverseJoinColumns = @JoinColumn(name = "id_empresa_mercados"))
-    private List<Empresa> empresas;
+    private Set<Empresa> empresas;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinTable( name = "areas_asesoradas",
             joinColumns = @JoinColumn(name = "id_area_mercado_asesorada"),
             inverseJoinColumns = @JoinColumn(name = "id_empleado_area"))
-    private List<Empleado> asesores;
+    private Set<Empleado> asesores;
 
     public AreasMercado() {
         eliminado=0;
@@ -77,11 +77,11 @@ public class AreasMercado {
         this.eliminado = eliminado;
     }
 
-    public List<Empresa> getEmpresas() {
+    public Set<Empresa> getEmpresas() {
         return empresas;
     }
 
-    public List<Empleado> getAsesores() {
+    public Set<Empleado> getAsesores() {
         return asesores;
     }
 

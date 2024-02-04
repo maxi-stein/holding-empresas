@@ -7,7 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Set;
 
 @Service
 public class AreasMercadoService implements AreasMercadoServiceInterface {
@@ -24,12 +24,12 @@ public class AreasMercadoService implements AreasMercadoServiceInterface {
     }
 
     @Override
-    public List<AreasMercado> getAll() {
+    public Set<AreasMercado> getAll() {
         return areasDAO.getAll();
     }
 
     @Override
-    public List<Empleado> getAsesoresPorArea(Integer id) {
+    public Set<Empleado> getAsesoresPorArea(Integer id) {
         return areasDAO.getAsesoresPorArea(id);
     }
 

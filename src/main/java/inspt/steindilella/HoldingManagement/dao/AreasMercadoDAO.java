@@ -8,7 +8,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Repository
 public class AreasMercadoDAO implements AreasMercadoDAOInterface {
@@ -25,17 +26,19 @@ public class AreasMercadoDAO implements AreasMercadoDAOInterface {
     }
 
     @Override
-    public List<AreasMercado> getAll() {
+    public Set<AreasMercado> getAll() {
         TypedQuery<AreasMercado> getAll = entityManager.createQuery("SELECT e FROM AreasMercado e ORDER BY e.nombre ASC", AreasMercado.class);
-        return getAll.getResultList();
+        Set<AreasMercado> listado = new HashSet<>(getAll.getResultList());
+        return listado;
     }
 
     @Override
-    public List<Empleado> getAsesoresPorArea(Integer id) {
+    public Set<Empleado> getAsesoresPorArea(Integer id) {
         TypedQuery<AreasMercado> areaMerc = entityManager.createQuery("SELECT a FROM AreasMercado a FETCH JOIN a.asesores WHERE a.id = :idArea", AreasMercado.class);
         areaMerc.setParameter("idArea",id);
+        Set<Empleado> listado = new HashSet<>(areaMerc.getSingleResult().getAsesores());
 
-        return areaMerc.getSingleResult().getAsesores();
+        return listado;
     }
 
     @Override
