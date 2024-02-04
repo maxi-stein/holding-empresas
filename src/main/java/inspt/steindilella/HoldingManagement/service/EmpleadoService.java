@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Service
 public class EmpleadoService implements EmpleadoServiceInterface{
@@ -26,12 +26,12 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     }
 
     @Override
-    public List<Empleado> getAll() {
+    public Set<Empleado> getAll() {
         return empDao.getAll();
     }
 
     @Override
-    public List<Empleado> getEmpleadosPorEmpresa(Integer id) {
+    public Set<Empleado> getEmpleadosPorEmpresa(Integer id) {
         return empDao.getEmpleadosPorEmpresa(id);
     }
 
@@ -46,11 +46,11 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     }
     
     @Override
-    public List<Empresa> getEmpresasAsesoradas(Integer id) {
+    public Set<Empresa> getEmpresasAsesoradas(Integer id) {
         return empDao.getEmpresasAsesoradas(id);
     }
     @Override
-    public List<Vendedor> getVendedoresCaptados(Integer idPadre) {
+    public Set<Vendedor> getVendedoresCaptados(Integer idPadre) {
         return empDao.getVendedoresCaptados(idPadre);
     }
 

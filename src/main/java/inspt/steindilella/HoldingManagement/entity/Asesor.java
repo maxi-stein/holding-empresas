@@ -3,6 +3,8 @@ package inspt.steindilella.HoldingManagement.entity;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @DiscriminatorValue("ases")
@@ -16,7 +18,7 @@ public class Asesor extends Empleado {
 
     //Un asesor tiene un listado de AsesorEmpresa donde se detalla cada empresa a la que trabaja junto a su fecha de inicio
     @OneToMany(mappedBy = "asesor", cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}) //el atributo de AsesorEmpresa
-    private List<AsesorEmpresa> empresasAsesoradas;
+    private Set<AsesorEmpresa> empresasAsesoradas;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
@@ -32,6 +34,22 @@ public class Asesor extends Empleado {
         super(nombre, apellido);
         this.titulacion = titulacion;
         this.direccion = direccion;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Asesor asesor = (Asesor) o;
+        return titulacion.equals(asesor.titulacion) &&
+                direccion.equals(asesor.direccion) &&
+                super.getNombre().equals(asesor.getNombre()) &&
+                super.getApellido().equals(asesor.getApellido());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(titulacion, direccion, super.getNombre(), super.getApellido());
     }
 
     public String getTitulacion() {
@@ -50,11 +68,11 @@ public class Asesor extends Empleado {
         this.direccion = direccion;
     }
 
-    public List<AsesorEmpresa> getEmpresasAsesoradas() {
+    public Set<AsesorEmpresa> getEmpresasAsesoradas() {
         return empresasAsesoradas;
     }
 
-    public void setEmpresasAsesoradas(List<AsesorEmpresa> empresasAsesoradas) {
+    public void setEmpresasAsesoradas(Set<AsesorEmpresa> empresasAsesoradas) {
         this.empresasAsesoradas = empresasAsesoradas;
     }
 

@@ -2,11 +2,13 @@ package inspt.steindilella.HoldingManagement.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "empleados")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING)
-public abstract class Empleado {
+public abstract class Empleado{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +30,19 @@ public abstract class Empleado {
         this.nombre = nombre;
         this.apellido = apellido;
         eliminado=0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Empleado empleado = (Empleado) o;
+        return id.equals(empleado.id) && nombre.equals(empleado.nombre) && apellido.equals(empleado.apellido);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre, apellido);
     }
 
     public Integer getId() {

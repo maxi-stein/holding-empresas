@@ -5,20 +5,20 @@ import inspt.steindilella.HoldingManagement.entity.Empresa;
 import inspt.steindilella.HoldingManagement.entity.Vendedor;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 public interface EmpleadoServiceInterface {
     Empleado getById(Integer id);
-    List<Empleado> getAll();
-    List<Empleado> getEmpleadosPorEmpresa(Integer id);
+    Set<Empleado> getAll();
+    Set<Empleado> getEmpleadosPorEmpresa(Integer id);
 
     LocalDate getFechaCaptado(Integer idPadre, Integer idCaptado);
 
-    List<Empresa> getEmpresasAsesoradas(Integer id);
+    Set<Empresa> getEmpresasAsesoradas(Integer id);
 
     LocalDate getFechaAsesorEmpresa(Integer idAsesor, Integer idEmpresa);
 
-    List<Vendedor> getVendedoresCaptados(Integer idPadre);
+    Set<Vendedor> getVendedoresCaptados(Integer idPadre);
 
     void save(Empleado emp);
     void update(Empleado emp);

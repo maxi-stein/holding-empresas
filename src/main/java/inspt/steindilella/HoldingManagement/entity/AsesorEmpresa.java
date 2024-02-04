@@ -3,6 +3,7 @@ package inspt.steindilella.HoldingManagement.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "asesores_empresa")
@@ -32,6 +33,19 @@ public class AsesorEmpresa {
     }
 
     public AsesorEmpresa() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AsesorEmpresa that = (AsesorEmpresa) o;
+        return asesor.equals(that.asesor) && empresa.equals(that.empresa);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(asesor, empresa);
     }
 
     public AsesorEmpresaId getId() {
