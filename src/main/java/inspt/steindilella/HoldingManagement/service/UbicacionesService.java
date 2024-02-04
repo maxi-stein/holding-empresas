@@ -7,7 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Set;
 
 @Service
 public class UbicacionesService implements UbicacionesServiceInterface {
@@ -30,7 +30,7 @@ public class UbicacionesService implements UbicacionesServiceInterface {
     }
 
     @Override
-    public List<Pais> getAllPaises() {
+    public Set<Pais> getAllPaises() {
         return ubicacionesDAO.getAllPaises();
     }
 
@@ -53,7 +53,7 @@ public class UbicacionesService implements UbicacionesServiceInterface {
     @Override
     @Transactional
     public void cambiarCapital(Pais pais, Ciudad ciudad) {
-        List<Ciudad> ciudades = pais.getCiudades();
+        Set<Ciudad> ciudades = pais.getCiudades();
 
         if(ciudades.contains(ciudad)){
             pais.setCapital(ciudad);
@@ -66,7 +66,7 @@ public class UbicacionesService implements UbicacionesServiceInterface {
     }
 
     @Override
-    public List<Ciudad> getAllCiudades() {
+    public Set<Ciudad> getAllCiudades() {
         return ubicacionesDAO.getAllCiudades();
     }
 
