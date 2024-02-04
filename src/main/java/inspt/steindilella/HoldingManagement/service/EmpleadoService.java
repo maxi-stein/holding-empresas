@@ -1,10 +1,10 @@
 package inspt.steindilella.HoldingManagement.service;
 
+import inspt.steindilella.HoldingManagement.dao.AreasMercadoDAOInterface;
 import inspt.steindilella.HoldingManagement.dao.EmpleadosDAOInterface;
 import inspt.steindilella.HoldingManagement.dao.EmpresaDAOInterface;
-import inspt.steindilella.HoldingManagement.entity.Empleado;
-import inspt.steindilella.HoldingManagement.entity.Empresa;
-import inspt.steindilella.HoldingManagement.entity.Vendedor;
+import inspt.steindilella.HoldingManagement.entity.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +18,13 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     private EmpleadosDAOInterface empleadoDao;
     private EmpresaDAOInterface empresaDao;
 
+    private AreasMercadoDAOInterface areaDAO;
+
     @Autowired
-    public EmpleadoService(EmpleadosDAOInterface empDao, EmpresaDAOInterface empresaDao) {
+    public EmpleadoService(EmpleadosDAOInterface empDao, EmpresaDAOInterface empresaDao, AreasMercadoDAOInterface area) {
         this.empleadoDao = empDao;
         this.empresaDao = empresaDao;
+        this.areaDAO = area;
     }
 
     @Override
@@ -121,5 +124,66 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     @Override
     public void delete(Empleado emp) {
         empleadoDao.delete(emp);
+    }
+
+    @Override
+    @Transactional
+    public void cubrirAreaMercado(AreasMercado area, Integer idAsesor){
+        //Busco el asesor
+        Asesor asesor = (Asesor) empleadoDao.getById(idAsesor);
+        //Busco el area
+        AreasMercado areaACubrir = areaDAO.getById(area.getId());
+
+        //aseguro que el asesor exista
+        if(asesor !=null){
+            Set<Empleado> asesores = areaACubrir.getAsesores();
+            Boolean asesora = true;
+            //reviso que el asesor no este relacionado con el area
+            for(Empleado as : asesores){
+                if(as.getId().equals(asesor.getId())){
+                    asesora= false;
+                }
+            }
+            //El area no esta relacionada y existe, entonces avanzo
+            if(asesora && areaACubrir != null){
+                asesor.cubrirArea(areaACubrir);
+                empleadoDao.update(asesor);
+            }else{
+                System.out.println("EL AREA NO EXISTE O YA ESTA CUBIERTA POR EL ASESOR");
+            }
+            //TODO: manejar exception
+        }else{
+            System.out.println("ASESOR NO ENCONTRADO");
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public void DesvincularAreaMercado(AreasMercado areasMercado, Integer idAsesor){
+        //Busco el asesor
+        Asesor asesor = null;
+        //Busco el area
+        AreasMercado area = areaDAO.getById(areasMercado.getId());
+        //Verifico que exista el area
+        if(area !=null){
+            Set<Empleado> asesores = area.getAsesores();
+            //Verifico que el empleado este relacionado al area
+            for(Empleado as : asesores){
+                if(as.getId().equals(idAsesor)){
+                    asesor = (Asesor) as;
+                }
+            }
+            if(asesor != null){
+                asesor.quitarAreaAsesor(area);
+                empleadoDao.update(asesor);
+            }else{
+                System.out.println("EL ASESOR NO ESTA RELACIONADO AL AREA");
+                //TODO: manejar exception
+            }
+        }else{
+            System.out.println("AREA NO ENCONTRADA");
+        }
+
     }
 }

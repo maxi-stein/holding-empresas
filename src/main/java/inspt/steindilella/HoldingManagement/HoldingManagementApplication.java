@@ -40,7 +40,9 @@ public class HoldingManagementApplication {
 			//testVincularAreaEmpresa(areaDao, emp);
 			//testDesvincularAreaEmpresa(areaDao, emp);
 			//testVinculoCiudadPais(ubiDao, emp);
-			testDesvinculoCiudadPais(ubiDao, emp);
+			//testDesvinculoCiudadPais(ubiDao, emp);
+			//testCubrirAreaAsesor(esiDao, areaDao);
+			testQuitarAreaAsesor(esiDao, areaDao);
 		};
 	}
 
@@ -172,6 +174,20 @@ public class HoldingManagementApplication {
 		emp.desvincularCiudadPais(ciudad, empresa.getId());
 
 		System.out.println(ubiDao.getCiudadById(4).getNombre());
+	}
+
+	public void testCubrirAreaAsesor(EmpleadoServiceInterface esiDao, AreasMercadoServiceInterface areaDao){
+		Empleado asesor = esiDao.getById(11);
+		AreasMercado area = areaDao.getById(2);
+
+		esiDao.cubrirAreaMercado(area, asesor.getId());
+	}
+
+	public void testQuitarAreaAsesor(EmpleadoServiceInterface esiDao, AreasMercadoServiceInterface areaDao){
+		Empleado asesor = esiDao.getById(11);
+		AreasMercado area = areaDao.getById(2);
+
+		esiDao.DesvincularAreaMercado(area, asesor.getId());
 	}
 
 }

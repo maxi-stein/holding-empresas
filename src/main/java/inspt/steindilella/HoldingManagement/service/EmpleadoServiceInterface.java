@@ -1,5 +1,6 @@
 package inspt.steindilella.HoldingManagement.service;
 
+import inspt.steindilella.HoldingManagement.entity.AreasMercado;
 import inspt.steindilella.HoldingManagement.entity.Empleado;
 import inspt.steindilella.HoldingManagement.entity.Empresa;
 import inspt.steindilella.HoldingManagement.entity.Vendedor;
@@ -21,6 +22,8 @@ public interface EmpleadoServiceInterface {
     Set<Vendedor> getVendedoresCaptados(Integer idPadre);
 
     void agregarVendedorCaptado(Integer idVendedor, Integer idVendedorCaptado, LocalDate fechaCaptado);
+    void cubrirAreaMercado(AreasMercado area, Integer idAsesor);
+    void DesvincularAreaMercado(AreasMercado areasMercado, Integer idAsesor);
 
     void save(Empleado emp);
     void update(Empleado emp);

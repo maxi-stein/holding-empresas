@@ -2,7 +2,6 @@ package inspt.steindilella.HoldingManagement.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,7 +24,7 @@ public class Asesor extends Empleado {
     @JoinTable( name = "areas_asesoradas",
             joinColumns = @JoinColumn(name = "id_empleado_area"),
             inverseJoinColumns = @JoinColumn(name = "id_area_mercado_asesorada"))
-    private List<AreasMercado> areasAsesoradas;
+    private Set<AreasMercado> areasAsesoradas;
 
     public Asesor() {
     }
@@ -76,12 +75,20 @@ public class Asesor extends Empleado {
         this.empresasAsesoradas = empresasAsesoradas;
     }
 
-    public List<AreasMercado> getAreasAsesoradas() {
+    public Set<AreasMercado> getAreasAsesoradas() {
         return areasAsesoradas;
     }
 
-    public void setAreasAsesoradas(List<AreasMercado> areasAsesoradas) {
+    public void setAreasAsesoradas(Set<AreasMercado> areasAsesoradas) {
         this.areasAsesoradas = areasAsesoradas;
+    }
+
+    public void cubrirArea(AreasMercado area){
+        areasAsesoradas.add(area);
+    }
+
+    public void quitarAreaAsesor(AreasMercado area){
+        areasAsesoradas.remove(area);
     }
 
     @Override
