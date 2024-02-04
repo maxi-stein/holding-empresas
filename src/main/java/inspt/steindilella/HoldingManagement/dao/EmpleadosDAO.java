@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class EmpleadosDAO implements EmpleadosDAOInterface{
@@ -27,13 +28,14 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     }
 
     @Override
-    public List<Empleado> getAll() {
+    public Set<Empleado> getAll() {
         TypedQuery<Empleado> query = entityManager.createQuery("SELECT e FROM Empleado e",Empleado.class);
-        return query.getResultList();
+        Set<Empleado> listALL = new HashSet<>(query.getResultList());
+        return listALL;
     }
 
     @Override
-    public List<Empleado> getEmpleadosPorEmpresa(Integer id) {
+    public Set<Empleado> getEmpleadosPorEmpresa(Integer id) {
         //obtengo la empresa para acceder a los vendedores
         TypedQuery<Empresa> queryEmpresa = entityManager
                 .createQuery("SELECT e FROM Empresa e WHERE e.id = :idEmpresa",Empresa.class);
@@ -45,21 +47,21 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
         queryAsesor.setParameter("idEmp",id);
 
         Empresa emp =queryEmpresa.getSingleResult();
-        List<Empleado> empleados = emp.getVendedores();
+        Set<Empleado> empleados = new HashSet<>(emp.getVendedores());
         empleados.addAll(queryAsesor.getResultList());
 
         return empleados;
     }
 
     @Override
-    public List<Empresa> getEmpresasAsesoradas(Integer id) {
+    public Set<Empresa> getEmpresasAsesoradas(Integer id) {
         TypedQuery<Asesor> query = entityManager
                 .createQuery("SELECT a FROM Asesor a WHERE a.id = :idAsesor",Asesor.class);
         query.setParameter("idAsesor",id);
 
         Asesor asesor = query.getSingleResult();
 
-        List<Empresa> empresasAsesoradas = new ArrayList<>();
+        Set<Empresa> empresasAsesoradas = new HashSet<>();
 
         // Se realiza una segunda consulta para cargar la colección debido a Hibernate podría ignorar la carga perezosa LAZY
         // y cargar todas las entidades relacionadas de inmediato.
@@ -69,7 +71,9 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
                 .setParameter("asesor", asesor)
                 .getResultList();
 
-        for (AsesorEmpresa element : ae) {
+        Set<AsesorEmpresa> listado = new HashSet<>(ae); //JPA siempre devuelve un tipo ArrayList.
+
+        for (AsesorEmpresa element : listado) {
             empresasAsesoradas.add(element.getEmpresa());
         }
 
@@ -100,7 +104,7 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     }
 
     @Override
-    public List<Vendedor> getVendedoresCaptados(Integer idPadre) {
+    public Set<Vendedor> getVendedoresCaptados(Integer idPadre) {
         TypedQuery<Vendedor> query = entityManager
                 .createQuery("SELECT v FROM Vendedor v WHERE v.id = :idPadre", Vendedor.class);
                 query.setParameter("idPadre",idPadre);
@@ -108,7 +112,7 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
 
         Vendedor vendedor = query.getSingleResult();
 
-        List<Vendedor> vendedoresCaptados = new ArrayList<>();
+        Set<Vendedor> vendedoresCaptados = new HashSet<>();
 
         List<VendedorCaptado> vc = entityManager.createQuery(
                         "SELECT vc FROM VendedorCaptado vc WHERE vc.vendedorPadre = :vendedor", VendedorCaptado.class)

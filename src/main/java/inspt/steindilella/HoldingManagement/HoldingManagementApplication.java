@@ -10,9 +10,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @SpringBootApplication
 public class HoldingManagementApplication {
@@ -45,8 +44,16 @@ public class HoldingManagementApplication {
 	}
 
 	private void testAgregarAsesor(EmpresaServiceInterface emp) {
-		emp.agregarAsesor(new Asesor("Pedro","Castelli","El mas capo","Calle Falsa 123"),
+		Asesor asesor = new Asesor("Armado","Diaz","Sistemas","Callejon 1B");
+		System.out.println("El Hash del Asesor es: "+ asesor.hashCode());
+		Set<Asesor> set = emp.getAsesoresPorEmpresa(2);
+		for(Asesor element : set){
+			System.out.println(element.toString()+" Hash: "+element.hashCode());
+		}
+
+		emp.agregarAsesor(asesor,
 				LocalDate.now(),2);
+
 	}
 
 	private void testDesvincularVendedor(EmpresaServiceInterface emp, EmpleadoServiceInterface esiDao) {
@@ -60,14 +67,24 @@ public class HoldingManagementApplication {
 	}
 
 	private void testArea(AreasMercadoServiceInterface areaDao) {
-		AreasMercado areaPrueba = new AreasMercado("Consultora Financiera", "Analistas de mercados financieros.");
-		areaDao.save(areaPrueba);
+		//AreasMercado areaPrueba = new AreasMercado("Consultora Financiera", "Analistas de mercados financieros.");
+		//areaDao.save(areaPrueba);
+		Set<AreasMercado> listado = areaDao.getAll();
+		for (AreasMercado areasMercado : listado) {
+			System.out.println(areasMercado.getDescripcion());
+		}
+
 	}
 
 	private void testUbicacion(UbicacionesServiceInterface ubiDao) {
-		Pais pais = new Pais("Uruguay",1500.0,new BigInteger("100000"));
-		Ciudad ciudad = new Ciudad("Montevideo",pais);
-		ubiDao.saveCiudad(ciudad);
+		//System.out.println(ubiDao.getAllPaises());
+		//System.out.println(ubiDao.getAllCiudades());
+		//Pais pais = new Pais("Mexico",4500.0,new BigInteger("40000000"));
+		Pais p = ubiDao.getPaisById(4);
+		Ciudad ciudad = new Ciudad("Ciudad de Mexico",p);
+		p.setCapital(ciudad);
+		ubiDao.updatePais(p);
+		//ubiDao.saveCiudad(ciudad);
 		System.out.println(ubiDao.getAllPaises());
 		System.out.println(ubiDao.getAllCiudades());
 
@@ -89,7 +106,7 @@ public class HoldingManagementApplication {
 	}
 
 	public void testEmpresaAsesorada(EmpleadoServiceInterface esiDao){
-		List<Empresa> listEmpresas = esiDao.getEmpresasAsesoradas(12);
+		Set<Empresa> listEmpresas = esiDao.getEmpresasAsesoradas(12);
 
 		for(Empresa element : listEmpresas){
 			System.out.println("Empresa: "+element.getNombre());
@@ -98,7 +115,7 @@ public class HoldingManagementApplication {
 	}
 
 	public void testVendedores(EmpleadoServiceInterface esiDao){
-		List<Vendedor> listCaptados = esiDao.getVendedoresCaptados(4);
+		Set<Vendedor> listCaptados = esiDao.getVendedoresCaptados(4);
 
 		for(Vendedor v : listCaptados){
 			System.out.println("Vendedor captado: "+ v.getNombre()+" "+v.getApellido());
