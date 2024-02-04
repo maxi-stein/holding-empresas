@@ -20,6 +20,8 @@ public interface EmpleadoServiceInterface {
 
     Set<Vendedor> getVendedoresCaptados(Integer idPadre);
 
+    void agregarVendedorCaptado(Integer idVendedor, Integer idVendedorCaptado, LocalDate fechaCaptado);
+
     void save(Empleado emp);
     void update(Empleado emp);
     void delete(Empleado emp);

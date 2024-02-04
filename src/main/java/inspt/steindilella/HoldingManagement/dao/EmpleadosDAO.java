@@ -30,8 +30,7 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     @Override
     public Set<Empleado> getAll() {
         TypedQuery<Empleado> query = entityManager.createQuery("SELECT e FROM Empleado e",Empleado.class);
-        Set<Empleado> listALL = new HashSet<>(query.getResultList());
-        return listALL;
+        return new HashSet<>(query.getResultList());
     }
 
     @Override
@@ -149,8 +148,41 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
 
     @Override
     @Transactional
+    public void agregarVendedorCaptado(Integer idVendedor, Integer idVendedorCaptado, LocalDate fechaCaptado) {
+
+        //obtengo el objeto de ambos vendedores
+        Vendedor vendedor = (Vendedor) getById(idVendedor);
+        Vendedor vendedorCaptado = (Vendedor) getById(idVendedorCaptado);
+
+        //Creo una instancia de VendedorCaptado
+        VendedorCaptadoId vcId = new VendedorCaptadoId(idVendedor,idVendedorCaptado);
+        VendedorCaptado vc = new VendedorCaptado(vcId,vendedor,vendedorCaptado,fechaCaptado);
+
+        //Obtengo el set de VendedorCaptado del vendedor "padre"
+        Set<VendedorCaptado> vendedoresCaptados = vendedor.getVendedoresCaptados();
+
+        if(!vendedoresCaptados.contains(vc)){
+            vendedor.agregarVendedorCaptado(vc);
+            save(vc);
+            update(vendedor);
+            update(vendedorCaptado);
+        }
+        else{
+            //todo: manejar exception de vendedor ya captado
+            System.out.println("El vendedor ya está captado");
+        }
+
+    }
+
+    @Override
+    @Transactional
     public void save(Empleado emp) {
         entityManager.persist(emp);
+    }
+
+    @Override
+    public void save(VendedorCaptado vc) {
+        entityManager.persist(vc);
     }
 
     @Override

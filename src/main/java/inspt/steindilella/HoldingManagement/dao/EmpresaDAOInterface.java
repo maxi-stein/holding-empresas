@@ -7,6 +7,7 @@ import java.util.Set;
 public interface EmpresaDAOInterface {
 
     Empresa getById(Integer id);
+    Empresa getEmpresaByVendedorId(Integer id);
 
     Set<Empresa> getAll();
     Set<AreasMercado> getAreasMercadoPorEmpresa(Integer id);

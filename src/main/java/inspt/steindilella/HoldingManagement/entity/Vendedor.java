@@ -2,7 +2,8 @@ package inspt.steindilella.HoldingManagement.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @DiscriminatorValue("vend")
@@ -18,7 +19,7 @@ public class Vendedor extends Empleado{
 
     @OneToMany(mappedBy = "vendedorCaptados",
                 cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    private List<VendedorCaptado> vendedoresCaptados;
+    private Set<VendedorCaptado> vendedoresCaptados;
 
     public Vendedor() {
     }
@@ -48,11 +49,37 @@ public class Vendedor extends Empleado{
         return empresa != null;
     }
 
+    public Set<VendedorCaptado> getVendedoresCaptados() {
+        return vendedoresCaptados;
+    }
+
+    public void setVendedoresCaptados(Set<VendedorCaptado> vendedoresCaptados) {
+        this.vendedoresCaptados = vendedoresCaptados;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Vendedor vendedor = (Vendedor) o;
+        return direccion.equals(vendedor.direccion);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), direccion);
+    }
+
     @Override
     public String toString() {
         return "Vendedor{" +
                 "direccion='" + direccion + '\'' +
                 super.toString() +
                 '}';
+    }
+
+    public void agregarVendedorCaptado(VendedorCaptado vc){
+        vendedoresCaptados.add(vc);
     }
 }

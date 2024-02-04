@@ -29,6 +29,11 @@ public class EmpresaService implements EmpresaServiceInterface{
     }
 
     @Override
+    public Empresa getEmpresaByVendedorId(Integer id) {
+        return empresaDAO.getEmpresaByVendedorId(id);
+    }
+
+    @Override
     public Set<Empresa> getAll() {
         return empresaDAO.getAll();
     }
@@ -127,19 +132,11 @@ public class EmpresaService implements EmpresaServiceInterface{
             AsesorEmpresa asesorEmpresa = new AsesorEmpresa(idEmbebida,asesor,empresa,fechaInicio);
 
             //verifico que el asesor no trabaje en la empresa
-           /*for(AsesorEmpresa ase : empresa.getAsesores()){
-                if(ase.getAsesor().getId().equals(asesor.getId())){
-                    //todo: manejar exception
-                    System.out.println("El asesor ya asesora la empresa!");
-                }
-            }*/
-
-            //verifico que el asesor no trabaje en la empresa
             if (!empresa.getAsesores().contains(asesorEmpresa)){
                 empresa.agregarAsesor(asesorEmpresa);
                 empresaDAO.save(asesorEmpresa);
             }else{
-                //todo: manejar la excepcion
+                //todo: manejar la excepcion si el asesor ya trabaja para la empresa
             }
 
         }

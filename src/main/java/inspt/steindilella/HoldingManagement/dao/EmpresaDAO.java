@@ -26,37 +26,42 @@ public class EmpresaDAO implements EmpresaDAOInterface {
     }
 
     @Override
+    public Empresa getEmpresaByVendedorId(Integer id) {
+        TypedQuery<Empresa> query = entityManager
+                .createQuery("SELECT v.empresa FROM Vendedor v WHERE v.id = :id", Empresa.class);
+        query.setParameter("id",id);
+
+        return query.getSingleResult();
+    }
+
+    @Override
     public Set<Empresa> getAll() {
         TypedQuery<Empresa> empresas = entityManager.createQuery("SELECT e FROM Empresa e ORDER BY e.nombre ASC",Empresa.class);
-        Set<Empresa> listALL = new HashSet<>(empresas.getResultList());
-        return listALL;
+        return new HashSet<>(empresas.getResultList());
     }
 
     @Override
     public Set<AreasMercado> getAreasMercadoPorEmpresa(Integer id) {
         TypedQuery<Empresa> empresaQuery = entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.areasMercados WHERE e.id = :idEmpresa", Empresa.class);
         empresaQuery.setParameter("idEmpresa",id);
-        Set<AreasMercado> listado = new HashSet<>(empresaQuery.getSingleResult().getAreasMercados());
 
-        return listado;
+        return new HashSet<>(empresaQuery.getSingleResult().getAreasMercados());
     }
 
     @Override
     public Set<Empleado> getVendedoresPorEmpresa(Integer id) {
         TypedQuery<Empresa> empresaQuery = entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.vendedores WHERE e.id = :idEmpresa", Empresa.class);
         empresaQuery.setParameter("idEmpresa",id);
-        Set listado = new HashSet<>(empresaQuery.getSingleResult().getVendedores());
 
-        return listado;
+        return new HashSet<>(empresaQuery.getSingleResult().getVendedores());
     }
 
     @Override
     public Set<Ciudad> getCiudadesPorEmpresa(Integer id) {
         TypedQuery<Empresa> empresaQuery = entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.ciudades WHERE e.id = :idEmpresa", Empresa.class);
         empresaQuery.setParameter("idEmpresa",id);
-        Set listado = new HashSet<>(empresaQuery.getSingleResult().getCiudades());
 
-        return listado;
+        return new HashSet<>(empresaQuery.getSingleResult().getCiudades());
     }
 
     @Override
@@ -64,9 +69,7 @@ public class EmpresaDAO implements EmpresaDAOInterface {
         TypedQuery<Asesor> empresaQuery = entityManager.createQuery("SELECT e.asesor FROM AsesorEmpresa e WHERE e.empresa = :empr", Asesor.class);
         empresaQuery.setParameter("empr",empr);
 
-        Set<Asesor> listado = new HashSet<>(empresaQuery.getResultList());
-
-        return listado;
+        return new HashSet<>(empresaQuery.getResultList());
     }
 
     @Override
@@ -75,9 +78,7 @@ public class EmpresaDAO implements EmpresaDAOInterface {
                 .createQuery("SELECT e.asesores FROM Empresa e WHERE e.id = :idEmpr", AsesorEmpresa.class);
         empresaQuery.setParameter("idEmpr",empr.getId());
 
-        Set<AsesorEmpresa> listado = new HashSet<>(empresaQuery.getResultList());
-
-        return listado;
+        return new HashSet<>(empresaQuery.getResultList());
     }
 
     @Override

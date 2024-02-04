@@ -7,6 +7,8 @@ import java.util.Set;
 
 public interface EmpresaServiceInterface {
     Empresa getById(Integer id);
+    Empresa getEmpresaByVendedorId(Integer id);
+
     Set<Empresa> getAll();
     Set<AreasMercado> getAreasMercadoPorEmpresa(Integer id);
     Set<Empleado> getVendedoresPorEmpresa(Integer id);
