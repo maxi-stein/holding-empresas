@@ -37,8 +37,10 @@ public class HoldingManagementApplication {
 			//testAgregarAsesor(emp);
 			//testDesvincularAsesor(emp,esiDao);
 			//testAgregarVendedorCaptado(esiDao);
-			testVincularAreaEmpresa(areaDao, emp);
+			//testVincularAreaEmpresa(areaDao, emp);
 			//testDesvincularAreaEmpresa(areaDao, emp);
+			//testVinculoCiudadPais(ubiDao, emp);
+			testDesvinculoCiudadPais(ubiDao, emp);
 		};
 	}
 
@@ -152,6 +154,24 @@ public class HoldingManagementApplication {
 		for (AreasMercado listadoArea : listadoAreas) {
 			System.out.println("Empresa: "+empresa.getNombre()+" Cubre Area: "+listadoArea.getNombre());
 		}
+	}
+
+	public void testVinculoCiudadPais(UbicacionesServiceInterface ubiDao, EmpresaServiceInterface emp){
+		Empresa empresa = emp.getById(2);
+		Ciudad ciudad = ubiDao.getCiudadById(4);
+
+		emp.vincularCiudadPais(ciudad, empresa.getId());
+
+		System.out.println(ubiDao.getCiudadById(4).getNombre());
+	}
+
+	public void testDesvinculoCiudadPais(UbicacionesServiceInterface ubiDao, EmpresaServiceInterface emp){
+		Empresa empresa = emp.getById(2);
+		Ciudad ciudad = ubiDao.getCiudadById(4);
+
+		emp.desvincularCiudadPais(ciudad, empresa.getId());
+
+		System.out.println(ubiDao.getCiudadById(4).getNombre());
 	}
 
 }

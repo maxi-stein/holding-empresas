@@ -18,12 +18,14 @@ public class EmpresaService implements EmpresaServiceInterface{
     EmpresaDAOInterface empresaDAO;
     EmpleadosDAOInterface empleadoDAO;
     AreasMercadoDAOInterface areaDAO;
+    UbicacionesServiceInterface ubiDAO;
 
     @Autowired
-    public EmpresaService(EmpresaDAOInterface empresaDAO, EmpleadosDAOInterface empleadoDAO, AreasMercadoDAOInterface areaDAO) {
+    public EmpresaService(EmpresaDAOInterface empresaDAO, EmpleadosDAOInterface empleadoDAO, AreasMercadoDAOInterface areaDAO,UbicacionesServiceInterface ubiDAO) {
         this.empresaDAO = empresaDAO;
         this.empleadoDAO = empleadoDAO;
         this.areaDAO = areaDAO;
+        this.ubiDAO = ubiDAO;
     }
 
     @Override
@@ -203,23 +205,26 @@ public class EmpresaService implements EmpresaServiceInterface{
     public void agregarAreaMercado(AreasMercado areaMercado, Integer id) {
         //cargo la empresa
         Empresa empresa = empresaDAO.getById(id);
+        //cargo el area
+        AreasMercado areaVincular = areaDAO.getById(areaMercado.getId());
         AreasMercado areaNueva = null;
+
         //verifico que exista la empresa
         if (empresa != null) {
             //verifico que la empresa no contenga el area
             Set<AreasMercado> listadoAreas = empresa.getAreasMercados();
             for (AreasMercado element : listadoAreas) {
-                if (element.getId().equals(areaMercado.getId())) {
+                if (element.getId().equals(areaVincular.getId())) {
                     areaNueva = element;
                 }
             }
-            if(areaNueva == null){
+            if(areaNueva == null && areaVincular != null){
                 //agrego el area de mercado a la empresa
-                empresa.agregarAreaMercado(areaNueva);
+                empresa.agregarAreaMercado(areaVincular);
                 //actualizo la empresa en la bbdd.
                 empresaDAO.update(empresa);
             }else{
-                System.out.println("LA EMPRESA YA POSEE ASIGNADA EL AREA: "+areaMercado.getNombre());
+                System.out.println("LA EMPRESA YA POSEE EL AREA O EL AREA NO EXISTE");
             }
         }else{
                 //todo: manejar exception si no existe la empresa
@@ -231,6 +236,7 @@ public class EmpresaService implements EmpresaServiceInterface{
     public void quitarAreaMercado(AreasMercado areaMercado, Integer id) {
         //cargo la empresa
         Empresa empresa = empresaDAO.getById(id);
+        AreasMercado areaVincular = areaDAO.getById(areaMercado.getId());
         AreasMercado areaDesvinculada = null;
 
         //verifico que exista la empresa y que contenga el area
@@ -239,7 +245,7 @@ public class EmpresaService implements EmpresaServiceInterface{
             Set<AreasMercado> listadoAreas = empresa.getAreasMercados();
 
             for(AreasMercado element : listadoAreas){
-                if(element.getId().equals(areaMercado.getId())){
+                if(element.getId().equals(areaVincular.getId())){
                     areaDesvinculada = element;
                 }
             }
@@ -254,6 +260,68 @@ public class EmpresaService implements EmpresaServiceInterface{
         else{
             //todo: manejar exception si no existe la empresa
             System.out.println(empresaDAO.getAreasMercadoPorEmpresa(id).contains(areaMercado));
+        }
+    }
+
+    @Override
+    @Transactional
+    public void vincularCiudadPais(Ciudad ciudadNueva, Integer id){
+        //cargo la empresa
+        Empresa empresa = empresaDAO.getById(id);
+        Ciudad ciudadDAO = ubiDAO.getCiudadById(ciudadNueva.getId());
+
+        Ciudad ciudad = null;
+        //verifico que exista la empresa
+        if (empresa != null) {
+            //verifico que la empresa no contenga la ciudad
+            Set<Ciudad> ciudadesListado = empresa.getCiudades();
+            for (Ciudad element : ciudadesListado) {
+                if (element.getId().equals(ciudadDAO.getId())) {
+                    ciudad = element;
+                }
+            }
+            if(ciudad == null){
+                System.out.println("Empresa y ciudad encontrada");
+                //agrego la ciudad a la empresa
+                empresa.vincularCiudadPais(ciudadDAO);
+                //actualizo la empresa en la bbdd.
+                empresaDAO.update(empresa);
+            }else{
+                System.out.println("LA EMPRESA YA POSEE LA CIUDAD: "+ciudadNueva.getNombre());
+            }
+        }else{
+            //todo: manejar exception si no existe la empresa
+            System.out.println("EMPRESA NO ENCONTRADA");
+        }
+    }
+
+    @Override
+    @Transactional
+    public void desvincularCiudadPais(Ciudad ciudadNueva, Integer id){
+        //cargo la empresa
+        Empresa empresa = empresaDAO.getById(id);
+
+        Ciudad ciudad = null;
+        //verifico que exista la empresa
+        if (empresa != null) {
+            //verifico que la empresa no contenga la ciudad
+            Set<Ciudad> ciudadesListado = empresa.getCiudades();
+            for (Ciudad element : ciudadesListado) {
+                if (element.getId().equals(ciudadNueva.getId())) {
+                    ciudad = element;
+                }
+            }
+            if(ciudad != null){
+                //agrego la ciudad a la empresa
+                empresa.desvincularCiudadPais(ciudad);
+                //actualizo la empresa en la bbdd.
+                empresaDAO.update(empresa);
+            }else{
+                System.out.println("LA EMPRESA NO POSEE LA CIUDAD: "+ciudadNueva.getNombre());
+            }
+        }else{
+            //todo: manejar exception si no existe la empresa
+            System.out.println("EMPRESA NO ENCONTRADA");
         }
     }
 }

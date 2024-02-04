@@ -45,9 +45,9 @@ public class Empresa {
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
                 fetch = FetchType.LAZY)
-    @JoinTable( name = "asesores_empresa",
-            joinColumns = @JoinColumn(name = "id_empleado_empresa"),
-            inverseJoinColumns = @JoinColumn(name = "id_empresa_relacion"))
+    @JoinTable( name = "ciudad_empresa",
+            joinColumns = @JoinColumn(name = "id_empresa_ubicada"),
+            inverseJoinColumns = @JoinColumn(name = "id_ciudad_empresa"))
     private Set<Ciudad> ciudades;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
@@ -193,5 +193,13 @@ public class Empresa {
 
     public void quitarAreaMercado(AreasMercado area){
         areasMercados.remove(area);
+    }
+
+    public void vincularCiudadPais(Ciudad ciudad){
+        ciudades.add(ciudad);
+    }
+
+    public void desvincularCiudadPais(Ciudad ciudad){
+        ciudades.remove(ciudad);
     }
 }

@@ -2,7 +2,7 @@ package inspt.steindilella.HoldingManagement.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "ciudades")
@@ -28,7 +28,7 @@ public class Ciudad {
     @JoinTable(name = "ciudad_empresa",
             joinColumns = @JoinColumn(name = "id_ciudad_empresa"),
             inverseJoinColumns = @JoinColumn(name = "id_empresa_ubicada"))
-    private List<Empresa> empresas;
+    private Set<Empresa> empresas;
 
     public Integer getId() {
         return id;

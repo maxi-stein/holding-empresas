@@ -27,6 +27,8 @@ public interface EmpresaServiceInterface {
 
     void agregarAreaMercado(AreasMercado areaMercado, Integer id);
     void quitarAreaMercado(AreasMercado areaMercado, Integer id);
+    void vincularCiudadPais(Ciudad ciudadNueva, Integer id);
+    void desvincularCiudadPais(Ciudad ciudadNueva, Integer id);
 
 
 }
