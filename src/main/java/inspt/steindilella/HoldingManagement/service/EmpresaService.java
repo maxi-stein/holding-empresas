@@ -203,19 +203,28 @@ public class EmpresaService implements EmpresaServiceInterface{
     public void agregarAreaMercado(AreasMercado areaMercado, Integer id) {
         //cargo la empresa
         Empresa empresa = empresaDAO.getById(id);
-
+        AreasMercado areaNueva = null;
         //verifico que exista la empresa
-        if(empresa != null){
-
-            //agrego el area de mercado a la empresa
-            empresa.agregarAreaMercado(areaMercado);
-            //actualizo la empresa en la bbdd.
-            empresaDAO.update(empresa);
+        if (empresa != null) {
+            //verifico que la empresa no contenga el area
+            Set<AreasMercado> listadoAreas = empresa.getAreasMercados();
+            for (AreasMercado element : listadoAreas) {
+                if (element.getId().equals(areaMercado.getId())) {
+                    areaNueva = element;
+                }
+            }
+            if(areaNueva == null){
+                //agrego el area de mercado a la empresa
+                empresa.agregarAreaMercado(areaNueva);
+                //actualizo la empresa en la bbdd.
+                empresaDAO.update(empresa);
+            }else{
+                System.out.println("LA EMPRESA YA POSEE ASIGNADA EL AREA: "+areaMercado.getNombre());
+            }
+        }else{
+                //todo: manejar exception si no existe la empresa
+            }
         }
-        else{
-            //todo: manejar exception si no existe la empresa
-        }
-    }
 
     @Override
     @Transactional
@@ -231,7 +240,6 @@ public class EmpresaService implements EmpresaServiceInterface{
 
             for(AreasMercado element : listadoAreas){
                 if(element.getId().equals(areaMercado.getId())){
-                    System.out.println("Se encontro el area");
                     areaDesvinculada = element;
                 }
             }

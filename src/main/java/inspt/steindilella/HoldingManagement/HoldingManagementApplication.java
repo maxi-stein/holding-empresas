@@ -37,8 +37,8 @@ public class HoldingManagementApplication {
 			//testAgregarAsesor(emp);
 			//testDesvincularAsesor(emp,esiDao);
 			//testAgregarVendedorCaptado(esiDao);
-			//testVincularAreaEmpresa(areaDao, emp);
-			testDesvincularAreaEmpresa(areaDao, emp);
+			testVincularAreaEmpresa(areaDao, emp);
+			//testDesvincularAreaEmpresa(areaDao, emp);
 		};
 	}
 
