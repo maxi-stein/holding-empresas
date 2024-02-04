@@ -3,15 +3,15 @@ package inspt.steindilella.HoldingManagement.service;
 import inspt.steindilella.HoldingManagement.entity.*;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 public interface EmpresaServiceInterface {
     Empresa getById(Integer id);
-    List<Empresa> getAll();
-    List<AreasMercado> getAreasMercadoPorEmpresa(Integer id);
-    List<Empleado> getVendedoresPorEmpresa(Integer id);
-    List<Ciudad> getCiudadesPorEmpresa(Integer id);
-    List<Asesor> getAsesoresPorEmpresa(Integer id);
+    Set<Empresa> getAll();
+    Set<AreasMercado> getAreasMercadoPorEmpresa(Integer id);
+    Set<Empleado> getVendedoresPorEmpresa(Integer id);
+    Set<Ciudad> getCiudadesPorEmpresa(Integer id);
+    Set<Asesor> getAsesoresPorEmpresa(Integer id);
 
     void agregarVendedor(Vendedor vendedor, Integer id);
     void desvincularVendedor(Vendedor vendedor, Integer id);

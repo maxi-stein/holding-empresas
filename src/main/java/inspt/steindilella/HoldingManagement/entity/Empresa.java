@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "empresas")
@@ -35,26 +36,26 @@ public class Empresa {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             targetEntity = Vendedor.class)
-    private List<Empleado> vendedores;
+    private Set<Empleado> vendedores;
 
     //todo: cambiar de List<AsesorEmpresa> a Set<AsesorEmpresa> para evitar duplicados
     //Una empresa tiene muchos AsesorEmpresa donde se detalla cada asesor junto a su fecha inicio
     @OneToMany(mappedBy = "empresa",  cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}) //el atributo de AsesorEmpresa
-    private List<AsesorEmpresa> asesores;
+    private Set<AsesorEmpresa> asesores;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
                 fetch = FetchType.LAZY)
     @JoinTable( name = "asesores_empresa",
             joinColumns = @JoinColumn(name = "id_empleado_empresa"),
             inverseJoinColumns = @JoinColumn(name = "id_empresa_relacion"))
-    private List<Ciudad> ciudades;
+    private Set<Ciudad> ciudades;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
             fetch = FetchType.LAZY)
     @JoinTable( name = "areas_empresa",
             joinColumns = @JoinColumn(name = "id_empresa_mercados"),
             inverseJoinColumns = @JoinColumn(name = "id_area_mercado_empresa"))
-    private List<AreasMercado> areasMercados;
+    private Set<AreasMercado> areasMercados;
 
     public Empresa() {
 
@@ -66,6 +67,20 @@ public class Empresa {
         this.inicio = inicio;
         this.facturacion = facturacion;
         eliminado=0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Empresa that = (Empresa) o;
+        return Objects.equals(id, that.id) ||
+                Objects.equals(nombre, that.getNombre());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre);
     }
 
     public Integer getId() {
@@ -112,27 +127,27 @@ public class Empresa {
         this.eliminado = eliminado;
     }
 
-    public List<Empleado> getVendedores() {
+    public Set<Empleado> getVendedores() {
         return vendedores;
     }
 
-    public List<AsesorEmpresa> getAsesores() {
+    public Set<AsesorEmpresa> getAsesores() {
         return asesores;
     }
 
-    public void setAsesores(List<AsesorEmpresa> asesores) {
+    public void setAsesores(Set<AsesorEmpresa> asesores) {
         this.asesores = asesores;
     }
 
-    public List<Ciudad> getCiudades() {
+    public Set<Ciudad> getCiudades() {
         return ciudades;
     }
 
-    public List<AreasMercado> getAreasMercados() {
+    public Set<AreasMercado> getAreasMercados() {
         return areasMercados;
     }
 
-    public void setVendedores(List<Empleado> vendedores) {
+    public void setVendedores(Set<Empleado> vendedores) {
         this.vendedores = vendedores;
     }
 

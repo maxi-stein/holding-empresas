@@ -2,18 +2,18 @@ package inspt.steindilella.HoldingManagement.dao;
 
 import inspt.steindilella.HoldingManagement.entity.*;
 
-import java.util.List;
+import java.util.Set;
 
 public interface EmpresaDAOInterface {
 
     Empresa getById(Integer id);
 
-    List<Empresa> getAll();
-    List<AreasMercado> getAreasMercadoPorEmpresa(Integer id);
-    List<Empleado> getVendedoresPorEmpresa(Integer id);
-    List<Ciudad> getCiudadesPorEmpresa(Integer id);
-    List<Asesor> getAsesoresPorEmpresa(Empresa empr);
-    List<AsesorEmpresa> getAsesoresPorEmpresaConFechaInicio(Empresa empr);
+    Set<Empresa> getAll();
+    Set<AreasMercado> getAreasMercadoPorEmpresa(Integer id);
+    Set<Empleado> getVendedoresPorEmpresa(Integer id);
+    Set<Ciudad> getCiudadesPorEmpresa(Integer id);
+    Set<Asesor> getAsesoresPorEmpresa(Empresa empr);
+    Set<AsesorEmpresa> getAsesoresPorEmpresaConFechaInicio(Empresa empr);
 
     void save(Empresa empresa);
     void save(AsesorEmpresa asesorEmpresa);

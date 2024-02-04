@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Service
 public class EmpresaService implements EmpresaServiceInterface{
@@ -29,27 +29,27 @@ public class EmpresaService implements EmpresaServiceInterface{
     }
 
     @Override
-    public List<Empresa> getAll() {
+    public Set<Empresa> getAll() {
         return empresaDAO.getAll();
     }
 
     @Override
-    public List<AreasMercado> getAreasMercadoPorEmpresa(Integer id) {
+    public Set<AreasMercado> getAreasMercadoPorEmpresa(Integer id) {
         return empresaDAO.getAreasMercadoPorEmpresa(id);
     }
 
     @Override
-    public List<Empleado> getVendedoresPorEmpresa(Integer id) {
+    public Set<Empleado> getVendedoresPorEmpresa(Integer id) {
         return empresaDAO.getVendedoresPorEmpresa(id);
     }
 
     @Override
-    public List<Ciudad> getCiudadesPorEmpresa(Integer id) {
+    public Set<Ciudad> getCiudadesPorEmpresa(Integer id) {
         return empresaDAO.getCiudadesPorEmpresa(id);
     }
 
     @Override
-    public List<Asesor> getAsesoresPorEmpresa(Integer id) {
+    public Set<Asesor> getAsesoresPorEmpresa(Integer id) {
         return empresaDAO.getAsesoresPorEmpresa(empresaDAO.getById(id));
     }
 
@@ -63,7 +63,7 @@ public class EmpresaService implements EmpresaServiceInterface{
         if(empresa != null){
 
             //cargo sus vendedores y se los seteo
-            List<Empleado> vendedores = empresaDAO.getVendedoresPorEmpresa(id);
+            Set<Empleado> vendedores = empresaDAO.getVendedoresPorEmpresa(id);
             empresa.setVendedores(vendedores);
 
             //verifico que el empleado no trabaje en otra empresa
@@ -90,7 +90,7 @@ public class EmpresaService implements EmpresaServiceInterface{
         if(empresa != null){
 
             //cargo sus vendedores y se los seteo
-            List<Empleado> vendedores = empresaDAO.getVendedoresPorEmpresa(id);
+            Set<Empleado> vendedores = empresaDAO.getVendedoresPorEmpresa(id);
             empresa.setVendedores(vendedores);
 
             //verifico que el empleado trabaje en la empresa
@@ -116,9 +116,8 @@ public class EmpresaService implements EmpresaServiceInterface{
 
         //verifico que exista la empresa
         if(empresa != null){
-
             //cargo sus asesores y se los seteo
-            List<AsesorEmpresa> asesores = empresaDAO.getAsesoresPorEmpresaConFechaInicio(empresa);
+            Set<AsesorEmpresa> asesores = empresaDAO.getAsesoresPorEmpresaConFechaInicio(empresa);
             empresa.setAsesores(asesores);
 
             //creo la id embebida
@@ -128,16 +127,21 @@ public class EmpresaService implements EmpresaServiceInterface{
             AsesorEmpresa asesorEmpresa = new AsesorEmpresa(idEmbebida,asesor,empresa,fechaInicio);
 
             //verifico que el asesor no trabaje en la empresa
-            for(AsesorEmpresa ase : empresa.getAsesores()){
+           /*for(AsesorEmpresa ase : empresa.getAsesores()){
                 if(ase.getAsesor().getId().equals(asesor.getId())){
                     //todo: manejar exception
                     System.out.println("El asesor ya asesora la empresa!");
                 }
+            }*/
+
+            //verifico que el asesor no trabaje en la empresa
+            if (!empresa.getAsesores().contains(asesorEmpresa)){
+                empresa.agregarAsesor(asesorEmpresa);
+                empresaDAO.save(asesorEmpresa);
+            }else{
+                //todo: manejar la excepcion
             }
 
-            empresa.agregarAsesor(asesorEmpresa);
-
-            empresaDAO.save(asesorEmpresa);
         }
         else{
             //todo: manejar exception si no existe la empresa
@@ -154,7 +158,7 @@ public class EmpresaService implements EmpresaServiceInterface{
         if(empresa != null){
 
             //obtengo la lista de asesores
-            List<AsesorEmpresa> asesores = empresa.getAsesores();
+            Set<AsesorEmpresa> asesores = empresa.getAsesores();
             AsesorEmpresa relacionEliminar = null;
 
             //encuentro el asesor a eliminar
