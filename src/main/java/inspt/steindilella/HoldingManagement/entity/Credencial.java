@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "empleados_seguridad")
-public class Seguridad {
+public class Credencial {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +18,10 @@ public class Seguridad {
     @Column(name = "password")
     private String password;
 
-    public Seguridad() {
+    public Credencial() {
     }
 
-    public Seguridad(String password, Empleado usuario){
+    public Credencial(String password, Empleado usuario){
         this.password = password;
         this.usuario = usuario;
     }

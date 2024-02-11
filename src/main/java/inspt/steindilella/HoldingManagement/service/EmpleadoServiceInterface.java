@@ -26,9 +26,9 @@ public interface EmpleadoServiceInterface {
     void update(Empleado emp);
     void delete(Empleado emp);
 
-    void savePass(Seguridad password);
-    void updatePass(Seguridad password);
-    void deletePass(Seguridad password);
+    void savePass(Credencial password);
+    void updatePass(Credencial password);
+    void deletePass(Credencial password);
 
     String getPass(Empleado usuario);
 

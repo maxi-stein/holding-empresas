@@ -127,17 +127,17 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     }
 
     @Override
-    public void savePass(Seguridad password) {
+    public void savePass(Credencial password) {
         empleadoDao.savePass(password);
     }
 
     @Override
-    public void updatePass(Seguridad password) {
+    public void updatePass(Credencial password) {
         empleadoDao.updatePass(password);
     }
 
     @Override
-    public void deletePass(Seguridad password) {
+    public void deletePass(Credencial password) {
         empleadoDao.deletePass(password);
     }
 

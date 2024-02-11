@@ -220,19 +220,19 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
 
     @Override
     @Transactional
-    public void savePass(Seguridad password){
+    public void savePass(Credencial password){
         entityManager.persist(password);
     }
 
     @Override
     @Transactional
-    public void updatePass(Seguridad password){
+    public void updatePass(Credencial password){
         entityManager.merge(password);
     }
 
     @Override
     @Transactional
-    public void deletePass(Seguridad password){
+    public void deletePass(Credencial password){
         entityManager.merge(password);
     }
 
@@ -240,13 +240,13 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     public String getPass(Empleado usuario){
         //Mensaje de Log de auditoria para controlar los ingresos
         System.out.println("Se intenta loggear el usuario-ID: "+usuario.getNombre()+"-"+usuario.getId());
-        TypedQuery<Seguridad> query = entityManager
-                .createQuery("SELECT s FROM Seguridad s WHERE s.usuario = :usuario", Seguridad.class);
+        TypedQuery<Credencial> query = entityManager
+                .createQuery("SELECT s FROM Seguridad s WHERE s.usuario = :usuario", Credencial.class);
         query.setParameter("usuario",usuario);
 
         //manejamos la excepcion en caso de no encontrar usuario o contrasenia
         try {
-            Seguridad password = query.getSingleResult();
+            Credencial password = query.getSingleResult();
             return password.getPassword();
         } catch (NoResultException e) {
             // Devolver una contraseña predeterminada o lanzar una excepción
