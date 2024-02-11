@@ -1,9 +1,6 @@
 package inspt.steindilella.HoldingManagement.service;
 
-import inspt.steindilella.HoldingManagement.entity.AreasMercado;
-import inspt.steindilella.HoldingManagement.entity.Empleado;
-import inspt.steindilella.HoldingManagement.entity.Empresa;
-import inspt.steindilella.HoldingManagement.entity.Vendedor;
+import inspt.steindilella.HoldingManagement.entity.*;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -28,5 +25,11 @@ public interface EmpleadoServiceInterface {
     void save(Empleado emp);
     void update(Empleado emp);
     void delete(Empleado emp);
+
+    void savePass(Seguridad password);
+    void updatePass(Seguridad password);
+    void deletePass(Seguridad password);
+
+    String getPass(Empleado usuario);
 
 }

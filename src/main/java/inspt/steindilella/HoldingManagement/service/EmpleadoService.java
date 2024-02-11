@@ -127,6 +127,26 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     }
 
     @Override
+    public void savePass(Seguridad password) {
+        empleadoDao.savePass(password);
+    }
+
+    @Override
+    public void updatePass(Seguridad password) {
+        empleadoDao.updatePass(password);
+    }
+
+    @Override
+    public void deletePass(Seguridad password) {
+        empleadoDao.deletePass(password);
+    }
+
+    @Override
+    public String getPass(Empleado usuario) {
+        return empleadoDao.getPass(usuario);
+    }
+
+    @Override
     @Transactional
     public void cubrirAreaMercado(AreasMercado area, Integer idAsesor){
         //Busco el asesor

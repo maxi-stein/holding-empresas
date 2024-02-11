@@ -42,7 +42,8 @@ public class HoldingManagementApplication {
 			//testVinculoCiudadPais(ubiDao, emp);
 			//testDesvinculoCiudadPais(ubiDao, emp);
 			//testCubrirAreaAsesor(esiDao, areaDao);
-			testQuitarAreaAsesor(esiDao, areaDao);
+			//testQuitarAreaAsesor(esiDao, areaDao);
+			//testUsuarioContrasenia(esiDao);
 		};
 	}
 
@@ -188,6 +189,18 @@ public class HoldingManagementApplication {
 		AreasMercado area = areaDao.getById(2);
 
 		esiDao.DesvincularAreaMercado(area, asesor.getId());
+	}
+
+	public void testUsuarioContrasenia(EmpleadoServiceInterface esiDao){
+		//CREAMOS PASS
+		/*Empleado usuario = esiDao.getById(3);
+		Seguridad password = new Seguridad("123", usuario);
+		esiDao.savePass(password);*/
+
+		//evaluamos el metodo GET-PASS
+		Empleado usuario = esiDao.getById(3);
+		System.out.println("Contrasenia: "+esiDao.getPass(usuario));
+
 	}
 
 }
