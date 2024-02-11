@@ -32,4 +32,5 @@ public interface EmpleadoServiceInterface {
 
     String getPass(Empleado usuario);
 
+    String getRol(Empleado user);
 }

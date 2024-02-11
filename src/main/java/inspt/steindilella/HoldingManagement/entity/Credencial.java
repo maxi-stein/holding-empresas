@@ -18,12 +18,15 @@ public class Credencial {
     @Column(name = "password")
     private String password;
 
+    private String rol;
+
     public Credencial() {
     }
 
-    public Credencial(String password, Empleado usuario){
+    public Credencial(String password, Empleado usuario, String rol){
         this.password = password;
         this.usuario = usuario;
+        this.rol = rol;
     }
 
     public String getPassword() {
@@ -48,5 +51,13 @@ public class Credencial {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }

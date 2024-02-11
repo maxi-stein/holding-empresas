@@ -147,6 +147,11 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     }
 
     @Override
+    public String getRol(Empleado user) {
+        return empleadoDao.getRol(user);
+    }
+
+    @Override
     @Transactional
     public void cubrirAreaMercado(AreasMercado area, Integer idAsesor){
         //Busco el asesor

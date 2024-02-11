@@ -241,7 +241,7 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
         //Mensaje de Log de auditoria para controlar los ingresos
         System.out.println("Se intenta loggear el usuario-ID: "+usuario.getNombre()+"-"+usuario.getId());
         TypedQuery<Credencial> query = entityManager
-                .createQuery("SELECT s FROM Seguridad s WHERE s.usuario = :usuario", Credencial.class);
+                .createQuery("SELECT s FROM Credencial s WHERE s.usuario = :usuario", Credencial.class);
         query.setParameter("usuario",usuario);
 
         //manejamos la excepcion en caso de no encontrar usuario o contrasenia
@@ -253,5 +253,24 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
             return "contraseñaPredeterminada"; // O ajusta según tu lógica
         }
 
+    }
+
+    @Override
+    public String getRol(Empleado usuario) {
+
+        //Mensaje de Log de auditoria para controlar los ingresos
+        System.out.println("Se intenta loggear el usuario-ID: "+usuario.getNombre()+"-"+usuario.getId());
+        TypedQuery<Credencial> query = entityManager
+                .createQuery("SELECT s FROM Credencial s WHERE s.usuario = :usuario", Credencial.class);
+        query.setParameter("usuario",usuario);
+
+        //manejamos la excepcion en caso de no encontrar usuario o contrasenia
+        try {
+            Credencial rol = query.getSingleResult();
+            return rol.getRol();
+        } catch (NoResultException e) {
+            // Devolver una contraseña predeterminada o lanzar una excepción
+            return "contraseñaPredeterminada"; // O ajusta según tu lógica
+        }
     }
 }

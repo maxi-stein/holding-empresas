@@ -22,13 +22,18 @@ public class WebSecurityConfig{
 
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home").permitAll()
+                        .requestMatchers("/","procesarLogin").permitAll()
+                        .requestMatchers("/admin","/admin/**").hasRole("ADM")
+                        .requestMatchers("/asesor","/asesor/**").hasRole("ASE")
+                        .requestMatchers("/vendedor","/vendedor/**").hasRole("VEND")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .usernameParameter("id") // Nombre del campo en el formulario
                         .passwordParameter("password") // Nombre del campo en el formulario
+                        .loginProcessingUrl("/procesarLogin")
+                        .successForwardUrl("/home")
                         .permitAll()
                 )
                 .logout((logout) -> logout.permitAll())

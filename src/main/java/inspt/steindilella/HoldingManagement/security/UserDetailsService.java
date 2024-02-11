@@ -34,7 +34,7 @@ public class UserDetailsService implements org.springframework.security.core.use
         return org.springframework.security.core.userdetails.User
                 .withUsername(String.valueOf(user.getId()))
                 .password(userRepository.getPass(user))
-                .roles("USER")
+                .roles(userRepository.getRol(user))
                 .build();
     }
 }

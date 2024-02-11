@@ -31,4 +31,5 @@ public interface EmpleadosDAOInterface {
     void deletePass(Credencial password);
 
     String getPass(Empleado usuario);
+    String getRol(Empleado usuario);
 }
