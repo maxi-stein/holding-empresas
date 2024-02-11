@@ -311,6 +311,20 @@ INSERT INTO `vendedores_captados` VALUES (4,3,'2023-08-12'),(6,5,'2021-02-27'),(
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+
+CREATE TABLE `empleados_seguridad` (
+  `id` bigint(3) NOT NULL,
+  `usuario_id` bigint(5) UNSIGNED NOT NULL,
+  `password` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `empleados_seguridad`
+  MODIFY `id` bigint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
+
+ALTER TABLE `empleados_seguridad`
+  ADD PRIMARY KEY (`id`);
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
