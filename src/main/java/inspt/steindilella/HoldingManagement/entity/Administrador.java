@@ -16,6 +16,6 @@ public class Administrador extends Empleado {
 
     @Override
     public String despacharVista() {
-        return "/admin";
+        return "redirect:/admin";
     }
 }

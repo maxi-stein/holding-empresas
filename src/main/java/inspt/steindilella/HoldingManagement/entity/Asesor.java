@@ -101,6 +101,6 @@ public class Asesor extends Empleado {
 
     @Override
     public String despacharVista() {
-        return "/asesor";
+        return "redirect:/asesor";
     }
 }

@@ -85,6 +85,6 @@ public class Vendedor extends Empleado{
 
     @Override
     public String despacharVista() {
-        return "/vendedor";
+        return "redirect:/vendedor";
     }
 }
