@@ -34,8 +34,6 @@ public class LogInController {
 
         var empleado = empleadoService.getById(Integer.valueOf(id));
 
-        System.out.println("Se devolverá un " + empleado.getNombre());
-
         return empleado.despacharVista();
 
     }
