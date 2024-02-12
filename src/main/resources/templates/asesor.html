@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title th:text="'¡Bienvenido ' + ${asesor.nombre} + '!'"></title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#" id="datosUsuario">Hola <span th:text="${asesor.apellido} + ' ' + ${asesor.nombre}">thymeleaf</span>!</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    
+                    <form style="margin-block:auto;" th:text="${asesor.titulacion}"></form>
+
+                    <form th:action="@{/logout}" method="post" style="margin-left: auto;">
+                        <input type="submit" value="Salir" class="btn btn-outline-success">
+                    </form>
+    
+                </div>
+            </div>
+        </nav>
+
+        <div>
+            <!--
+            <h5>Especializacion: <a th:text="${asesor.titulacion}"></a></h5>
+            -->
+        </div>
+        <div>
+            <h5 id="idUsuario" style="display: none;">Codigo de Usuario: <a th:text="${asesor.id}"></a></h5>
+            <h5 id="direccion" style="display: none;">Direccion: <a th:text="${asesor.direccion}"></a></h5>
+        </div>
+    </header>
+    <aside id="sidebar" class="sidebar">
+        <section>
+            <!--
+            <p th:text="${asesor.id}">ID del vendedor no encontrado</p>
+            -->
+            <section>
+                <button id="toggleTable">Areas Cubiertas</button>
+
+                <table id="areasTable" style="display: none;">
+
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="asesorada : ${asesor.areasAsesoradas}">
+                            <td th:text="${asesorada.id}">N/A</td>
+                            <td th:text="${asesorada.nombre}">N/A</td>
+                            <td th:text="${asesorada.descripcion}">N/A</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </section>
+
+            <section>
+                <button id="toggleTableEmpresas">Empresas asesoradas</button>
+
+                <table id="empresasTable" style="display: none;">
+
+                    <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Sede</th>
+                        <th>Facturacion</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="empresasAsesoradas : ${asesor.empresasAsesoradas}">
+                        <td th:text="${empresasAsesoradas.empresa.id}">N/A</td>
+                        <td th:text="${empresasAsesoradas.empresa.nombre}">N/A</td>
+                        <td th:text="${empresasAsesoradas.empresa.sede.nombre} + ', '+${empresasAsesoradas.empresa.sede.pais_ciudad.nombre}">N/A</td>
+                        <td th:text="${empresasAsesoradas.empresa.facturacion}">N/A</td>
+                    </tr>
+
+                    </tbody>
+
+                </table>
+            </section>
+            
+        </section>
+    </aside>
+    
+    <footer>
+        <p>Stein&DiLella Inc.</p>
+    </footer>
+
+    <script>
+    document.getElementById('toggleTable').addEventListener('click', function() {
+        var areasTable = document.getElementById('areasTable');
+        areasTable.style.display = (areasTable.style.display === 'none') ? 'block' : 'none';
+    });
+        document.getElementById('toggleTableEmpresas').addEventListener('click', function() {
+        var empresasTable = document.getElementById('empresasTable');
+        empresasTable.style.display = (empresasTable.style.display === 'none') ? 'block' : 'none';
+    });
+
+    document.getElementById('datosUsuario').addEventListener('click', function() {
+        var datosUsuario = document.getElementById('direccion');
+        datosUsuario.style.display = (datosUsuario.style.display === 'none') ? 'block' : 'none';
+    });
+    document.getElementById('datosUsuario').addEventListener('click', function() {
+        var datosUsuario = document.getElementById('idUsuario');
+        datosUsuario.style.display = (datosUsuario.style.display === 'none') ? 'block' : 'none';
+    });
+    </script>
+
+</body>
+</html>
