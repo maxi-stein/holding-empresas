@@ -43,6 +43,16 @@ public class LogInController {
         return "admin";
     }
 
+    @GetMapping("/vendedor")
+    public String vendedor(){
+        return "vendedor";
+    }
+
+    @GetMapping("/asesor")
+    public String asesor(){
+        return "asesor";
+    }
+
     private boolean contieneRol(ArrayList<String> roles, String rol){
        return roles.stream().anyMatch(s -> s.equals(rol));
     }

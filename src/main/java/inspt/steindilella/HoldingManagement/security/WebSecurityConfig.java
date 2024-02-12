@@ -24,7 +24,7 @@ public class WebSecurityConfig{
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/","procesarLogin").permitAll()
                         .requestMatchers("/admin","/admin/**").hasRole("ADM")
-                        .requestMatchers("/asesor","/asesor/**").hasRole("ASE")
+                        .requestMatchers("/asesor","/asesor/**").hasRole("ASES")
                         .requestMatchers("/vendedor","/vendedor/**").hasRole("VEND")
                         .anyRequest().authenticated()
                 )
@@ -32,7 +32,7 @@ public class WebSecurityConfig{
                         .loginPage("/login")
                         .usernameParameter("id") // Nombre del campo en el formulario
                         .passwordParameter("password") // Nombre del campo en el formulario
-                        .loginProcessingUrl("/procesarLogin")
+                        .loginProcessingUrl("/home")
                         .successForwardUrl("/redirect")
                         .permitAll()
                 )

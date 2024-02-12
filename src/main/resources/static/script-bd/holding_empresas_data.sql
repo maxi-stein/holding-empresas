@@ -19,12 +19,6 @@
 -- Table structure for table `areas_asesoradas`
 --
 
-DROP DATABASE IF EXISTS holding_empresas;
-
-CREATE DATABASE holding_empresas;
-
-USE holding_empresas;
-
 DROP TABLE IF EXISTS `areas_asesoradas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -221,6 +215,36 @@ INSERT INTO `empleados` VALUES (1,'adm','Maximiliano','Stein',NULL,NULL,NULL,0),
 UNLOCK TABLES;
 
 --
+-- Table structure for table `empleados_seguridad`
+--
+
+DROP TABLE IF EXISTS `empleados_seguridad`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `empleados_seguridad` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `usuario_id` int NOT NULL,
+  `password` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+  `rol` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `usuario_id_UNIQUE` (`usuario_id`),
+  KEY `usuario_id_idx` (`usuario_id`),
+  CONSTRAINT `usuario_id` FOREIGN KEY (`usuario_id`) REFERENCES `empleados` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `empleados_seguridad`
+--
+
+LOCK TABLES `empleados_seguridad` WRITE;
+/*!40000 ALTER TABLE `empleados_seguridad` DISABLE KEYS */;
+INSERT INTO `empleados_seguridad` VALUES (1,1,'maxi','ADM'),(2,2,'mati','ADM'),(3,3,'a','VEND'),(4,4,'a','VEND'),(5,5,'a','VEND'),(6,6,'a','VEND'),(7,7,'a','VEND'),(8,8,'a','VEND'),(9,9,'a','VEND'),(10,10,'a','VEND'),(11,11,'a','ASES'),(12,12,'a','ASES'),(13,13,'a','ASES'),(14,14,'a','ASES');
+/*!40000 ALTER TABLE `empleados_seguridad` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `empresas`
 --
 
@@ -311,20 +335,6 @@ INSERT INTO `vendedores_captados` VALUES (4,3,'2023-08-12'),(6,5,'2021-02-27'),(
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-
-CREATE TABLE `empleados_seguridad` (
-  `id` bigint(3) NOT NULL,
-  `usuario_id` bigint(5) UNSIGNED NOT NULL,
-  `password` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-ALTER TABLE `empleados_seguridad`
-  MODIFY `id` bigint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-COMMIT;
-
-ALTER TABLE `empleados_seguridad`
-  ADD PRIMARY KEY (`id`);
-
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
@@ -333,4 +343,4 @@ ALTER TABLE `empleados_seguridad`
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-30 23:55:23
+-- Dump completed on 2024-02-11 21:20:06
