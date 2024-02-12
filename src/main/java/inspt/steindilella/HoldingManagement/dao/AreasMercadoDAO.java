@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Repository
 public class AreasMercadoDAO implements AreasMercadoDAOInterface {
@@ -27,8 +28,9 @@ public class AreasMercadoDAO implements AreasMercadoDAOInterface {
 
     @Override
     public Set<AreasMercado> getAll() {
-        TypedQuery<AreasMercado> getAll = entityManager.createQuery("SELECT e FROM AreasMercado e ORDER BY e.nombre ASC", AreasMercado.class);
-        Set<AreasMercado> listado = new HashSet<>(getAll.getResultList());
+        TypedQuery<AreasMercado> getAll = entityManager.createQuery("SELECT e FROM AreasMercado e WHERE e.eliminado=0 ORDER BY e.nombre ASC", AreasMercado.class);
+        Set<AreasMercado> listado = new TreeSet<>(getAll.getResultList());
+
         return listado;
     }
 

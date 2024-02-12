@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Areas de Mercado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+
+    <h3>Directorio de Areas de Mercado</h3>
+    <hr>
+
+    <div class="container mt-3">
+        <form th:action="@{/admin/areasMercado/agregar}" method="post" th:object="${area}">
+
+            <input type="hidden" th:field="*{id}">
+            
+            <input type="text" th:field="*{nombre}" placeholder="Nombre"
+            class="form-control mb-4 w-25">
+
+            <input type="text" th:field="*{descripcion}" placeholder="descripción"
+            class="form-control mb-4 w-25">
+
+            <button type="submit" class="btn btn-info col-2">Agregar</button>
+            <br>
+
+            <a th:href="@{/admin/areasMercado/listar}">Volver al listado de Areas de Mercado</a>
+        </form>
+    </div>
+    
+</body>
+</html>

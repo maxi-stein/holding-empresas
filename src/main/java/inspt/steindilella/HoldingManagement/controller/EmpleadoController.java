@@ -1,5 +1,6 @@
 package inspt.steindilella.HoldingManagement.controller;
 
+import inspt.steindilella.HoldingManagement.entity.Administrador;
 import inspt.steindilella.HoldingManagement.entity.Asesor;
 import inspt.steindilella.HoldingManagement.entity.Vendedor;
 import inspt.steindilella.HoldingManagement.service.AreasMercadoService;
@@ -27,11 +28,15 @@ public class EmpleadoController {
         this.areasService = areasService;
     }
 
-    @Autowired
-
 
     @GetMapping("/admin")
-    public String admin(){
+    public String administrador(@RequestParam Integer id, Model model){
+
+        //recupero al admin
+        Administrador adm = (Administrador) empleadoService.getById(id);
+
+        model.addAttribute("admin",adm);
+
         return "admin";
     }
 
@@ -45,8 +50,6 @@ public class EmpleadoController {
 
         //rescato los vendedores captados del vendedor
         vendedor.setVendedoresCaptados(empleadoService.getVendedoresCaptados(id));
-
-        System.out.println("Se mostrara el empleado: " + vendedor.toString());
 
         model.addAttribute("vendedor",vendedor);
 

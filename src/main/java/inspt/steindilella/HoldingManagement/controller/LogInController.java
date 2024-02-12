@@ -34,8 +34,6 @@ public class LogInController {
 
         Empleado empleado = empleadoService.getById(Integer.valueOf(id));
 
-        model.addAttribute("empleado",empleado);
-
         //despacho la vista con la interface
         return empleado.despacharVista() + "?id=" + id;
 

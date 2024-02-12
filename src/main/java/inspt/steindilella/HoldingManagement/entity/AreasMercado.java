@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "areas_mercado")
-public class AreasMercado {
+public class AreasMercado implements Comparable<AreasMercado> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -93,5 +93,10 @@ public class AreasMercado {
                 ", descripcion='" + descripcion + '\'' +
                 ", eliminado=" + eliminado +
                 '}';
+    }
+
+    @Override
+    public int compareTo(AreasMercado o) {
+        return this.nombre.compareTo(o.nombre);
     }
 }
