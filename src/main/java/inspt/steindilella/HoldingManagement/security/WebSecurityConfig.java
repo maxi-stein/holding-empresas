@@ -22,7 +22,7 @@ public class WebSecurityConfig{
 
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/","procesarLogin").permitAll()
+                        .requestMatchers("/","procesarLogin","/css/**").permitAll()
                         .requestMatchers("/admin","/admin/**").hasRole("ADM")
                         .requestMatchers("/asesor","/asesor/**").hasRole("ASES")
                         .requestMatchers("/vendedor","/vendedor/**").hasRole("VEND")
