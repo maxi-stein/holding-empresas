@@ -1,13 +1,13 @@
 package inspt.steindilella.HoldingManagement.controller;
 
+import inspt.steindilella.HoldingManagement.entity.Empleado;
 import inspt.steindilella.HoldingManagement.service.EmpleadoServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.ArrayList;
 
 @Controller
 public class LogInController {
@@ -30,31 +30,15 @@ public class LogInController {
     }
 
     @PostMapping("/redirect")
-    public String redirect(@RequestParam String id){
+    public String redirect(@RequestParam String id, Model model){
 
-        var empleado = empleadoService.getById(Integer.valueOf(id));
+        Empleado empleado = empleadoService.getById(Integer.valueOf(id));
 
-        return empleado.despacharVista();
+        model.addAttribute("empleado",empleado);
 
-    }
+        //despacho la vista con la interface
+        return empleado.despacharVista() + "?id=" + id;
 
-    @GetMapping("/admin")
-    public String admin(){
-        return "admin";
-    }
-
-    @GetMapping("/vendedor")
-    public String vendedor(){
-        return "vendedor";
-    }
-
-    @GetMapping("/asesor")
-    public String asesor(){
-        return "asesor";
-    }
-
-    private boolean contieneRol(ArrayList<String> roles, String rol){
-       return roles.stream().anyMatch(s -> s.equals(rol));
     }
 
 }

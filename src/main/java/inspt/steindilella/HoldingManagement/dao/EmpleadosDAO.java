@@ -104,26 +104,22 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     }
 
     @Override
-    public Set<Vendedor> getVendedoresCaptados(Integer idPadre) {
+    public Set<VendedorCaptado> getVendedoresCaptados(Integer idPadre) {
+        //rescato al vendedor padre
         TypedQuery<Vendedor> query = entityManager
                 .createQuery("SELECT v FROM Vendedor v WHERE v.id = :idPadre", Vendedor.class);
                 query.setParameter("idPadre",idPadre);
 
-
         Vendedor vendedor = query.getSingleResult();
 
-        Set<Vendedor> vendedoresCaptados = new HashSet<>();
-
+        //Obtengo una lista de VendedorCaptodo
         List<VendedorCaptado> vc = entityManager.createQuery(
                         "SELECT vc FROM VendedorCaptado vc WHERE vc.vendedorPadre = :vendedor", VendedorCaptado.class)
                 .setParameter("vendedor", vendedor)
                 .getResultList();
 
-        for (VendedorCaptado element : vc) {
-            vendedoresCaptados.add(element.getVendedorCaptado());
-        }
-
-        return vendedoresCaptados;
+        //Devuelvo el Set de VendedorCaptado
+        return new HashSet<>(vc);
     }
 
     @Override

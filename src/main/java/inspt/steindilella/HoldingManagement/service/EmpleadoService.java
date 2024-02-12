@@ -57,7 +57,7 @@ public class EmpleadoService implements EmpleadoServiceInterface{
         return empleadoDao.getEmpresasAsesoradas(id);
     }
     @Override
-    public Set<Vendedor> getVendedoresCaptados(Integer idPadre) {
+    public Set<VendedorCaptado> getVendedoresCaptados(Integer idPadre) {
         return empleadoDao.getVendedoresCaptados(idPadre);
     }
 
@@ -93,15 +93,16 @@ public class EmpleadoService implements EmpleadoServiceInterface{
         if(empleadoDao.getCaptadorDelVendedor(idVendedorCaptado) == null){
 
             //si no fue captado por nadie, verifico que no haya captado al vendedor A o alguno de sus captadores
-            Set<Vendedor> v = empleadoDao.getVendedoresCaptados(idVendedorCaptado);
+            Set<VendedorCaptado> v = empleadoDao.getVendedoresCaptados(idVendedorCaptado);
 
-            for(Vendedor element : v){
+            for(VendedorCaptado vc : v){
                 //"¿captó al vendedor A?"
-                if(element.getId().equals(idVendedor)){
+                Vendedor vend = vc.getVendedorPadre();
+                if(vend.getId().equals(idVendedor)){
                     return true;
                 }
                 //si no es asi, itero sobre sus vendedores captados para ver si alguno de ellos ya captaron al vendedor A
-                if(vendedorYaFueCaptado(idVendedor,element.getId())){
+                if(vendedorYaFueCaptado(idVendedor,vend.getId())){
                     return true;
                 }
             }

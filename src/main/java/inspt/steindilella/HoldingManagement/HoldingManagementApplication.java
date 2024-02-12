@@ -127,11 +127,12 @@ public class HoldingManagementApplication {
 	}
 
 	public void testVendedores(EmpleadoServiceInterface esiDao){
-		Set<Vendedor> listCaptados = esiDao.getVendedoresCaptados(4);
+		Set<VendedorCaptado> listCaptados = esiDao.getVendedoresCaptados(4);
 
-		for(Vendedor v : listCaptados){
-			System.out.println("Vendedor captado: "+ v.getNombre()+" "+v.getApellido());
-			System.out.println("Fecha captacion: "+esiDao.getFechaCaptado(4,v.getId()));
+		for(VendedorCaptado v : listCaptados){
+			Vendedor vend = v.getVendedorCaptado();
+			System.out.println("Vendedor captado: "+ vend.getNombre()+" "+vend.getApellido());
+			System.out.println("Fecha captacion: "+esiDao.getFechaCaptado(4,vend.getId()));
 		}
 	}
 

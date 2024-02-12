@@ -16,7 +16,7 @@ public interface EmpleadoServiceInterface {
 
     LocalDate getFechaAsesorEmpresa(Integer idAsesor, Integer idEmpresa);
 
-    Set<Vendedor> getVendedoresCaptados(Integer idPadre);
+    Set<VendedorCaptado> getVendedoresCaptados(Integer idPadre);
 
     void agregarVendedorCaptado(Integer idVendedor, Integer idVendedorCaptado, LocalDate fechaCaptado);
     void cubrirAreaMercado(AreasMercado area, Integer idAsesor);
