@@ -82,4 +82,9 @@ public class Vendedor extends Empleado{
     public void agregarVendedorCaptado(VendedorCaptado vc){
         vendedoresCaptados.add(vc);
     }
+
+    @Override
+    public String despacharVista() {
+        return "/vendedor";
+    }
 }

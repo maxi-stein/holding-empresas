@@ -98,4 +98,9 @@ public class Asesor extends Empleado {
                 ", direccion='" + direccion + '\'' +
                 '}';
     }
+
+    @Override
+    public String despacharVista() {
+        return "/asesor";
+    }
 }

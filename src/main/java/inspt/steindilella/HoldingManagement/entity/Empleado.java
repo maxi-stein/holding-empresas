@@ -8,7 +8,7 @@ import java.util.Objects;
 @Table(name = "empleados")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING)
-public abstract class Empleado{
+public abstract class Empleado implements CapazDeDespacharVista{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,6 +71,10 @@ public abstract class Empleado{
 
     public void setEliminado(Integer eliminado) {
         this.eliminado = eliminado;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

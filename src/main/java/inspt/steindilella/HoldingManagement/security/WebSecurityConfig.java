@@ -33,7 +33,7 @@ public class WebSecurityConfig{
                         .usernameParameter("id") // Nombre del campo en el formulario
                         .passwordParameter("password") // Nombre del campo en el formulario
                         .loginProcessingUrl("/procesarLogin")
-                        .successForwardUrl("/home")
+                        .successForwardUrl("/redirect")
                         .permitAll()
                 )
                 .logout((logout) -> logout.permitAll())
