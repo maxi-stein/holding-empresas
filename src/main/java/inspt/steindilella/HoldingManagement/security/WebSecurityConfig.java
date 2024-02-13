@@ -1,18 +1,23 @@
 package inspt.steindilella.HoldingManagement.security;
 
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.resource.PathResourceResolver;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig{
+public class WebSecurityConfig implements WebMvcConfigurer {
 
     @Autowired
     UserDetailsService customUserDetailsService;
@@ -22,7 +27,7 @@ public class WebSecurityConfig{
 
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/","procesarLogin","/css/**").permitAll()
+                        .requestMatchers("/","/login","/procesarLogin","/static/**").permitAll()
                         .requestMatchers("/admin","/admin/**").hasRole("ADM")
                         .requestMatchers("/asesor","/asesor/**").hasRole("ASES")
                         .requestMatchers("/vendedor","/vendedor/**").hasRole("VEND")
@@ -42,20 +47,22 @@ public class WebSecurityConfig{
         return http.build();
     }
 
-   /* @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("password")
-                        .roles("USER")
-                        .build();
-        //System.out.println("!! UserDetails !!");
-       //System.out.println(user.getUsername()+" "+user.getPassword());
-        return new InMemoryUserDetailsManager(user);
-    }*/
+    //con este metodo evito que los recursos estaticos se envien con un MIME del tipo (aplication/json) y se envien como (text/css)
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-   @Bean
+        registry.addResourceHandler("/static/css/**") //son todas las URL que voy a manejar
+                .addResourceLocations("classpath:/static/")// Especifico la ubicación donde se encuentran los recursos estáticos
+
+                .resourceChain(true)//con estos metodos cambio el MIME a text/css
+                .addResolver(new PathResourceResolver() {
+                    protected MediaType getMediaType(Resource resource) {
+                        return MediaType.parseMediaType("text/css");
+                    }
+                });
+    }
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         //return new BCryptPasswordEncoder();
        return NoOpPasswordEncoder.getInstance();
