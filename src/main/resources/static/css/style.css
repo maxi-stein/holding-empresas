@@ -19,6 +19,13 @@ body {
     align-items: center;
 }
 
+#container {
+
+    max-width: 80%;
+    margin: 5rem auto;
+
+}
+
 .logo {
     width: 200px;
     margin-bottom: 2rem;

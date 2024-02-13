@@ -17,7 +17,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/admin/{id}(id=${admin.id})}" aria-current="page" href="#">Inicio</a>
+                        <a class="nav-link" th:href="@{/admin}" aria-current="page" href="#">Inicio</a>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -53,14 +53,17 @@
     </nav>
 
 
-    <div class="container mt-3">
-        <h3>Areas de Mercado</h3>
+    <div class="container mt-3 " id="container">
+        <h3>Areas</h3>
         <hr>
 
-        <a th:href="@{/admin/areasMercado/formulario}"
-        class="btn btn-primary btn-sm mb-3">
-            Agregar Area de Mercado
-        </a>
+        <div>
+            <a th:href="@{/admin/areasMercado/formulario}"
+               class="btn btn-primary btn-sm mb-3">
+                Agregar Area de Mercado
+            </a>
+        </div>
+
 
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
@@ -76,12 +79,12 @@
                     <td th:text="${area.nombre}"></td>
                     <td th:text="${area.descripcion}"></td>
 
-                    <td>
-                        <a th:href="@{/admin/areasMercado/actualizar(idTemporal=${area.id})}" class="btn btn-primary btn-sm mb-3">
+                    <td class="row">
+                        <a th:href="@{/admin/areasMercado/actualizar(idTemporal=${area.id})}" class="btn btn-primary btn-sm mb-3 col-6">
                             Actualizar</a>
 
                         <a th:href="@{/admin/areasMercado/eliminar(idTemporal=${area.id})}"
-                        class="btn btn-danger btn-sm mb-3"
+                        class="btn btn-danger btn-sm mb-3 col-6"
                         onclick="if (! (confirm('Seguro desea eliminar el registro?'))) return false">Eliminar</a>
                     </td>
 

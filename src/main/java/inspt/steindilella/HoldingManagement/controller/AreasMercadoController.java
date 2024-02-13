@@ -3,6 +3,8 @@ package inspt.steindilella.HoldingManagement.controller;
 import inspt.steindilella.HoldingManagement.entity.Administrador;
 import inspt.steindilella.HoldingManagement.entity.AreasMercado;
 import inspt.steindilella.HoldingManagement.service.AreasMercadoService;
+import inspt.steindilella.HoldingManagement.service.EmpleadoService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,15 +17,22 @@ import java.util.Set;
 public class AreasMercadoController {
 
     private AreasMercadoService areasMercadoService;
+    private EmpleadoService empleadoService;
 
     @Autowired
-    public AreasMercadoController(AreasMercadoService areasMercadoService) {
+    public AreasMercadoController(AreasMercadoService areasMercadoService, EmpleadoService empleadoService) {
         this.areasMercadoService = areasMercadoService;
+        this.empleadoService = empleadoService;
     }
 
     @GetMapping("/listar")
-    public String listarAreas(@ModelAttribute("admin") Administrador admin, Model model){
+    public String listarAreas(HttpSession session, Model model){
         Set<AreasMercado> set = areasMercadoService.getAll();
+
+        String idtemp = (String) session.getAttribute("id");
+        Integer id = Integer.valueOf(idtemp);
+
+        Administrador admin = (Administrador) empleadoService.getById(id);
 
         model.addAttribute("areas",set);
         model.addAttribute("admin",admin);
@@ -64,7 +73,6 @@ public class AreasMercadoController {
 
         return "formulario-areasmercado";
     }
-
 
     @GetMapping("/eliminar")
     public String eliminar(@RequestParam("idTemporal") Integer id){
