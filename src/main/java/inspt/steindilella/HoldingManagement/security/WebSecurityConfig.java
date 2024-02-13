@@ -27,7 +27,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/","/login","/procesarLogin","/static/**").permitAll()
+                        .requestMatchers("/","/login","/procesarLogin","/static/**","/css/**").permitAll()
                         .requestMatchers("/admin","/admin/**").hasRole("ADM")
                         .requestMatchers("/asesor","/asesor/**").hasRole("ASES")
                         .requestMatchers("/vendedor","/vendedor/**").hasRole("VEND")
@@ -42,6 +42,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                         .permitAll()
                 )
                 .logout((logout) -> logout.permitAll())
+                .headers(headers -> headers.cacheControl(cacheControl -> cacheControl.disable()))
                 .userDetailsService(customUserDetailsService); // Configurar el UserDetailsService personalizado
                // .passwordEncoder(passwordEncoder()); // Configurar el codificador de contraseñas
         return http.build();
