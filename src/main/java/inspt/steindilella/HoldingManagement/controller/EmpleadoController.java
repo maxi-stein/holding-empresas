@@ -17,15 +17,11 @@ public class EmpleadoController {
 
     private EmpleadoService empleadoService;
     private EmpresaService empresaService;
-    private AreasMercadoService areasService;
-
-
 
     @Autowired
     public EmpleadoController(EmpleadoService empleadoService, EmpresaService empresaService, AreasMercadoService areasService) {
         this.empleadoService = empleadoService;
         this.empresaService = empresaService;
-        this.areasService = areasService;
     }
 
 

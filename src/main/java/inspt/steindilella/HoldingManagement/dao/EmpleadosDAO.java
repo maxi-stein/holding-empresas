@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Repository
 public class EmpleadosDAO implements EmpleadosDAOInterface{
@@ -32,6 +33,13 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     public Set<Empleado> getAll() {
         TypedQuery<Empleado> query = entityManager.createQuery("SELECT e FROM Empleado e",Empleado.class);
         return new HashSet<>(query.getResultList());
+    }
+
+    @Override
+    public Set<Administrador> getAdministradores() {
+        TypedQuery<Administrador> query = entityManager.createQuery("SELECT a FROM Administrador a WHERE a.eliminado = 0 ORDER BY a.nombre ASC ", Administrador.class);
+
+        return new TreeSet<>(query.getResultList());
     }
 
     @Override
@@ -209,7 +217,8 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
 
     @Override
     @Transactional
-    public void delete(Empleado emp) {
+    public void delete(Integer id) {
+        Empleado emp = getById(id);
         emp.setEliminado(1);
         entityManager.merge(emp);
     }

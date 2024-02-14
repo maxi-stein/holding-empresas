@@ -26,10 +26,10 @@
                             Usuarios
                         </a>
                         
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Administradores</a></li>
-                            <li><a class="dropdown-item" href="#">Asesores</a></li>
-                            <li><a class="dropdown-item" href="#">Vendedores</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                            <li><a class="dropdown-item" th:href="@{/admin/usuarios/listarAdmin}" >Administradores</a></li>
+                            <li><a class="dropdown-item" th:href="@{/admin/usuarios/listarAses}">Asesores</a></li>
+                            <li><a class="dropdown-item" th:href="@{/admin/usuarios/listarVend}">Vendedores</a></li>
                         </ul>
 
                     </li>

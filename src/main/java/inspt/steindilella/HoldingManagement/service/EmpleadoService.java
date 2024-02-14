@@ -43,6 +43,11 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     }
 
     @Override
+    public Set<Administrador> getAdministradores() {
+        return empleadoDao.getAdministradores();
+    }
+
+    @Override
     public LocalDate getFechaAsesorEmpresa(Integer idAsesor, Integer idEmpresa) {
         return empleadoDao.getFechaAsesorEmpresa(idAsesor, idEmpresa);
     }
@@ -123,8 +128,8 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     }
 
     @Override
-    public void delete(Empleado emp) {
-        empleadoDao.delete(emp);
+    public void delete(Integer id) {
+        empleadoDao.delete(id);
     }
 
     @Override

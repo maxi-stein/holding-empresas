@@ -9,6 +9,7 @@ public interface EmpleadoServiceInterface {
     Empleado getById(Integer id);
     Set<Empleado> getAll();
     Set<Empleado> getEmpleadosPorEmpresa(Integer id);
+    Set<Administrador> getAdministradores();
 
     LocalDate getFechaCaptado(Integer idPadre, Integer idCaptado);
 
@@ -24,7 +25,7 @@ public interface EmpleadoServiceInterface {
 
     void save(Empleado emp);
     void update(Empleado emp);
-    void delete(Empleado emp);
+    void delete(Integer id);
 
     void savePass(Credencial password);
     void updatePass(Credencial password);

@@ -9,6 +9,7 @@ public interface EmpleadosDAOInterface {
 
     Empleado getById(Integer id);
     Set<Empleado> getAll();
+    Set<Administrador> getAdministradores();
     Set<Empleado> getEmpleadosPorEmpresa(Integer id);
 
     Set<Empresa> getEmpresasAsesoradas(Integer id);
@@ -24,7 +25,7 @@ public interface EmpleadosDAOInterface {
     void save(Empleado emp);
     void save(VendedorCaptado vc);
     void update(Empleado emp);
-    void delete(Empleado emp);
+    void delete(Integer id);
 
     void savePass(Credencial password);
     void updatePass(Credencial password);

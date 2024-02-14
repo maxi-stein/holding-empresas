@@ -8,7 +8,7 @@ import java.util.Objects;
 @Table(name = "empleados")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING)
-public abstract class Empleado implements CapazDeDespacharVista{
+public abstract class Empleado implements CapazDeDespacharVista, Comparable<Empleado>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,6 +75,11 @@ public abstract class Empleado implements CapazDeDespacharVista{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    @Override
+    public int compareTo(Empleado o) {
+        return this.nombre.compareTo(o.nombre);
     }
 
     @Override
