@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 @Controller
@@ -141,19 +140,9 @@ public class CrudEmpleadoController {
     }
 
     @PostMapping("/agregarAses")
-    public String agregarAses(@ModelAttribute("asesFormulario") Asesor asesor,
-                              @ModelAttribute("idAreas") String[] idAreas){
-
+    public String agregarAses(@ModelAttribute("asesFormulario") Asesor asesor){
+        
         asesor.setEliminado(0);
-
-        //Transformo el Array de IDs de AreasMercado que llega de Thymeleaf al Set de areas asesoradas
-        Set<AreasMercado> areas = new TreeSet<>();
-
-        for(String a : idAreas){
-            areas.add(areasMercadoService.getById(Integer.valueOf(a)));
-        }
-
-        asesor.setAreasAsesoradas(areas);
 
         //si el id es null, es porque estoy creando el admin
         if(asesor.getId() == null){
