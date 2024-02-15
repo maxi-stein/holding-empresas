@@ -14,7 +14,8 @@ public interface EmpleadoServiceInterface {
 
     LocalDate getFechaCaptado(Integer idPadre, Integer idCaptado);
 
-    Set<Empresa> getEmpresasAsesoradas(Integer id);
+    Set<Empresa> getEmpresasAsesoradas(Integer idAsesor);
+    Set<AreasMercado> getAreasAsesoradasPorAsesor(Integer idAsesor);
 
     LocalDate getFechaAsesorEmpresa(Integer idAsesor, Integer idEmpresa);
 

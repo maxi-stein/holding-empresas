@@ -94,6 +94,11 @@ public class CrudEmpleadoController {
     public String listarAses(HttpSession session, Model model){
         recuperarAdmin(session,model);
         Set<Asesor> asesores = empleadoService.getAsesores();
+
+        for(Asesor a : asesores){
+            a.setAreasAsesoradas(empleadoService.getAreasAsesoradasPorAsesor(a.getId()));
+        }
+
         model.addAttribute("asesores",asesores);
 
         return "listarAses";

@@ -66,6 +66,12 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     public Set<Empresa> getEmpresasAsesoradas(Integer id) {
         return empleadoDao.getEmpresasAsesoradas(id);
     }
+
+    @Override
+    public Set<AreasMercado> getAreasAsesoradasPorAsesor(Integer idAsesor) {
+        return empleadoDao.getAreasAsesoradasPorAsesor(idAsesor);
+    }
+
     @Override
     public Set<VendedorCaptado> getVendedoresCaptados(Integer idPadre) {
         return empleadoDao.getVendedoresCaptados(idPadre);

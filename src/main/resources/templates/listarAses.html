@@ -69,8 +69,10 @@
       <th class="col-1">ID</th>
       <th class="col-1">Nombre</th>
       <th class="col-1">Apellido</th>
-      <th class="col-1">Titulación</th>
+      <th class="col-2">Titulación</th>
       <th class="col-1">Dirección</th>
+      <th class="col-2">Areas Asoradas</th>
+      <th class="col-2">Empresas Asesoradas</th>
       <th class="col-1">ABM</th>
     </tr>
     </thead>
@@ -82,6 +84,12 @@
       <td th:text="${asesTemp.apellido}"></td>
       <td th:text="${asesTemp.titulacion}"></td>
       <td th:text="${asesTemp.direccion}"></td>
+
+      <td>
+        <div th:each="areaMerc : ${asesTemp.areasAsesoradas}">
+          <div th:text="${areaMerc.nombre}"></div>
+        </div>
+      </td>
 
       <td class="row">
         <a th:href="@{/admin/usuarios/actualizarAses(idTemporal=${asesTemp.id})}" class="btn btn-primary btn-sm mb-3 col-6">Actualizar</a>

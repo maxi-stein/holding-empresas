@@ -96,6 +96,13 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     }
 
     @Override
+    public Set<AreasMercado> getAreasAsesoradasPorAsesor(Integer idAsesor) {
+        TypedQuery<AreasMercado> query = entityManager.createQuery("SELECT a.areasAsesoradas FROM Asesor a WHERE a.id = :idAsesor", AreasMercado.class);
+        query.setParameter("idAsesor",idAsesor);
+        return new TreeSet<>(query.getResultList());
+    }
+
+    @Override
     public LocalDate getFechaAsesorEmpresa(Integer idAsesor, Integer idEmpresa) {
         TypedQuery<Asesor> queryAsesor = entityManager
                 .createQuery("SELECT a FROM Asesor a WHERE a.id = :idAsesor",Asesor.class);
