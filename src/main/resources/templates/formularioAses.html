@@ -36,6 +36,7 @@
 
     <hr>
 
+  <div th:if="${asesFormulario.id != null}">
     <table class="table table-striped">
       <thead>
       <tr>
@@ -48,7 +49,7 @@
         <td th:text="${area.nombre}"></td>
         <td>
           <form th:action="@{/admin/usuarios/eliminarAreaAsesorada/{idArea}/{idAsesor}(idArea=${area.id}, idAsesor=${asesFormulario.id})}" method="post">
-              <button type="submit" class="btn btn-danger">Eliminar</button>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
           </form>
         </td>
       </tr>
@@ -60,6 +61,8 @@
         <button type="submit" class="btn btn-primary" th:text="${area.nombre}"></button>
       </form>
     </div>
+  </div>
+
 
     <a th:href="@{/admin/usuarios/listarAses}">Volver al Directorio de Asesores</a>
 
