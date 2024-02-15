@@ -68,5 +68,6 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         //return new BCryptPasswordEncoder();
        return NoOpPasswordEncoder.getInstance();
    }
+
 }
 

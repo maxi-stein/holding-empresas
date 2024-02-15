@@ -10,6 +10,7 @@ public interface EmpleadoServiceInterface {
     Set<Empleado> getAll();
     Set<Empleado> getEmpleadosPorEmpresa(Integer id);
     Set<Administrador> getAdministradores();
+    Set<Asesor> getAsesores();
 
     LocalDate getFechaCaptado(Integer idPadre, Integer idCaptado);
 

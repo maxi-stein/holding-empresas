@@ -26,8 +26,8 @@
           </a>
 
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" th:href="@{/admin/usuarios/listarAdmin}" style="font-weight: bold;">Administradores</a></li>
-            <li><a class="dropdown-item" th:href="@{/admin/usuarios/listarAses}">Asesores</a></li>
+            <li><a class="dropdown-item" th:href="@{/admin/usuarios/listarAdmin}">Administradores</a></li>
+            <li><a class="dropdown-item" th:href="@{/admin/usuarios/listarAses}" style="font-weight: bold;">Asesores</a></li>
             <li><a class="dropdown-item" th:href="@{/admin/usuarios/listarVend}">Vendedores</a></li>
           </ul>
 
@@ -53,16 +53,15 @@
 
 
 <div class="container mt-3 " id="container">
-  <h3>Administradores</h3>
+  <h3>Asesores</h3>
   <hr>
 
   <div>
-    <a th:href="@{/admin/usuarios/formularioAdmin}"
+    <a th:href="@{/admin/usuarios/formularioAses}"
        class="btn btn-primary btn-sm mb-3">
-      Crear Administrador
+      Registrar Asesor
     </a>
   </div>
-
 
   <table class="table table-bordered table-striped">
     <thead class="table-dark">
@@ -70,21 +69,24 @@
       <th class="col-1">ID</th>
       <th class="col-1">Nombre</th>
       <th class="col-1">Apellido</th>
+      <th class="col-1">Titulación</th>
+      <th class="col-1">Dirección</th>
       <th class="col-1">ABM</th>
     </tr>
     </thead>
 
     <tbody>
-    <tr th:each="adminTemp : ${admins}">
-      <td th:text="${adminTemp.id}"></td>
-      <td th:text="${adminTemp.nombre}"></td>
-      <td th:text="${adminTemp.apellido}"></td>
+    <tr th:each="asesTemp : ${asesores}">
+      <td th:text="${asesTemp.id}"></td>
+      <td th:text="${asesTemp.nombre}"></td>
+      <td th:text="${asesTemp.apellido}"></td>
+      <td th:text="${asesTemp.titulacion}"></td>
+      <td th:text="${asesTemp.direccion}"></td>
 
       <td class="row">
-        <a th:href="@{/admin/usuarios/actualizarAdmin(idTemporal=${adminTemp.id})}" class="btn btn-primary btn-sm mb-3 col-6">
-          Actualizar</a>
+        <a th:href="@{/admin/usuarios/actualizarAses(idTemporal=${asesTemp.id})}" class="btn btn-primary btn-sm mb-3 col-6">Actualizar</a>
 
-        <a th:href="@{/admin/usuarios/eliminarAdmin(idTemporal=${adminTemp.id})}"
+        <a th:href="@{/admin/usuarios/eliminarAses(idTemporal=${asesTemp.id})}"
            class="btn btn-danger btn-sm mb-3 col-6"
            onclick="if (! (confirm('Seguro desea eliminar el registro?'))) return false">Eliminar</a>
       </td>
@@ -100,3 +102,4 @@
 
 </body>
 </html>
+

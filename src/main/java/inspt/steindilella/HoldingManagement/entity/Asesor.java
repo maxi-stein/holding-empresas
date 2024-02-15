@@ -26,6 +26,9 @@ public class Asesor extends Empleado {
             inverseJoinColumns = @JoinColumn(name = "id_area_mercado_asesorada"))
     private Set<AreasMercado> areasAsesoradas;
 
+    @Transient
+    private String[] areasAsesoradasIds;
+
     public Asesor() {
     }
 
@@ -81,6 +84,14 @@ public class Asesor extends Empleado {
 
     public void setAreasAsesoradas(Set<AreasMercado> areasAsesoradas) {
         this.areasAsesoradas = areasAsesoradas;
+    }
+
+    public String[] getAreasAsesoradasIds() {
+        return areasAsesoradasIds;
+    }
+
+    public void setAreasAsesoradasIds(String[] areasAsesoradasIds) {
+        this.areasAsesoradasIds = areasAsesoradasIds;
     }
 
     public void cubrirArea(AreasMercado area){

@@ -23,7 +23,14 @@ public class AreasMercadoDAO implements AreasMercadoDAOInterface {
 
     @Override
     public AreasMercado getById(Integer id) {
-        return entityManager.find(AreasMercado.class, id);
+        AreasMercado a = entityManager.find(AreasMercado.class, id);
+        if(a == null){
+            //todo
+            System.out.println("Area no encontrada!");
+        }
+
+        return a;
+
     }
 
     @Override

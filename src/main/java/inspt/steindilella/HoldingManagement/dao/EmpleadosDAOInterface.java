@@ -10,6 +10,7 @@ public interface EmpleadosDAOInterface {
     Empleado getById(Integer id);
     Set<Empleado> getAll();
     Set<Administrador> getAdministradores();
+    Set<Asesor> getAsesores();
     Set<Empleado> getEmpleadosPorEmpresa(Integer id);
 
     Set<Empresa> getEmpresasAsesoradas(Integer id);
