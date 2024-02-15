@@ -19,6 +19,12 @@
 -- Table structure for table `areas_asesoradas`
 --
 
+DROP DATABASE IF EXISTS holding_empresas;
+
+CREATE DATABASE holding_empresas;
+
+USE holding_empresas;
+
 DROP TABLE IF EXISTS `areas_asesoradas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -240,7 +246,7 @@ CREATE TABLE `empleados_seguridad` (
 
 LOCK TABLES `empleados_seguridad` WRITE;
 /*!40000 ALTER TABLE `empleados_seguridad` DISABLE KEYS */;
-INSERT INTO `empleados_seguridad` VALUES (1,1,'maxi','ADM'),(2,2,'mati','ADM'),(3,3,'a','VEND'),(4,4,'a','VEND'),(5,5,'a','VEND'),(6,6,'a','VEND'),(7,7,'a','VEND'),(8,8,'a','VEND'),(9,9,'a','VEND'),(10,10,'a','VEND'),(11,11,'a','ASES'),(12,12,'a','ASES'),(13,13,'a','ASES'),(14,14,'a','ASES');
+INSERT INTO `empleados_seguridad` VALUES (1,1,'a','ADM'),(2,2,'a','ADM'),(3,3,'a','VEND'),(4,4,'a','VEND'),(5,5,'a','VEND'),(6,6,'a','VEND'),(7,7,'a','VEND'),(8,8,'a','VEND'),(9,9,'a','VEND'),(10,10,'a','VEND'),(11,11,'a','ASES'),(12,12,'a','ASES'),(13,13,'a','ASES'),(14,14,'a','ASES');
 /*!40000 ALTER TABLE `empleados_seguridad` ENABLE KEYS */;
 UNLOCK TABLES;
 

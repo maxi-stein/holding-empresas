@@ -117,14 +117,6 @@ public class HoldingManagementApplication {
 		System.out.println(emp.getAsesoresPorEmpresa(2));
 	}
 
-	public void testEmpresaAsesorada(EmpleadoServiceInterface esiDao){
-		Set<Empresa> listEmpresas = esiDao.getEmpresasAsesoradas(12);
-
-		for(Empresa element : listEmpresas){
-			System.out.println("Empresa: "+element.getNombre());
-			System.out.println("Fecha Inicio: "+esiDao.getFechaAsesorEmpresa(12, element.getId()));
-		}
-	}
 
 	public void testVendedores(EmpleadoServiceInterface esiDao){
 		Set<VendedorCaptado> listCaptados = esiDao.getVendedoresCaptados(4);
@@ -189,7 +181,7 @@ public class HoldingManagementApplication {
 		Empleado asesor = esiDao.getById(11);
 		AreasMercado area = areaDao.getById(2);
 
-		esiDao.DesvincularAreaMercado(area, asesor.getId());
+		esiDao.desvincularAreaMercado(area, asesor.getId());
 	}
 
 	public void testUsuarioContrasenia(EmpleadoServiceInterface esiDao){

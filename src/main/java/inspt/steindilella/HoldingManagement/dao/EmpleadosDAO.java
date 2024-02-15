@@ -69,30 +69,21 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     }
 
     @Override
-    public Set<Empresa> getEmpresasAsesoradas(Integer id) {
+    public Set<AsesorEmpresa> getEmpresasAsesoradas(Integer id) {
         TypedQuery<Asesor> query = entityManager
                 .createQuery("SELECT a FROM Asesor a WHERE a.id = :idAsesor",Asesor.class);
         query.setParameter("idAsesor",id);
 
         Asesor asesor = query.getSingleResult();
 
-        Set<Empresa> empresasAsesoradas = new HashSet<>();
-
-        // Se realiza una segunda consulta para cargar la colección debido a Hibernate podría ignorar la carga perezosa LAZY
-        // y cargar todas las entidades relacionadas de inmediato.
-        // En lugar de eso, se realiza una segunda consulta para obtener las empresas asociadas.
+        // Se realiza una segunda consulta para obtener las empresas asociadas.
         List<AsesorEmpresa> ae = entityManager.createQuery(
-                        "SELECT ae FROM AsesorEmpresa ae WHERE ae.asesor = :asesor", AsesorEmpresa.class)
+                        "SELECT ae FROM AsesorEmpresa ae WHERE ae.asesor = :asesor ORDER BY ae.empresa.nombre", AsesorEmpresa.class)
                 .setParameter("asesor", asesor)
                 .getResultList();
 
-        Set<AsesorEmpresa> listado = new HashSet<>(ae); //JPA siempre devuelve un tipo ArrayList.
+        return new HashSet<>(ae); //JPA siempre devuelve un tipo ArrayList.
 
-        for (AsesorEmpresa element : listado) {
-            empresasAsesoradas.add(element.getEmpresa());
-        }
-
-        return empresasAsesoradas;
     }
 
     @Override

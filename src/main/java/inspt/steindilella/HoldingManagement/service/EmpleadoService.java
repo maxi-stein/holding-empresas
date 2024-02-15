@@ -63,8 +63,8 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     }
     
     @Override
-    public Set<Empresa> getEmpresasAsesoradas(Integer id) {
-        return empleadoDao.getEmpresasAsesoradas(id);
+    public Set<AsesorEmpresa> getEmpresasAsesoradas(Integer idAsesor) {
+        return empleadoDao.getEmpresasAsesoradas(idAsesor);
     }
 
     @Override
@@ -202,7 +202,7 @@ public class EmpleadoService implements EmpleadoServiceInterface{
 
     @Override
     @Transactional
-    public void DesvincularAreaMercado(AreasMercado areasMercado, Integer idAsesor){
+    public void desvincularAreaMercado(AreasMercado areasMercado, Integer idAsesor){
         //Busco el asesor
         Asesor asesor = null;
         //Busco el area

@@ -2,6 +2,7 @@ package inspt.steindilella.HoldingManagement.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -98,5 +99,18 @@ public class AreasMercado implements Comparable<AreasMercado> {
     @Override
     public int compareTo(AreasMercado o) {
         return this.nombre.compareTo(o.nombre);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AreasMercado that = (AreasMercado) o;
+        return id.equals(that.id) && nombre.equals(that.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre);
     }
 }

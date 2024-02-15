@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "asesores_empresa")
-public class AsesorEmpresa {
+public class AsesorEmpresa implements Comparable<AsesorEmpresa> {
 
     @EmbeddedId
     private AsesorEmpresaId id;
@@ -78,5 +78,10 @@ public class AsesorEmpresa {
 
     public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
+    }
+
+    @Override
+    public int compareTo(AsesorEmpresa o) {
+        return this.empresa.getNombre().compareTo(o.empresa.getNombre());
     }
 }

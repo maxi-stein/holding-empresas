@@ -70,7 +70,7 @@
       <th class="col-1">Nombre</th>
       <th class="col-1">Apellido</th>
       <th class="col-2">Titulación</th>
-      <th class="col-1">Dirección</th>
+      <th class="col-2">Dirección</th>
       <th class="col-2">Areas Asoradas</th>
       <th class="col-2">Empresas Asesoradas</th>
       <th class="col-1">ABM</th>
@@ -87,16 +87,26 @@
 
       <td>
         <div th:each="areaMerc : ${asesTemp.areasAsesoradas}">
-          <div th:text="${areaMerc.nombre}"></div>
+          <ul>
+            <li th:text="${areaMerc.nombre}"></li>
+          </ul>
+        </div>
+      </td>
+
+      <td>
+        <div th:each="aseEmp : ${asesTemp.empresasAsesoradas}">
+          <div th:text="${aseEmp.empresa.nombre}"></div>
+          <div th:text="'Fecha inicio: ' + ${aseEmp.fechaInicio}" style="font-style: italic;"></div>
+          <br>
         </div>
       </td>
 
       <td class="row">
         <a th:href="@{/admin/usuarios/actualizarAses(idTemporal=${asesTemp.id})}" class="btn btn-primary btn-sm mb-3 col-6">Actualizar</a>
 
-        <a th:href="@{/admin/usuarios/eliminarAses(idTemporal=${asesTemp.id})}"
-           class="btn btn-danger btn-sm mb-3 col-6"
+        <a th:href="@{/admin/usuarios/eliminarAses(idTemporal=${asesTemp.id})}" class="btn btn-danger btn-sm mb-3 col-6"
            onclick="if (! (confirm('Seguro desea eliminar el registro?'))) return false">Eliminar</a>
+
       </td>
 
     </tr>

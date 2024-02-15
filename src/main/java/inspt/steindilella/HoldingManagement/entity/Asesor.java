@@ -26,9 +26,6 @@ public class Asesor extends Empleado {
             inverseJoinColumns = @JoinColumn(name = "id_area_mercado_asesorada"))
     private Set<AreasMercado> areasAsesoradas;
 
-    @Transient
-    private String[] areasAsesoradasIds;
-
     public Asesor() {
     }
 
@@ -86,20 +83,20 @@ public class Asesor extends Empleado {
         this.areasAsesoradas = areasAsesoradas;
     }
 
-    public String[] getAreasAsesoradasIds() {
-        return areasAsesoradasIds;
-    }
-
-    public void setAreasAsesoradasIds(String[] areasAsesoradasIds) {
-        this.areasAsesoradasIds = areasAsesoradasIds;
-    }
-
     public void cubrirArea(AreasMercado area){
         areasAsesoradas.add(area);
     }
 
     public void quitarAreaAsesor(AreasMercado area){
         areasAsesoradas.remove(area);
+    }
+
+
+    public boolean esAreaSeleccionada(AreasMercado area) {
+        if (areasAsesoradas != null) {
+            return areasAsesoradas.contains(area);
+        }
+        return false;
     }
 
     @Override

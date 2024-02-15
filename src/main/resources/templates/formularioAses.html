@@ -28,18 +28,41 @@
     <input type="text" th:field="*{direccion}" placeholder="Direccion"
            class="form-control mb-4 w-25">
 
-    <label>Areas de Mercado:</label>
-    <div th:each="area : ${areasMercado}">
-      <input type="checkbox" th:id="${'area-' + area.id}" th:field="*{areasAsesoradasIds}" th:value="${area.id}"/>
-      <label th:for="${'area-' + area.id}" th:text="${area.nombre}"></label>
-      <br/>
-    </div>
 
-    <button type="submit" class="btn btn-info col-2">Agregar</button>
+    <button type="submit" class="btn btn-info col-2">Guardar</button>
     <br>
 
-    <a th:href="@{/admin/usuarios/listarAses}">Volver al Directorio de Asesores</a>
   </form>
+
+    <hr>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Area de Mercado</th>
+        <th>Acción</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="area : ${areasMercadoAsesoradas}">
+        <td th:text="${area.nombre}"></td>
+        <td>
+          <form th:action="@{/admin/usuarios/eliminarAreaAsesorada/{idArea}/{idAsesor}(idArea=${area.id}, idAsesor=${asesFormulario.id})}" method="post">
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div th:each="area : ${areasMercadoSinAses}">
+      <form th:action="@{/admin/usuarios/agregarAreaAsesorada/{idArea}/{idAsesor}(idArea=${area.id}, idAsesor=${asesFormulario.id})}" method="post">
+        <button type="submit" class="btn btn-primary" th:text="${area.nombre}"></button>
+      </form>
+    </div>
+
+    <a th:href="@{/admin/usuarios/listarAses}">Volver al Directorio de Asesores</a>
+
 </div>
 
 </body>
