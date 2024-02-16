@@ -36,9 +36,16 @@
 
     <hr>
 
+
+  <!-- Si creo el Asesor, el id es nulo por lo tanto no puedo pasarlo como pathvariable en el enpoint y genero error, por eso bloqueo la vista-->
+
   <div th:if="${asesFormulario.id != null}">
+
+    <!--tabla de ABM area de mercados asesoradas-->
+
     <table class="table table-striped">
       <thead>
+      <h3>ABM - Areas de Mercado Asesoradas</h3>
       <tr>
         <th>Area de Mercado</th>
         <th>Acción</th>
@@ -56,6 +63,7 @@
       </tbody>
     </table>
 
+    <h4>Agregar un Area Asesorada</h4>
     <div th:each="area : ${areasMercadoSinAses}">
       <form th:action="@{/admin/usuarios/agregarAreaAsesorada/{idArea}/{idAsesor}(idArea=${area.id}, idAsesor=${asesFormulario.id})}" method="post">
         <button type="submit" class="btn btn-primary" th:text="${area.nombre}"></button>
@@ -63,6 +71,66 @@
     </div>
   </div>
 
+  <hr>
+
+  <!--tabla de ABM de empresas asesoradas-->
+
+  <table class="table table-striped">
+    <h3>ABM - Empresas Asesoradas</h3>
+    <thead>
+    <tr>
+      <th>Empresa</th>
+      <th>Fecha Inicio</th>
+      <th>Acción</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="emp : ${empresasAsesoradas}">
+      <td th:text="${emp.empresa.nombre}"></td>
+      <td th:text="${emp.fechaInicio}"></td>
+      <td>
+        <form th:action="@{/admin}" method="post">
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-striped">
+    <h4>Agregar una Empresa Asesorada</h4>
+
+    <thead>
+    <tr>
+      <th>Empresa</th>
+      <th>Fecha Inicio</th>
+      <th>Acción</th>
+    </tr>
+    </thead>
+
+
+    <tbody>
+        <tr th:each="empre : ${empresasNoAsesoradas}">
+
+          <form th:action="@{/admin/usuarios/agregarEmpresaAsesorada/{idEmpresa}(idEmpresa=${empre.id})}" method="post">
+
+            <td th:text="${empre.nombre}"></td>
+
+            <td>
+              <input type="date" th:field="${fechaInicio}">
+            </td>
+
+            <td>
+                <button type="submit" class="btn btn-primary">Agregar</button>
+            </td>
+
+          </form>
+
+        </tr>
+
+    </tbody>
+
+  </table>
 
     <a th:href="@{/admin/usuarios/listarAses}">Volver al Directorio de Asesores</a>
 
