@@ -51,6 +51,7 @@ public class AreasMercadoController {
 
     @PostMapping("/agregar")
     public String agregar(@ModelAttribute("area") AreasMercado area){
+        System.out.println(area.toString());
 
         //si el id es null, es porque estoy creando el area
         if(area.getId() == null){

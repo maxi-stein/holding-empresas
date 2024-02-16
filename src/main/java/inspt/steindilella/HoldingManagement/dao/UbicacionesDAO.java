@@ -51,6 +51,7 @@ public class UbicacionesDAO implements UbicacionesDAOInterface {
     }
 
     @Override
+    @Transactional
     public Set<Ciudad> getAllCiudades() {
         TypedQuery<Ciudad> ciudades = entityManager.createQuery("SELECT c FROM Ciudad c ORDER BY c.nombre ASC", Ciudad.class);
         Set<Ciudad> listado = new HashSet<>(ciudades.getResultList());

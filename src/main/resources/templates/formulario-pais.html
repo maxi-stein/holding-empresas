@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Ciudad</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><span th:text="${admin.apellido} + ' ' + ${admin.nombre}">Nombre Empleado no encontrado</span></a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin}" aria-current="page" href="#">Inicio</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Usuarios
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Administradores</a></li>
+                            <li><a class="dropdown-item" href="#">Asesores</a></li>
+                            <li><a class="dropdown-item" href="#">Vendedores</a></li>
+                        </ul>
+
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" style="font-weight: bold;" th:href="@{/admin/empresas/listar}">Empresas</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a  class="nav-link"  th:href="@{/admin/areasMercado/listar}">Areas de Mercado</a>
+                    </li>
+
+                </ul>
+
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Salir" class="btn btn-outline-success">
+                </form>
+
+            </div>
+        </div>
+    </nav>
+
+    <h3>Directorio de Ciudades</h3>
+    <hr>
+
+    <div class="container mt-3">
+        <form th:action="@{/admin/empresas/ubicaciones/agregarPais(idTemporal=${pais.id})}" method="post" th:object="${pais}">
+
+            <input type="hidden" th:field="*{id}" />
+
+            
+            <input type="text" th:field="*{nombre}" placeholder="nombre"
+            class="form-control mb-4 w-25">
+
+            <input type="text" th:field="*{pbi}" placeholder="pbi"
+                   class="form-control mb-4 w-25">
+
+            <label for="capital">Capital:</label>
+            <select id="capital" name="capital.id" class="form-control mb-4 w-25" th:field="*{capital.id}">
+                <option th:each="ciudad : ${ciudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}"></option>
+            </select>
+
+            <input type="text" th:field="*{habitantes}" placeholder="habitantes"
+                   class="form-control mb-4 w-25">
+
+
+            <input type="hidden" th:field="*{eliminado}" />
+
+            <button type="submit" class="btn btn-info col-2">Agregar</button>
+            <br>
+
+            <a th:href="@{/admin/empresas/ubicaciones/listar}">Volver al listado de Ciudades</a>
+        </form>
+        <a th:href="@{/admin/empresas/listar}">Crear Pais</a>
+        <a th:href="@{/admin/empresas/ubicaciones/listar}">ABM Ubicaciones</a>
+    </div>
+    
+</body>
+</html>

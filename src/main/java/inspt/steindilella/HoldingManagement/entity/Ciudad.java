@@ -15,7 +15,7 @@ public class Ciudad {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "eliminado")
+    @Column(name = "eliminado", nullable = false)
     private Integer eliminado;
 
     //Pais al cual la Ciudad pertenece (no-capital)

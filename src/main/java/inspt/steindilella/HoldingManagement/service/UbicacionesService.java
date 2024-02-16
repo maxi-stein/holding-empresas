@@ -41,6 +41,7 @@ public class UbicacionesService implements UbicacionesServiceInterface {
     }
 
     @Override
+    @Transactional
     public void updatePais(Pais pais) {
         ubicacionesDAO.updatePais(pais);
     }

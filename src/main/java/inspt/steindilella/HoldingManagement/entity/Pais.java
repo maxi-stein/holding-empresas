@@ -30,10 +30,11 @@ public class Pais {
             cascade = CascadeType.ALL)
     private Set<Ciudad> ciudad;
 
+
     @Column(name = "habitantes")
     private BigInteger habitantes;
 
-    @Column(name = "eliminado")
+    @Column(name = "eliminado", nullable = false)
     private Integer eliminado;
 
     public Integer getId() {
