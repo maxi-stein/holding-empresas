@@ -7,6 +7,7 @@ import inspt.steindilella.HoldingManagement.service.EmpresaService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -145,7 +146,6 @@ public class CrudEmpleadoController {
         model.addAttribute("areasMercadoAsesoradas", areasAsesoradas);
         model.addAttribute("empresasAsesoradas",empresasAsesoradas);
         model.addAttribute("empresasNoAsesoradas",empresasNoAsesoradas);
-        model.addAttribute("fechaInicio", LocalDate.now());
 
     }
 
@@ -236,13 +236,32 @@ public class CrudEmpleadoController {
         return "redirect:/admin/usuarios/actualizarAses?idTemporal="+asesor.getId();
     }
 
-    @PostMapping("/agregarEmpresaAsesorada/{idEmpresa}")
-    public String agregarEmpresaAsesorada(@PathVariable("idEmpresa") Integer idEmpresa,
-                                          @ModelAttribute("fechaInicio") String fecha){
+    @PostMapping("/agregarEmpresaAsesorada/{idEmpresa}/{idAsesor}")
+    public String agregarEmpresaAsesorada(@PathVariable("idEmpresa") Integer idEmpresa, @PathVariable("idAsesor") Integer idAsesor,
+                                          @RequestParam("fechaInicio")
+                                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaInicio, Model model){
 
-        System.out.println("Se obtiene: " + idEmpresa);
-        System.out.println(fecha);
-        return "redirect:/admin/usuarios/listarAses";
+        Asesor asesor = (Asesor) empleadoService.getById(idAsesor);
+
+        //creo el AsesorEmpresa
+        empresaService.agregarAsesor(asesor,fechaInicio,idEmpresa);
+
+        cargarDatosFormularioAdmin(asesor,model);
+
+        return "redirect:/admin/usuarios/actualizarAses?idTemporal="+asesor.getId();
+    }
+
+    @PostMapping("eliminarEmpresaAsesorada/{idEmpresa}/{idAsesor}")
+    public String eliminarEmpresaAsesorada(@PathVariable("idEmpresa") Integer idEmpresa,
+                                           @PathVariable("idAsesor") Integer idAsesor,Model model){
+
+        Asesor asesor = (Asesor) empleadoService.getById(idAsesor);
+
+        empresaService.desvincularAsesor(asesor,idEmpresa);
+
+        cargarDatosFormularioAdmin(asesor,model);
+
+        return "redirect:/admin/usuarios/actualizarAses?idTemporal="+asesor.getId();
     }
 
 

@@ -89,7 +89,7 @@
       <td th:text="${emp.empresa.nombre}"></td>
       <td th:text="${emp.fechaInicio}"></td>
       <td>
-        <form th:action="@{/admin}" method="post">
+        <form th:action="@{/admin/usuarios/eliminarEmpresaAsesorada/{idEmpresa}/{idAsesor}(idEmpresa=${emp.empresa.id},idAsesor=${asesFormulario.id})}" method="post">
           <button type="submit" class="btn btn-danger">Eliminar</button>
         </form>
       </td>
@@ -112,12 +112,13 @@
     <tbody>
         <tr th:each="empre : ${empresasNoAsesoradas}">
 
-          <form th:action="@{/admin/usuarios/agregarEmpresaAsesorada/{idEmpresa}(idEmpresa=${empre.id})}" method="post">
+          <form th:action="@{/admin/usuarios/agregarEmpresaAsesorada/{idEmpresa}/{idAsesor}(idEmpresa=${empre.id},idAsesor=${asesFormulario.id})}"
+                method="post">
 
             <td th:text="${empre.nombre}"></td>
 
             <td>
-              <input type="date" th:field="${fechaInicio}">
+              <input type="date" th:name="fechaInicio">
             </td>
 
             <td>
