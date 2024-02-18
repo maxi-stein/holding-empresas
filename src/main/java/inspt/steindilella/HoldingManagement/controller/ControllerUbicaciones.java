@@ -29,7 +29,7 @@ public class ControllerUbicaciones {
     }
 
     @GetMapping("/listar")
-    public String listarAreas(HttpSession session, Model model){
+    public String listarCiudades(HttpSession session, Model model){
         //traigo todas las ciudades registradas
         Set<Ciudad> set = ubicacionesService.getAllCiudades();
         //traigo el usuario admin
@@ -41,6 +41,21 @@ public class ControllerUbicaciones {
         model.addAttribute("admin",admin);
 
         return "listar-ubicaciones.html";
+    }
+
+    @GetMapping("/listarPaises")
+    public String listarPaises(HttpSession session, Model model){
+        //traigo todas las ciudades registradas
+        Set<Pais> set = ubicacionesService.getAllPaises();
+        //traigo el usuario admin
+        String idtemp = (String) session.getAttribute("id");
+        Integer id = Integer.valueOf(idtemp);
+        Administrador admin = (Administrador) empleadoService.getById(id);
+        //agrego al modelo las ciudades y paises
+        model.addAttribute("paises",set);
+        model.addAttribute("admin",admin);
+
+        return "listar-paises.html";
     }
 
     @GetMapping("/formularioCiudad")
@@ -192,7 +207,7 @@ public class ControllerUbicaciones {
             ubicacionesService.savePais(nuevoPais);
         }
 
-        return "redirect:/admin/empresas/ubicaciones/listar";
+        return "redirect:/admin/empresas/ubicaciones/listarPaises";
     }
 
     @GetMapping("/eliminarPais")
