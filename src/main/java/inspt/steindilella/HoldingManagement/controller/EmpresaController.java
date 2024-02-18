@@ -1,13 +1,16 @@
 package inspt.steindilella.HoldingManagement.controller;
 
 import inspt.steindilella.HoldingManagement.entity.Administrador;
+import inspt.steindilella.HoldingManagement.entity.AreasMercado;
 import inspt.steindilella.HoldingManagement.entity.Ciudad;
 import inspt.steindilella.HoldingManagement.entity.Empresa;
+import inspt.steindilella.HoldingManagement.service.AreasMercadoService;
 import inspt.steindilella.HoldingManagement.service.EmpleadoService;
 import inspt.steindilella.HoldingManagement.service.EmpresaService;
 import inspt.steindilella.HoldingManagement.service.UbicacionesService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +24,13 @@ public class EmpresaController {
     private EmpresaService empresaService;
     private UbicacionesService ubicacionesService;
     private EmpleadoService empleadoService;
+    private AreasMercadoService areasMercadoService;
     @Autowired
-    public EmpresaController(EmpresaService empresaService, UbicacionesService ubicacionesService, EmpleadoService empleadoService) {
+    public EmpresaController(EmpresaService empresaService, UbicacionesService ubicacionesService, EmpleadoService empleadoService, AreasMercadoService areasMercadoService) {
         this.empresaService = empresaService;
         this.ubicacionesService = ubicacionesService;
         this.empleadoService= empleadoService;
+        this.areasMercadoService = areasMercadoService;
     }
 
     @GetMapping("/listar")
@@ -36,6 +41,8 @@ public class EmpresaController {
         Integer id = Integer.valueOf(idtemp);
 
         Administrador admin = (Administrador) empleadoService.getById(id);
+
+        //buscamos las areas relacionadas a las empresas.
 
         model.addAttribute("empresas",set);
         model.addAttribute("admin",admin);
@@ -56,8 +63,13 @@ public class EmpresaController {
 
         //agrego el listado de ciudades al html
         Set<Ciudad> ciudades = ubicacionesService.getAllCiudades();
-        System.out.println(ciudades.size());
+        //System.out.println(ciudades.size());
         model.addAttribute("ciudades", ciudades);
+
+        //agrego el listado de areas de mercado al html
+        Set<AreasMercado> areas = areasMercadoService.getAll();
+        //System.out.println(areas.size());
+        //model.addAttribute("areas", areas);
 
         return "formulario-empresa";
     }
@@ -75,6 +87,8 @@ public class EmpresaController {
             }
             else{
                 System.out.println("Se actualiza registro de empresa");
+                Set<AreasMercado> areasCubiertas = empresaService.getAreasMercadoPorEmpresa(id);
+                empresa.setAreasMercados(areasCubiertas);
                 empresaService.update(empresa);
             }
         }else{
@@ -106,10 +120,17 @@ public class EmpresaController {
         model.addAttribute("empresa",empresa);
         System.out.println("Se actualiza "+empresa.toString());
 
+        //agregamos el listado de areas al html
+        Set<AreasMercado> areas = areasMercadoService.getAll();
+        Set<AreasMercado> areasCubiertas = empresa.getAreasMercados();
+
         //agrego el listado de ciudades al html
         Set<Ciudad> ciudades = ubicacionesService.getAllCiudades();
+
         System.out.println(ciudades.size());
         model.addAttribute("ciudades", ciudades);
+        model.addAttribute("areasMercado", areas);
+        model.addAttribute("areasCubiertas", areasCubiertas);
         model.addAttribute("selectedSedeId", empresa.getSede().getId()); // Suponiendo que empresa tiene un objeto Sede
 
         return "formulario-empresa";
@@ -118,6 +139,55 @@ public class EmpresaController {
     @GetMapping("/eliminar")
     public String eliminar(@RequestParam("idTemporal") Integer id){
         empresaService.delete(id);
+
+        return "redirect:/admin/empresas/listar";
+    }
+
+    @GetMapping("/desbloquear")
+    public String desbloquear(@RequestParam("idTemporal") Integer id){
+        empresaService.desbloquear(id);
+
+        return "redirect:/admin/empresas/listar";
+    }
+
+    @PostMapping("/cubrirArea")
+    public String cubrirArea(@RequestParam ("idTemporal") Integer idEmpresa,
+                             @RequestParam ("idArea") Integer idArea){
+        System.out.println("Se agrega area a empresa: "+idArea+ " " + idEmpresa);
+        if(idArea!= null && idEmpresa != null){
+            //recupero el objeto Empresa
+            Empresa empresa = empresaService.getById(idEmpresa);
+
+            //recupero el objeto Area
+            AreasMercado area = areasMercadoService.getById(idArea);
+            try{
+                empresaService.agregarAreaMercado(area,empresa.getId());
+
+            }catch (DataAccessException e){
+                System.out.println(e.toString());
+            }
+        }
+
+        return "redirect:/admin/empresas/listar";
+    }
+
+    @PostMapping("/quitarArea")
+    public String quitarArea(@RequestParam ("idTemporal") Integer idEmpresa,
+                             @RequestParam ("idArea") Integer idArea){
+        System.out.println("Se quita area a empresa: "+idArea+ " " + idEmpresa);
+        if(idArea!= null && idEmpresa != null){
+            //recupero el objeto Empresa
+            Empresa empresa = empresaService.getById(idEmpresa);
+
+            //recupero el objeto Area
+            AreasMercado area = areasMercadoService.getById(idArea);
+            try{
+                empresaService.quitarAreaMercado(area,empresa.getId());
+
+            }catch (DataAccessException e){
+                System.out.println(e.toString());
+            }
+        }
 
         return "redirect:/admin/empresas/listar";
     }

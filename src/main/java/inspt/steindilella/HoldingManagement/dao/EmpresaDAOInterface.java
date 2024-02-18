@@ -1,6 +1,7 @@
 package inspt.steindilella.HoldingManagement.dao;
 
 import inspt.steindilella.HoldingManagement.entity.*;
+import jakarta.transaction.Transactional;
 
 import java.util.Set;
 
@@ -22,6 +23,10 @@ public interface EmpresaDAOInterface {
     void update(Empresa empresa);
 
     void delete(Integer id);
+
+    @Transactional
+    void desbloquear(Integer id);
+
     void delete(AsesorEmpresa asesorEmpresa);
 
 }

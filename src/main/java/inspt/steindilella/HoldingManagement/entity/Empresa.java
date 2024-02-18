@@ -152,6 +152,10 @@ public class Empresa {
         return areasMercados;
     }
 
+    public void setAreasMercados(Set<AreasMercado> areasMercados) {
+        this.areasMercados = areasMercados;
+    }
+
     public void setVendedores(Set<Empleado> vendedores) {
         this.vendedores = vendedores;
     }

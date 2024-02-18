@@ -109,6 +109,14 @@ public class EmpresaDAO implements EmpresaDAOInterface {
 
     @Override
     @Transactional
+    public void desbloquear(Integer id){
+        Empresa empresa = getById(id);
+        empresa.setEliminado(0);
+        update(empresa);
+    }
+
+    @Override
+    @Transactional
     public void delete(AsesorEmpresa asesorEmpresa) {
         entityManager.remove(asesorEmpresa);
         asesorEmpresa.getEmpresa().getAsesores().remove(asesorEmpresa);

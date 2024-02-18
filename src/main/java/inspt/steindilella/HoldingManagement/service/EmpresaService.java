@@ -201,6 +201,11 @@ public class EmpresaService implements EmpresaServiceInterface{
     }
 
     @Override
+    public void desbloquear(Integer id){
+        empresaDAO.desbloquear(id);
+    }
+
+    @Override
     @Transactional
     public void agregarAreaMercado(AreasMercado areaMercado, Integer id) {
         //cargo la empresa

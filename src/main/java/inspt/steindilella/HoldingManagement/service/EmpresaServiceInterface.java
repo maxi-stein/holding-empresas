@@ -24,6 +24,7 @@ public interface EmpresaServiceInterface {
     void save(Empresa empresa);
     void update(Empresa empresa);
     void delete(Integer id);
+    void desbloquear(Integer id);
 
     void agregarAreaMercado(AreasMercado areaMercado, Integer id);
     void quitarAreaMercado(AreasMercado areaMercado, Integer id);
