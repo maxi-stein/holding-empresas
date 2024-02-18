@@ -45,7 +45,6 @@
                     <li class="nav-item">
                         <a  class="nav-link"  th:href="@{/admin/areasMercado/listar}">Areas de Mercado</a>
                     </li>
-                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
                             Ubicaciones
@@ -67,8 +66,8 @@
     </nav>
 
 
-    <div class="container mt-1 col-5">
-        <h3>Ciudades</h3>
+    <div class="container mt-1" style="max-width: 18cm;">
+        <h3>Paises</h3>
         <div>
             <a th:href="@{/admin/empresas/ubicaciones/formularioCiudad}"
                class="btn btn-info btn-sm mt-1">
@@ -79,30 +78,33 @@
                 Agregar Pais
             </a>
         </div>        
-        <table class="table table-bordered table-striped" id="tablaCiudades">
+        <table class="table table-bordered table-striped mt-1" id="tablaPaises">
             <thead class="table-dark">
                 <tr>
                     <th class="col-3" style="text-align: center;">Nombre</th>
-                    <th class="col-3" style="text-align: center;">Pais</th>
-                    <th class="col-6" style="text-align: center;">ABM</th>
+                    <th class="col-3" style="text-align: center;">Capital</th>
+                    <th class="col-6" style="text-align: center;">PBI</th>
+                    <th class="col-3" style="text-align: center;">Habitantes</th>
+                    <th class="col-3" style="text-align: center;">Bloqueado</th>
+                    <th class="col-4" style="text-align: center;">ABM</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr th:each="ciudad : ${ciudades}">
-                    <td th:text="${ciudad.nombre}"></td>
-                    <td th:text="${ciudad.pais_ciudad.nombre}">N/A</td>
+                <tr th:each="pais : ${paises}">
+                    <td th:text="${pais.nombre}"></td>
+                    <td th:text="${pais.capital.nombre}">N/A</td>
+                    <td th:text="${pais.pbi}">N/A</td>
+                    <td th:text="${pais.habitantes}">N/A</td>
+                    <td th:text="${pais.eliminado == 1 ? 'Si' : 'No'}"></td>
 
-                    <td>
-                        <a th:href="@{/admin/empresas/ubicaciones/actualizar(idTemporal=${ciudad.id})}" class="btn btn-info btn-sm ms-1 mb-3 col-5">
-                            Actualizar Ciudad</a>
-                        <a th:href="@{/admin/empresas/ubicaciones/actualizarPais(idTemporal=${ciudad.pais_ciudad.id})}" class="btn btn-info btn-sm  ms-1 mb-3 col-5">
-                            Modificar Pais</a>
-                        <a th:href="@{/admin/empresas/ubicaciones/eliminarCiudad(idTemporal=${ciudad.id})}"
-                        class="btn btn-danger btn-sm ms-1 mb-3 col-5"
+                    <td >
+                        <a th:href="@{/admin/empresas/ubicaciones/actualizarPais(idTemporal=${pais.id})}" class="btn btn-info btn-sm mb-1">
+                            Modificar</a>
+                        <a th:href="@{/admin/empresas/ubicaciones/eliminarPais(idTemporal=${pais.id})}"
+                        class="btn btn-danger btn-sm mb-1"
                         onclick="if (! (confirm('Seguro desea eliminar el registro?'))) return false">Eliminar</a>
                     </td>
-
                 </tr>
             </tbody>
 
@@ -114,7 +116,7 @@
      <!--AGREGO FILTROS A LA VISTA -->
    <script>
     $(document).ready(function() {
-        $('#tablaCiudades').DataTable(
+        $('#tablaPaises').DataTable(
             {"language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
         }}
