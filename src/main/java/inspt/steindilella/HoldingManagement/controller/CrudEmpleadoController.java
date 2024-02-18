@@ -94,7 +94,7 @@ public class CrudEmpleadoController {
 
     //Metodos para el CRUD de ASESOR
 
-    private void cargarDatosFormularioAdmin(Asesor asesor, Model model){
+    private void cargarDatosFormularioAsesor(Asesor asesor, Model model){
         //Rescato las areas asesoradas
         Set<AreasMercado> areasAsesoradas = empleadoService.getAreasAsesoradasPorAsesor(asesor.getId());
 
@@ -127,19 +127,36 @@ public class CrudEmpleadoController {
 
         Set<Empresa> empresasNoAsesoradas = new HashSet<>();
 
-        if(empresasAsesoradas!=null){
-            for(Empresa e : empresas){
+        boolean hayEmpresasAsesoradas = empresasAsesoradas == null;
+
+            for(Empresa e : empresas) {
+
                 boolean existe = false;
-                for(AsesorEmpresa ae : empresasAsesoradas){
-                    if(Objects.equals(ae.getEmpresa().getId(), e.getId())){
-                        existe = true;
+
+                if (hayEmpresasAsesoradas) {
+                    for (AsesorEmpresa ae : empresasAsesoradas) {
+                        if (Objects.equals(ae.getEmpresa().getId(), e.getId())) {
+                            existe = true;
+                        }
                     }
                 }
-                if(!existe){
-                    empresasNoAsesoradas.add(e);
+
+                //antes de agregar al set de empresas no asesoradas, verifico que sea "asesorable" (deben tener Asesor y Empresa la misma Area de Mercado)
+                if (!existe) {
+                    //itero las Areas de Mercado del Asesor para verificar que tambien dicha area esté en la Empresa
+                    boolean asesorable = false;
+                    for (AreasMercado ae : asesor.getAreasAsesoradas()) {
+                        if (e.getAreasMercados().contains(ae)) {
+                            asesorable = true;
+                        }
+                    }
+                    if (asesorable) {
+                        empresasNoAsesoradas.add(e);
+                    }
                 }
+
             }
-        }
+
 
         model.addAttribute("asesFormulario",asesor);
         model.addAttribute("areasMercadoSinAses", areasSinAsesorar);
@@ -169,7 +186,7 @@ public class CrudEmpleadoController {
         //Instancio un Asesor vacio
         Asesor asesor = new Asesor();
 
-        cargarDatosFormularioAdmin(asesor,model);
+        cargarDatosFormularioAsesor(asesor,model);
 
         return "formularioAses";
     }
@@ -197,7 +214,7 @@ public class CrudEmpleadoController {
         //Rescato el Asesor
         Asesor asesor = (Asesor) empleadoService.getById(id);
 
-        cargarDatosFormularioAdmin(asesor,model);
+        cargarDatosFormularioAsesor(asesor,model);
 
         return "formularioAses";
     }
@@ -217,7 +234,7 @@ public class CrudEmpleadoController {
 
         empleadoService.desvincularAreaMercado(areasMercadoService.getById(idArea),asesor.getId());
 
-        cargarDatosFormularioAdmin(asesor,model);
+        cargarDatosFormularioAsesor(asesor,model);
 
         return "redirect:/admin/usuarios/actualizarAses?idTemporal="+asesor.getId();
 
@@ -231,7 +248,7 @@ public class CrudEmpleadoController {
 
         empleadoService.cubrirAreaMercado(areasMercadoService.getById(idArea),asesor.getId());
 
-        cargarDatosFormularioAdmin(asesor,model);
+        cargarDatosFormularioAsesor(asesor,model);
 
         return "redirect:/admin/usuarios/actualizarAses?idTemporal="+asesor.getId();
     }
@@ -246,7 +263,7 @@ public class CrudEmpleadoController {
         //creo el AsesorEmpresa
         empresaService.agregarAsesor(asesor,fechaInicio,idEmpresa);
 
-        cargarDatosFormularioAdmin(asesor,model);
+        cargarDatosFormularioAsesor(asesor,model);
 
         return "redirect:/admin/usuarios/actualizarAses?idTemporal="+asesor.getId();
     }
@@ -259,7 +276,7 @@ public class CrudEmpleadoController {
 
         empresaService.desvincularAsesor(asesor,idEmpresa);
 
-        cargarDatosFormularioAdmin(asesor,model);
+        cargarDatosFormularioAsesor(asesor,model);
 
         return "redirect:/admin/usuarios/actualizarAses?idTemporal="+asesor.getId();
     }
