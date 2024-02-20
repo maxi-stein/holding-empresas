@@ -12,7 +12,7 @@ public interface EmpresaDAOInterface {
 
     Set<Empresa> getAll();
     Set<AreasMercado> getAreasMercadoPorEmpresa(Integer id);
-    Set<Empleado> getVendedoresPorEmpresa(Integer id);
+    Set<Vendedor> getVendedoresPorEmpresa(Integer id);
     Set<Ciudad> getCiudadesPorEmpresa(Integer id);
     Set<Asesor> getAsesoresPorEmpresa(Empresa empr);
     Set<AsesorEmpresa> getAsesoresPorEmpresaConFechaInicio(Empresa empr);

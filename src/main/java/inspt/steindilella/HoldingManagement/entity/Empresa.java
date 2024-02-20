@@ -37,7 +37,7 @@ public class Empresa {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             targetEntity = Vendedor.class)
-    private Set<Empleado> vendedores;
+    private Set<Vendedor> vendedores;
 
     //todo: cambiar de List<AsesorEmpresa> a Set<AsesorEmpresa> para evitar duplicados
     //Una empresa tiene muchos AsesorEmpresa donde se detalla cada asesor junto a su fecha inicio
@@ -132,7 +132,7 @@ public class Empresa {
         this.eliminado = eliminado;
     }
 
-    public Set<Empleado> getVendedores() {
+    public Set<Vendedor> getVendedores() {
         return vendedores;
     }
 
@@ -156,7 +156,7 @@ public class Empresa {
         this.areasMercados = areasMercados;
     }
 
-    public void setVendedores(Set<Empleado> vendedores) {
+    public void setVendedores(Set<Vendedor> vendedores) {
         this.vendedores = vendedores;
     }
 

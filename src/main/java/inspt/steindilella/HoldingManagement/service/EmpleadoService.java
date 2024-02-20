@@ -108,7 +108,7 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     }
 
     //Si existe un vendedor A que capta a un vendedor B, este metodo verifica que vendedor B no haya captado previamente a vendedor A o alguno de sus captadores
-    private boolean vendedorYaFueCaptado(Integer idVendedor, Integer idVendedorCaptado) {
+    public boolean vendedorYaFueCaptado(Integer idVendedor, Integer idVendedorCaptado) {
 
         //verifico que el vendedor B no fue captado por nadie
         if(empleadoDao.getCaptadorDelVendedor(idVendedorCaptado) == null){

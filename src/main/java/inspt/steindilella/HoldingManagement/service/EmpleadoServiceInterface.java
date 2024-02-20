@@ -52,5 +52,7 @@ public interface EmpleadoServiceInterface {
     String getPass(Empleado usuario);
 
     String getRol(Empleado user);
+
+    boolean vendedorYaFueCaptado(Integer idVendedor, Integer idVendedorCaptado);
 }
 

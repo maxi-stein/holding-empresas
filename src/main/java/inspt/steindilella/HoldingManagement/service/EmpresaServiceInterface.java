@@ -11,7 +11,7 @@ public interface EmpresaServiceInterface {
 
     Set<Empresa> getAll();
     Set<AreasMercado> getAreasMercadoPorEmpresa(Integer id);
-    Set<Empleado> getVendedoresPorEmpresa(Integer id);
+    Set<Vendedor> getVendedoresPorEmpresa(Integer id);
     Set<Ciudad> getCiudadesPorEmpresa(Integer id);
     Set<Asesor> getAsesoresPorEmpresa(Integer id);
 

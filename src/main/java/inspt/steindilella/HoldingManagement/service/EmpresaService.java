@@ -49,7 +49,7 @@ public class EmpresaService implements EmpresaServiceInterface{
     }
 
     @Override
-    public Set<Empleado> getVendedoresPorEmpresa(Integer id) {
+    public Set<Vendedor> getVendedoresPorEmpresa(Integer id) {
         return empresaDAO.getVendedoresPorEmpresa(id);
     }
 
@@ -73,7 +73,7 @@ public class EmpresaService implements EmpresaServiceInterface{
         if(empresa != null){
 
             //cargo sus vendedores y se los seteo
-            Set<Empleado> vendedores = empresaDAO.getVendedoresPorEmpresa(id);
+            Set<Vendedor> vendedores = empresaDAO.getVendedoresPorEmpresa(id);
             empresa.setVendedores(vendedores);
 
             //verifico que el empleado no trabaje en otra empresa
@@ -100,7 +100,7 @@ public class EmpresaService implements EmpresaServiceInterface{
         if(empresa != null){
 
             //cargo sus vendedores y se los seteo
-            Set<Empleado> vendedores = empresaDAO.getVendedoresPorEmpresa(id);
+            Set<Vendedor> vendedores = empresaDAO.getVendedoresPorEmpresa(id);
             empresa.setVendedores(vendedores);
 
             //verifico que el empleado trabaje en la empresa
