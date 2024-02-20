@@ -53,6 +53,6 @@ public interface EmpleadoServiceInterface {
 
     String getRol(Empleado user);
 
-    boolean vendedorYaFueCaptado(Integer idVendedor, Integer idVendedorCaptado);
+    boolean vendedorEsCaptable(Integer idVendedor, Integer idVendedorCaptado);
 }
 
