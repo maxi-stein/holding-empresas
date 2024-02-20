@@ -53,6 +53,11 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     }
 
     @Override
+    public Set<Vendedor> getVendedores() {
+        return empleadoDao.getVendedores();
+    }
+
+    @Override
     public LocalDate getFechaAsesorEmpresa(Integer idAsesor, Integer idEmpresa) {
         return empleadoDao.getFechaAsesorEmpresa(idAsesor, idEmpresa);
     }

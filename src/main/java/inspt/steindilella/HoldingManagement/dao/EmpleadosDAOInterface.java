@@ -15,6 +15,7 @@ public interface EmpleadosDAOInterface {
 
     Set<AsesorEmpresa> getEmpresasAsesoradas(Integer id);
     Set<AreasMercado> getAreasAsesoradasPorAsesor(Integer idAsesor);
+    Set<Vendedor> getVendedores();
     LocalDate getFechaAsesorEmpresa(Integer idAsesor, Integer idEmpresa);
 
     Set<VendedorCaptado> getVendedoresCaptados(Integer idPadre);
