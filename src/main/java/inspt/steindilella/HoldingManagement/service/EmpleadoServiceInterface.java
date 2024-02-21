@@ -33,6 +33,8 @@ public interface EmpleadoServiceInterface {
 
     void agregarVendedorCaptado(Integer idVendedor, Integer idVendedorCaptado, LocalDate fechaCaptado);
 
+    void eliminarVendedorCaptado(Integer idVendedor, Integer idVendedorCaptado);
+
     void cubrirAreaMercado(AreasMercado area, Integer idAsesor);
 
     void desvincularAreaMercado(AreasMercado areasMercado, Integer idAsesor);

@@ -83,6 +83,16 @@ public class Vendedor extends Empleado{
         vendedoresCaptados.add(vc);
     }
 
+    public void eliminarVendedorCaptado(VendedorCaptado vc){
+        if(vendedoresCaptados.contains(vc)){
+            vendedoresCaptados.remove(vc);
+        }
+        else{
+            //todo: manejar excepcion
+            System.out.println("Vendedor captado no encontrontrado en la lista del vendedor padre. No se pudo eliminar el Vendedor Captado.");
+        }
+    }
+
     @Override
     public String despacharVista() {
         return "redirect:/vendedor";

@@ -107,6 +107,22 @@ public class EmpleadoService implements EmpleadoServiceInterface{
         }
     }
 
+    @Override
+    public void eliminarVendedorCaptado(Integer idVendedor, Integer idVendedorCaptado) {
+        if(idVendedor != null && idVendedorCaptado != null){
+
+            Set<VendedorCaptado> vcapt = ( (Vendedor) empleadoDao.getById(idVendedor) ).getVendedoresCaptados();
+
+            if(vcapt.contains(empleadoDao.getVendedorCaptado(idVendedor,idVendedorCaptado))){
+                empleadoDao.eliminarVendedorCaptado(idVendedor,idVendedorCaptado);
+            }
+            else{
+                //todo: manejar exception
+                System.out.println("El vendedor captado no se encuentra en el listado de vendedores captados por el vendedor padre.");
+            }
+        }
+    }
+
     //Si existe un vendedor A que capta a un vendedor B, este metodo verifica que vendedor B no haya captado previamente a vendedor A o alguno de sus captadores
     public boolean vendedorEsCaptable(Integer idVendedor, Integer idVendedorCaptado) {
 
@@ -123,7 +139,7 @@ public class EmpleadoService implements EmpleadoServiceInterface{
                 }
                 //si no es asi, itero sobre sus vendedores captados para ver si alguno de ellos ya captaron al vendedor A
                 if(vc.getVendedorCaptado() != null){
-                    if(vendedorEsCaptable(idVendedor,vc.getVendedorCaptado().getId())){
+                    if(vendedorCaptableIteracion(idVendedor,vc.getVendedorCaptado().getId())){
                         return true;
                     }
                 }
@@ -132,6 +148,31 @@ public class EmpleadoService implements EmpleadoServiceInterface{
 
         //vendedor B ya fue captado por alguien más
         return false;
+    }
+
+    //hace lo mismo que vendedorEsCaptable solo que no verifica que el vendedor no fue captado por nadie
+    private boolean vendedorCaptableIteracion(Integer idVendedor, Integer idVendedorCaptado){
+        //si no fue captado por nadie, verifico que no haya captado al vendedor A o alguno de sus captadores
+        Set<VendedorCaptado> v = empleadoDao.getVendedoresCaptados(idVendedorCaptado);
+
+        if(v != null){
+            for(VendedorCaptado vc : v){
+                //"¿captó al vendedor A?"
+                if(vc.getVendedorPadre().getId().equals(idVendedor)){
+                    return false;
+                }
+                //si no es asi, itero sobre sus vendedores captados para ver si alguno de ellos ya captaron al vendedor A
+                if(vc.getVendedorCaptado() != null){
+                    if(vendedorEsCaptable(idVendedor,vc.getVendedorCaptado().getId())){
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        return true;
+
     }
 
     @Override

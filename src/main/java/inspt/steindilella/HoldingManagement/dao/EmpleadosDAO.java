@@ -142,6 +142,18 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     }
 
     @Override
+    public VendedorCaptado getVendedorCaptado(Integer idPadre, Integer idVendCaptado) {
+        TypedQuery<VendedorCaptado> query = entityManager
+                .createQuery("SELECT vc FROM VendedorCaptado vc" +
+                        "WHERE vc.vendedorPadre = :idPadre AND " +
+                        "vc.vendedorCaptado = :idVendCaptado",VendedorCaptado.class);
+        query.setParameter("idPadre",idPadre);
+        query.setParameter("idVendCaptado",idVendCaptado);
+
+        return query.getSingleResult();
+    }
+
+    @Override
     public Vendedor getCaptadorDelVendedor(Integer idCaptado) {
 
         Vendedor v = null;
@@ -206,6 +218,22 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
             //todo: manejar exception de vendedor ya captado
             System.out.println("El vendedor ya está captado");
         }
+
+    }
+
+    @Override
+    @Transactional
+    public void eliminarVendedorCaptado(Integer idVendedor, Integer idVendedorCaptado) {
+        //obtengo el vendedor y le seteo los vendedores captados
+        Vendedor vendedor = (Vendedor) getById(idVendedor);
+
+        vendedor.setVendedoresCaptados(getVendedoresCaptados(idVendedor));
+
+        VendedorCaptado vc = getVendedorCaptado(idVendedor,idVendedorCaptado);
+
+        vendedor.eliminarVendedorCaptado(vc);
+
+        entityManager.merge(vendedor);
 
     }
 

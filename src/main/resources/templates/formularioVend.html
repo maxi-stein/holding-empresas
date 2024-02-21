@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar un Vendedor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+
+<h3>Formulario de Vendedor</h3>
+<hr>
+
+<div class="container mt-3">
+  <form th:action="@{/admin/vendedor/agregar}" method="post" th:object="${vendFormulario}">
+
+    <input type="hidden" th:field="*{id}">
+
+    <input type="text" th:field="*{nombre}" placeholder="Nombre"
+           class="form-control mb-4 w-25">
+
+    <input type="text" th:field="*{apellido}" placeholder="Apellido"
+           class="form-control mb-4 w-25">
+
+    <input type="text" th:field="*{direccion}" placeholder="Direccion"
+           class="form-control mb-4 w-25">
+
+    <button type="submit" class="btn btn-info col-2">Guardar Datos Personales</button>
+    <br>
+
+  </form>
+
+    <hr>
+
+
+  <!-- Si creo el Vendedor, el id es nulo por lo tanto no puedo pasarlo como pathvariable en el enpoint y genero error, por eso bloqueo la vista-->
+
+  <div th:if="${vendFormulario.id != null}">
+
+    <!--Empresa para la cual trabaja-->
+
+    <div th:if="${vendFormulario.empresa == null}">
+      <form th:action="@{/admin/vendedor/listarEmpresas/{id}(id=${vendFormulario.id})}" method="post">
+        <button type="submit" class="btn btn-primary">Seleccionar Empresa</button>
+      </form>
+    </div>
+
+    <!--Tabla de vendedores Captados-->
+
+    <div th:if="${vendFormulario.empresa != null}">
+
+      <table class="table table-striped">
+
+        <thead>
+        <h3>ABM - Vendedores Captados</h3>
+        <tr>
+          <th>Vendedor</th>
+          <th>Fecha Captado</th>
+          <th>Acción</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="vend : ${vendedoresDisponibles}">
+
+          <form th:action="@{/admin/vendedor/eliminarVendedorCaptado/{idVendCapt}/{idVendedor}(idVendCapt=${vend.id},idVendedor=${vendFormulario.id})}"
+                method="post">
+
+            <td th:text="${vend.apellido} + ', ' + ${vend.nombre}"></td>
+
+            <td>
+              <input type="date" th:text="fechaCaptado">
+            </td>
+
+            <td>
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+            </td>
+
+          </form>
+
+        </tr>
+        </tbody>
+      </table>
+
+      <!--Tabla de vendedores a Captar-->
+
+      <table class="table table-striped">
+
+        <thead>
+        <h3>ABM - Vendedores a Captar</h3>
+        <tr>
+          <th>Vendedor</th>
+          <th>Fecha Captado</th>
+          <th>Acción</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="vend : ${vendedoresDisponibles}">
+
+          <form th:action="@{/admin/vendedor/captarVendedor/{idVendCapt}/{idVendedor}(idVendCapt=${vend.id},idVendedor=${vendFormulario.id})}"
+                method="post">
+
+            <td th:text="${vend.apellido} + ', ' + ${vend.nombre}"></td>
+
+            <td>
+              <input type="date" th:name="fechaCaptado">
+            </td>
+
+            <td>
+              <button type="submit" class="btn btn-primary">Agregar</button>
+            </td>
+
+          </form>
+
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <hr>
+    </div>
+
+
+  <!--tabla de ABM de empresas asesoradas-->
+
+
+    <a th:href="@{/admin/vendedor/listar}">Volver al Directorio de Vendedores</a>
+
+</div>
+
+</body>
+</html>

@@ -102,15 +102,17 @@ public class CrudEmpleadoController {
         Set<AreasMercado> areas = areasMercadoService.getAll();
         Set<AreasMercado> areasSinAsesorar = new TreeSet<>();
 
-        for(AreasMercado a : areas){
-            boolean existe = false;
-            for(AreasMercado a_aux : areasAsesoradas){
-                if(a.equals(a_aux)){
-                    existe = true;
+        if(areasAsesoradas != null){
+            for(AreasMercado a : areas){
+                boolean existe = false;
+                for(AreasMercado a_aux : areasAsesoradas){
+                    if(a.equals(a_aux)){
+                        existe = true;
+                    }
                 }
-            }
-            if(!existe){
-                areasSinAsesorar.add(a);
+                if(!existe){
+                    areasSinAsesorar.add(a);
+                }
             }
         }
 
@@ -127,36 +129,38 @@ public class CrudEmpleadoController {
 
         Set<Empresa> empresasNoAsesoradas = new HashSet<>();
 
-        boolean hayEmpresasAsesoradas = empresasAsesoradas == null;
+        boolean hayEmpresasAsesoradas = (empresasAsesoradas != null);
 
-            for(Empresa e : empresas) {
+        for(Empresa e : empresas) {
 
-                boolean existe = false;
+            boolean existe = false;
 
-                if (hayEmpresasAsesoradas) {
-                    for (AsesorEmpresa ae : empresasAsesoradas) {
-                        if (Objects.equals(ae.getEmpresa().getId(), e.getId())) {
-                            existe = true;
-                        }
+            if (hayEmpresasAsesoradas) {
+                for (AsesorEmpresa ae : empresasAsesoradas) {
+                    if (Objects.equals(ae.getEmpresa().getId(), e.getId())) {
+                        existe = true;
                     }
                 }
-
-                //antes de agregar al set de empresas no asesoradas, verifico que sea "asesorable" (deben tener Asesor y Empresa la misma Area de Mercado)
-                if (!existe) {
-                    //itero las Areas de Mercado del Asesor para verificar que tambien dicha area esté en la Empresa
-                    boolean asesorable = false;
-                    for (AreasMercado ae : asesor.getAreasAsesoradas()) {
-                        if (e.getAreasMercados().contains(ae)) {
-                            asesorable = true;
-                        }
-                    }
-                    if (asesorable) {
-                        empresasNoAsesoradas.add(e);
-                    }
-                }
-
             }
 
+            //antes de agregar al set de empresas no asesoradas, verifico que sea "asesorable" (deben tener Asesor y Empresa la misma Area de Mercado)
+            if (!existe && asesor.getAreasAsesoradas() != null) { /*si estoy creando un asesor, no listo ninguna empresa disponible para asesorar*/
+
+                //itero las Areas de Mercado del Asesor para verificar que tambien dicha area esté en la Empresa
+                boolean asesorable = false;
+                for (AreasMercado ae : asesor.getAreasAsesoradas()) {
+                    if (e.getAreasMercados().contains(ae)) {
+                        asesorable = true;
+                    }
+                }
+                if (asesorable) {
+                    empresasNoAsesoradas.add(e);
+                }
+            }
+
+        }
+
+        System.out.println("El asesor tiene id: " + asesor.getId());
 
         model.addAttribute("asesFormulario",asesor);
         model.addAttribute("areasMercadoSinAses", areasSinAsesorar);

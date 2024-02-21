@@ -19,10 +19,12 @@ public interface EmpleadosDAOInterface {
     LocalDate getFechaAsesorEmpresa(Integer idAsesor, Integer idEmpresa);
 
     Set<VendedorCaptado> getVendedoresCaptados(Integer idPadre);
+    VendedorCaptado getVendedorCaptado(Integer idPadre,Integer idVendCaptado);
     Vendedor getCaptadorDelVendedor(Integer idCaptado);
     LocalDate getFechaCaptado(Integer idPadre, Integer idCaptado);
 
     void agregarVendedorCaptado(Integer idVendedor, Integer idVendedorCaptado, LocalDate fechaCaptado);
+    void eliminarVendedorCaptado(Integer idVendedor, Integer idVendedorCaptado);
 
     void save(Empleado emp);
     void save(VendedorCaptado vc);

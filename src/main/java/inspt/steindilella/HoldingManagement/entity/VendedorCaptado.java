@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "vendedores_captados")
-public class VendedorCaptado {
+public class VendedorCaptado implements Comparable<VendedorCaptado> {
 
     @EmbeddedId
     private VendedorCaptadoId id;
@@ -78,5 +78,18 @@ public class VendedorCaptado {
     @Override
     public int hashCode() {
         return Objects.hash(id, vendedorPadre, vendedorCaptado);
+    }
+
+    @Override
+    public int compareTo(VendedorCaptado o) {
+        int comparacionVendedorPadre = this.vendedorPadre.compareTo(o.vendedorPadre);
+
+        if (comparacionVendedorPadre != 0) {
+            // Si la comparación basada en vendedorPadre no es cero, devolver ese resultado
+            return comparacionVendedorPadre;
+        } else {
+            // Si la comparación basada en vendedorPadre es cero, comparar por vendedorCaptado
+            return this.vendedorCaptado.compareTo(o.vendedorCaptado);
+        }
     }
 }

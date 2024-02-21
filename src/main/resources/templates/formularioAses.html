@@ -41,6 +41,7 @@
 
   <div th:if="${asesFormulario.id != null}">
 
+
     <!--tabla de ABM area de mercados asesoradas-->
 
     <table class="table table-striped">
@@ -69,7 +70,7 @@
         <button type="submit" class="btn btn-primary" th:text="${area.nombre}"></button>
       </form>
     </div>
-  </div>
+
 
   <hr>
 
@@ -133,9 +134,9 @@
 
   </table>
 
-    <a th:href="@{/admin/usuarios/listarAses}">Volver al Directorio de Asesores</a>
-
 </div>
+
+<a th:href="@{/admin/usuarios/listarAses}">Volver al Directorio de Asesores</a>
 
 </body>
 </html>
