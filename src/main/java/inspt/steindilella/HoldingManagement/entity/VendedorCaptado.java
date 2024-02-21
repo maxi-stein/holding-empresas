@@ -92,4 +92,13 @@ public class VendedorCaptado implements Comparable<VendedorCaptado> {
             return this.vendedorCaptado.compareTo(o.vendedorCaptado);
         }
     }
+
+    @Override
+    public String toString() {
+        return "VendedorCaptado{" +
+                "vendedorPadre=" + vendedorPadre +
+                ", vendedorCaptado=" + vendedorCaptado +
+                ", fechaCaptado=" + fechaCaptado +
+                '}';
+    }
 }

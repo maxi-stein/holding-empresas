@@ -35,6 +35,8 @@ public interface EmpleadoServiceInterface {
 
     void eliminarVendedorCaptado(Integer idVendedor, Integer idVendedorCaptado);
 
+    void eliminarTodosLosVendedoresCaptados(Integer idVendedor);
+
     void cubrirAreaMercado(AreasMercado area, Integer idAsesor);
 
     void desvincularAreaMercado(AreasMercado areasMercado, Integer idAsesor);

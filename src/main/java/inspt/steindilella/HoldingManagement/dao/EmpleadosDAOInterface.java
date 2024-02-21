@@ -37,4 +37,6 @@ public interface EmpleadosDAOInterface {
 
     String getPass(Empleado usuario);
     String getRol(Empleado usuario);
+
+    void eliminarTodosLosVendedoresCaptados(Integer idVendedor);
 }

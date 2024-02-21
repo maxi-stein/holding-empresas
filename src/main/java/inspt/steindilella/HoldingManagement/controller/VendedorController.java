@@ -145,12 +145,25 @@ public class VendedorController {
 
         return "formularioVendEmpresa";
     }
-
-    //todo: continuar armando este endpoint
+    
     @PostMapping("/agregarEmpresa/{idVendedor}")
     public String agregarEmpresa(@RequestParam("idEmpresa") Integer idEmpresa, @PathVariable("idVendedor") Integer idVendedor){
 
         Vendedor vendedor = (Vendedor) empleadoService.getById(idVendedor);
+
+        vendedor.setVendedoresCaptados(empleadoService.getVendedoresCaptados(idVendedor));
+
+        vendedor.setEmpresa(empresaService.getEmpresaByVendedorId(idVendedor));
+
+        //si el vendedor tiene una empresa, se la elimino
+        if(!vendedor.getVendedoresCaptados().isEmpty() || vendedor.getVendedoresCaptados() != null){
+             empleadoService.eliminarTodosLosVendedoresCaptados(idVendedor);
+        }
+
+        //si el vendedor tiene captados, los elimino
+        if(vendedor.getEmpresa() != null){
+            empresaService.desvincularVendedor(vendedor,vendedor.getEmpresa().getId());
+        }
 
         empresaService.agregarVendedor(vendedor, idEmpresa);
 

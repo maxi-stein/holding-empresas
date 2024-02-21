@@ -2,6 +2,7 @@ package inspt.steindilella.HoldingManagement.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -96,5 +97,9 @@ public class Vendedor extends Empleado{
     @Override
     public String despacharVista() {
         return "redirect:/vendedor";
+    }
+
+    public void eliminarVendedoresCaptados() {
+        vendedoresCaptados = new HashSet<>();
     }
 }

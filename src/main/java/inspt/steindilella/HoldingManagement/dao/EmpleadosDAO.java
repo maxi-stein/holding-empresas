@@ -318,4 +318,22 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
             return "contraseñaPredeterminada"; // O ajusta según tu lógica
         }
     }
+
+    @Override
+    @Transactional
+    public void eliminarTodosLosVendedoresCaptados(Integer idVendedor) {
+        Vendedor vend = (Vendedor) getById(idVendedor);
+
+        Set<VendedorCaptado> vc = vend.getVendedoresCaptados();
+
+        //elimino los registros que relacionan al vendedor con el captador
+        for(VendedorCaptado v : vc){
+            entityManager.remove(v);
+        }
+
+        //elimino el listado de vendedores captados del vendedor
+        vend.eliminarVendedoresCaptados();
+
+        entityManager.merge(vend);
+    }
 }

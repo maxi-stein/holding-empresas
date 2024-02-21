@@ -128,6 +128,13 @@ public class EmpleadoService implements EmpleadoServiceInterface{
         }
     }
 
+    @Override
+    public void eliminarTodosLosVendedoresCaptados(Integer idVendedor) {
+        if(idVendedor != null){
+            empleadoDao.eliminarTodosLosVendedoresCaptados(idVendedor);
+        }
+    }
+
     //Si existe un vendedor A que capta a un vendedor B, este metodo verifica que vendedor B no haya captado previamente a vendedor A o alguno de sus captadores
     public boolean vendedorEsCaptable(Integer idVendedor, Integer idVendedorCaptado) {
 

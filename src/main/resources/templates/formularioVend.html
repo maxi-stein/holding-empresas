@@ -49,6 +49,16 @@
 
     <div th:if="${vendFormulario.empresa != null}">
 
+      <form th:action="@{/admin/vendedor/listarEmpresas/{id}(id=${vendFormulario.id})}" method="post">
+        <h2>Empresa: </h2>
+        <span th:text="${vendFormulario.empresa.nombre}"></span>
+        <button type="submit" class="btn btn-primary"
+                onclick="if (! (confirm('¿Seguro desea cambiar la empresa de trabajo? El vendedor perderá todos su vendedores captados'))) return false">
+          Cambiar de Empresa</button>
+      </form>
+
+      <hr>
+
       <table class="table table-striped">
 
         <thead>
