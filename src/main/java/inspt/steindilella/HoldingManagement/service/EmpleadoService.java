@@ -109,9 +109,10 @@ public class EmpleadoService implements EmpleadoServiceInterface{
 
     @Override
     public void eliminarVendedorCaptado(Integer idVendedor, Integer idVendedorCaptado) {
+
         if(idVendedor != null && idVendedorCaptado != null){
 
-            Set<VendedorCaptado> vcapt = ( (Vendedor) empleadoDao.getById(idVendedor) ).getVendedoresCaptados();
+            Set<VendedorCaptado> vcapt =  empleadoDao.getVendedoresCaptados(idVendedor);
 
             if(vcapt.contains(empleadoDao.getVendedorCaptado(idVendedor,idVendedorCaptado))){
                 empleadoDao.eliminarVendedorCaptado(idVendedor,idVendedorCaptado);
@@ -120,6 +121,10 @@ public class EmpleadoService implements EmpleadoServiceInterface{
                 //todo: manejar exception
                 System.out.println("El vendedor captado no se encuentra en el listado de vendedores captados por el vendedor padre.");
             }
+        }
+        else{
+            //todo: manejar exception
+            System.out.println("Error, alguno de los id son nulos.");
         }
     }
 

@@ -51,4 +51,9 @@ public class VendedorCaptadoId {
     public void setIdVendedorCaptado(Integer idVendedorCaptado) {
         this.idVendedorCaptado = idVendedorCaptado;
     }
+
+    @Override
+    public String toString() {
+        return idVendedor + "_" + idVendedorCaptado;
+    }
 }

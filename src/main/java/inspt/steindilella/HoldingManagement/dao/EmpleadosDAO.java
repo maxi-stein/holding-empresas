@@ -144,9 +144,9 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     @Override
     public VendedorCaptado getVendedorCaptado(Integer idPadre, Integer idVendCaptado) {
         TypedQuery<VendedorCaptado> query = entityManager
-                .createQuery("SELECT vc FROM VendedorCaptado vc" +
-                        "WHERE vc.vendedorPadre = :idPadre AND " +
-                        "vc.vendedorCaptado = :idVendCaptado",VendedorCaptado.class);
+                .createQuery("SELECT vc FROM VendedorCaptado vc " +
+                        "WHERE vc.vendedorPadre.id = :idPadre AND " +
+                        "vc.vendedorCaptado.id = :idVendCaptado",VendedorCaptado.class);
         query.setParameter("idPadre",idPadre);
         query.setParameter("idVendCaptado",idVendCaptado);
 
@@ -233,6 +233,7 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
 
         vendedor.eliminarVendedorCaptado(vc);
 
+        entityManager.remove(vc);
         entityManager.merge(vendedor);
 
     }

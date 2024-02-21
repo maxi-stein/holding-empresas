@@ -172,17 +172,20 @@ public class VendedorController {
         return "redirect:/admin/vendedor/actualizar?idTemporal="+vendedor.getId();
     }
 
-    @PostMapping("/eliminarVendedorCaptado/{idVendCapt}/{idVendedor}")
-    public String desvincularVendedorCaptado(@PathVariable("idVendCapt") Integer idVendCapt,
-                                           @PathVariable("idVendedor") Integer idVendedor,Model model){
+    @PostMapping("/eliminarVendedorCaptado/{id}")
+    public String desvincularVendedorCaptado(@PathVariable("id") String idVendedores,Model model){
 
-        Vendedor vendedor = (Vendedor) empleadoService.getById(idVendedor);
+        String idVendedor = idVendedores.substring(0,idVendedores.indexOf('_'));
 
-        empleadoService.eliminarVendedorCaptado(idVendedor,idVendCapt);
+        String idVendCaptado = idVendedores.substring(idVendedores.indexOf('_')+1,idVendedores.length());
+
+        empleadoService.eliminarVendedorCaptado(Integer.valueOf(idVendedor),Integer.valueOf(idVendCaptado));
+
+        Vendedor vendedor = (Vendedor) empleadoService.getById(Integer.valueOf(idVendedor));
 
         cargarDatosFormulario(vendedor,model);
 
-        return "redirect:/admin/vendedor/actualizarVend?idTemporal="+vendedor.getId();
+        return "redirect:/admin/vendedor/actualizar?idTemporal="+idVendedor;
     }
 
 }
