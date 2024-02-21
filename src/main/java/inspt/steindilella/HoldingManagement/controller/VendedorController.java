@@ -138,18 +138,24 @@ public class VendedorController {
     public String listarEmpresas(@PathVariable("id") Integer id, Model model){
         model.addAttribute("vendFormulario", (Vendedor) empleadoService.getById(id));
         model.addAttribute("empresas",empresaService.getAll());
+        model.addAttribute("empresa", new Empresa());
+
         return "formularioVendEmpresa";
     }
 
     //todo: continuar armando este endpoint
-    @PostMapping("/agregarEmpresa")
-    public String agregarEmpresa(@ModelAttribute("vendFormulario") Vendedor vend){
-        System.out.println("Obtuve el vendedor: " + vend);
+    @PostMapping("/agregarEmpresa/{idVendedor}")
+    public String agregarEmpresa(@RequestParam("idEmpresa") Integer idEmpresa, @PathVariable("idVendedor") Integer idVendedor){
+
+        Vendedor vendedor = (Vendedor) empleadoService.getById(idVendedor);
+
+        empresaService.agregarVendedor(vendedor, idEmpresa);
+
         return "redirect:/admin/vendedor/listar";
     }
 
     @PostMapping("/captarVendedor/{idVendCapt}/{idVendedor}")
-    public String agregarEmpresaAsesorada(@PathVariable("idVendCapt") Integer idVendCapt, @PathVariable("idVendedor") Integer idVendedor,
+    public String captarVendedor(@PathVariable("idVendCapt") Integer idVendCapt, @PathVariable("idVendedor") Integer idVendedor,
                                           @RequestParam("fechaCaptado")
                                           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaCaptado, Model model){
 
@@ -164,7 +170,7 @@ public class VendedorController {
     }
 
     @PostMapping("/eliminarVendedorCaptado/{idVendCapt}/{idVendedor}")
-    public String eliminarEmpresaAsesorada(@PathVariable("idVendCapt") Integer idVendCapt,
+    public String desvincularVendedorCaptado(@PathVariable("idVendCapt") Integer idVendCapt,
                                            @PathVariable("idVendedor") Integer idVendedor,Model model){
 
         Vendedor vendedor = (Vendedor) empleadoService.getById(idVendedor);

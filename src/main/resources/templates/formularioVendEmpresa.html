@@ -12,20 +12,13 @@
 <hr>
 
 <div class="container mt-3">
-  <form th:action="@{/admin/vendedor/agregarEmpresa}" method="post" th:object="${vendFormulario}">
+  <form th:action="@{/admin/vendedor/agregarEmpresa/{idVendedor}(idVendedor=${vendFormulario.id})}" method="post">
 
-    <input type="hidden" th:field="*{id}">
+    <div th:each="empresa : ${empresas}">
+      <div th:text="${empresa.nombre}"></div>
+      <input type="radio" th:value="${empresa.id}" name="idEmpresa"/>
+    </div>
 
-    <table>
-      <tbody>
-      <tr th:each="empresa : ${empresas}">
-        <td th:text="${empresa.nombre}"></td>
-        <td>
-          <input type="radio" th:field="*{empresa}" th:value="${empresa}" />
-        </td>
-      </tr>
-      </tbody>
-    </table>
     <br>
 
     <button type="submit">Seleccionar</button>
