@@ -58,5 +58,7 @@ public interface EmpleadoServiceInterface {
     String getRol(Empleado user);
 
     boolean vendedorEsCaptable(Integer idVendedor, Integer idVendedorCaptado);
+
+    Vendedor getCaptador(Integer idVendedor);
 }
 

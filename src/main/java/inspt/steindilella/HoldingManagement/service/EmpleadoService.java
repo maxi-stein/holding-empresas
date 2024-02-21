@@ -156,10 +156,18 @@ public class EmpleadoService implements EmpleadoServiceInterface{
                     }
                 }
             }
+
+            //si no entra al for porque no tiene captados, es captable
+            return true;
         }
 
         //vendedor B ya fue captado por alguien más
         return false;
+    }
+
+    @Override
+    public Vendedor getCaptador(Integer idVendedor) {
+        return empleadoDao.getCaptadorDelVendedor(idVendedor);
     }
 
     //hace lo mismo que vendedorEsCaptable solo que no verifica que el vendedor no fue captado por nadie

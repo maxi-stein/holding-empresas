@@ -48,6 +48,10 @@ public class VendedorController {
             Integer idEmpresa = vendedor.getEmpresa().getId();
 
             Set <Vendedor> vendedoresDeLaEmpresa = empresaService.getVendedoresPorEmpresa(idEmpresa);
+
+            //retiro al vendedor para que no figure como captable a sí mismo
+            vendedoresDeLaEmpresa.remove(vendedor);
+
             Set<Vendedor> vendedoresDisponibles = new HashSet<>();
 
             for(Vendedor v : vendedoresDeLaEmpresa){
@@ -103,7 +107,7 @@ public class VendedorController {
     }
 
     @PostMapping("/agregar")
-    public String agregarAses(@ModelAttribute("vendFormulario") Vendedor vendedor){
+    public String agregar(@ModelAttribute("vendFormulario") Vendedor vendedor){
 
         vendedor.setEliminado(0);
 
@@ -121,7 +125,7 @@ public class VendedorController {
     }
 
     @GetMapping("/actualizar")
-    public String actualizarVendedor(@RequestParam("idTemporal") Integer id, Model model){
+    public String actualizar(@RequestParam("idTemporal") Integer id, Model model){
         //Rescato al Vendedor
         Vendedor vendedor = (Vendedor) empleadoService.getById(id);
 
@@ -131,7 +135,7 @@ public class VendedorController {
     }
 
     @GetMapping("/eliminar")
-    public String eliminarAsesor(@RequestParam("idTemporal") Integer id){
+    public String eliminar(@RequestParam("idTemporal") Integer id){
         empleadoService.delete(id);
 
         return "redirect:/admin/vendedor/listar";
@@ -145,7 +149,7 @@ public class VendedorController {
 
         return "formularioVendEmpresa";
     }
-    
+
     @PostMapping("/agregarEmpresa/{idVendedor}")
     public String agregarEmpresa(@RequestParam("idEmpresa") Integer idEmpresa, @PathVariable("idVendedor") Integer idVendedor){
 
@@ -163,6 +167,12 @@ public class VendedorController {
         //si el vendedor tiene captados, los elimino
         if(vendedor.getEmpresa() != null){
             empresaService.desvincularVendedor(vendedor,vendedor.getEmpresa().getId());
+        }
+
+        //tambien elimino al vendedor de los captados (si es que fue captado)
+        Vendedor captador = empleadoService.getCaptador(idVendedor);
+        if( captador != null){
+            empleadoService.eliminarVendedorCaptado(idVendedor,captador.getId());
         }
 
         empresaService.agregarVendedor(vendedor, idEmpresa);
