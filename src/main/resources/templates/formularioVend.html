@@ -61,15 +61,15 @@
         </thead>
 
         <tbody>
-        <tr th:each="vend : ${vendedoresDisponibles}">
+        <tr th:each="vend : ${vendedoresCaptados}">
 
           <form th:action="@{/admin/vendedor/eliminarVendedorCaptado/{idVendCapt}/{idVendedor}(idVendCapt=${vend.id},idVendedor=${vendFormulario.id})}"
                 method="post">
 
-            <td th:text="${vend.apellido} + ', ' + ${vend.nombre}"></td>
+            <td th:text="${vend.vendedorCaptado.apellido} + ', ' + ${vend.vendedorCaptado.nombre}"></td>
 
             <td>
-              <input type="date" th:text="fechaCaptado">
+              <label th:text="${vend.fechaCaptado}">
             </td>
 
             <td>

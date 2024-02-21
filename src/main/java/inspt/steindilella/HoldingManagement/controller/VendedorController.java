@@ -65,6 +65,9 @@ public class VendedorController {
         model.addAttribute("vendFormulario",vendedor);
 
         model.addAttribute("empresas",empresaService.getAll());
+
+        //agrego los vendedores captados
+        model.addAttribute("vendedoresCaptados", empleadoService.getVendedoresCaptados(vendedor.getId()));
     }
 
     @GetMapping("/listar")
