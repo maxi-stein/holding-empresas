@@ -13,8 +13,6 @@
 
 <div class="container mt-3 " id="container">
   <h3>Administradores</h3>
-  <hr>
-
   <div>
     <a th:href="@{/admin/panelAdmin/formulario}"
        class="btn btn-primary btn-sm mb-3">
@@ -39,7 +37,7 @@
       <td th:text="${adminTemp.nombre}"></td>
       <td th:text="${adminTemp.apellido}"></td>
 
-      <td class="row">
+      <td>
         <a th:href="@{/admin/panelAdmin/actualizar(idTemporal=${adminTemp.id})}" class="btn btn-primary btn-sm mb-3 col-6">
           Actualizar</a>
 

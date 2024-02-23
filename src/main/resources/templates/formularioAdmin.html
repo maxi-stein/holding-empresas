@@ -9,25 +9,24 @@
 </head>
 <body>
   <div th:replace="navbar :: navbar"></div>
+  <a th:href="@{/admin/panelAdmin/listar}" class="btn btn-sm center btn">Volver al Directorio de Administradores</a>
 
-<h3>Directorio de Administradores</h3>
-<hr>
+
 
 <div class="container mt-3">
   <form th:action="@{/admin/usuarios/agregarAdmin}" method="post" th:object="${adminFormulario}">
-
+    <h3>Directorio de Administradores</h3>
+  <hr>
     <input type="hidden" th:field="*{id}">
 
     <input type="text" th:field="*{nombre}" placeholder="Nombre"
-           class="form-control mb-4 w-25">
+           class="form-control mb-4">
 
     <input type="text" th:field="*{apellido}" placeholder="Apellido"
-           class="form-control mb-4 w-25">
+           class="form-control mb-2">
 
-    <button type="submit" class="btn btn-info col-2">Agregar</button>
+    <button type="submit" class="btn btn-primary">Agregar</button>
     <br>
-
-    <a th:href="@{/admin/usuarios/listarAdmin}">Volver al Directorio de Administradores</a>
   </form>
 </div>
 
