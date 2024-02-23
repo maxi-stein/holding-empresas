@@ -27,18 +27,24 @@ public class ControllerUbicaciones {
         this.empresaService = empresaService;
         this.ubicacionesService = ubicacionesService;
     }
+    private void recuperarAdmin(HttpSession session, Model model){
+        Integer id = Integer.valueOf( (String) session.getAttribute("id"));
+
+        //recupero al admin
+        Administrador adm = (Administrador) empleadoService.getById(id);
+
+        model.addAttribute("admin",adm);
+    }
+
 
     @GetMapping("/listar")
     public String listarCiudades(HttpSession session, Model model){
         //traigo todas las ciudades registradas
         Set<Ciudad> set = ubicacionesService.getAllCiudades();
         //traigo el usuario admin
-        String idtemp = (String) session.getAttribute("id");
-        Integer id = Integer.valueOf(idtemp);
-        Administrador admin = (Administrador) empleadoService.getById(id);
+        recuperarAdmin(session,model);
         //agrego al modelo las ciudades y paises
         model.addAttribute("ciudades",set);
-        model.addAttribute("admin",admin);
 
         return "listar-ubicaciones.html";
     }
@@ -48,12 +54,9 @@ public class ControllerUbicaciones {
         //traigo todas las ciudades registradas
         Set<Pais> set = ubicacionesService.getAllPaises();
         //traigo el usuario admin
-        String idtemp = (String) session.getAttribute("id");
-        Integer id = Integer.valueOf(idtemp);
-        Administrador admin = (Administrador) empleadoService.getById(id);
+        recuperarAdmin(session,model);
         //agrego al modelo las ciudades y paises
         model.addAttribute("paises",set);
-        model.addAttribute("admin",admin);
 
         return "listar-paises.html";
     }
@@ -62,11 +65,7 @@ public class ControllerUbicaciones {
     public String mostrarFormularioCiudad(HttpSession session, Model model){
         Ciudad ciudad = new Ciudad();
 
-        String idtemp = (String) session.getAttribute("id");
-        Integer id = Integer.valueOf(idtemp);
-
-        Administrador admin = (Administrador) empleadoService.getById(id);
-        model.addAttribute("admin",admin);
+        recuperarAdmin(session,model);
         model.addAttribute("ciudad",ciudad);
 
         //agrego el listado de ciudades al html
@@ -79,12 +78,7 @@ public class ControllerUbicaciones {
     @GetMapping("/formularioPais")
     public String mostrarFormularioPais(HttpSession session, Model model){
         Pais pais = new Pais();
-
-        String idtemp = (String) session.getAttribute("id");
-        Integer id = Integer.valueOf(idtemp);
-
-        Administrador admin = (Administrador) empleadoService.getById(id);
-        model.addAttribute("admin",admin);
+        recuperarAdmin(session,model);
         model.addAttribute("pais",pais);
         //agrego el listado de ciudades al html
         Set<Ciudad> ciudades = ubicacionesService.getAllCiudades();
@@ -96,11 +90,7 @@ public class ControllerUbicaciones {
 
     @GetMapping("/actualizar")
     public String actualizar(@RequestParam("idTemporal") Integer id, HttpSession session, Model model){
-        //Recuperamos el usuario para el nav-bar
-        String idtemp = (String) session.getAttribute("id");
-        Integer idAdmin = Integer.valueOf(idtemp);
-        Administrador admin = (Administrador) empleadoService.getById(idAdmin);
-        model.addAttribute("admin",admin);
+        recuperarAdmin(session,model);
 
         //agregamos a la session http la empresa a modificar
         session.setAttribute("idCiudad", ubicacionesService.getCiudadById(id));
@@ -119,11 +109,7 @@ public class ControllerUbicaciones {
 
     @GetMapping("/actualizarPais")
     public String actualizarPais(@RequestParam("idTemporal") Integer id, HttpSession session, Model model){
-        //Recuperamos el usuario para el nav-bar
-        String idtemp = (String) session.getAttribute("id");
-        Integer idAdmin = Integer.valueOf(idtemp);
-        Administrador admin = (Administrador) empleadoService.getById(idAdmin);
-        model.addAttribute("admin",admin);
+        recuperarAdmin(session,model);
 
         //agregamos a la session http la empresa a modificar
         session.setAttribute("idPais", ubicacionesService.getPaisById(id));

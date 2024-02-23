@@ -50,8 +50,10 @@ public class CrudEmpleadoController {
     }
 
     @GetMapping("/formularioAdmin")
-    public String formularioAdmin(Model model){
+    public String formularioAdmin(HttpSession session,Model model){
         Administrador admin = new Administrador();
+        //agregamos los datos del usuario loggeado
+        recuperarAdmin(session,model);
 
         model.addAttribute("adminFormulario", admin);
 
@@ -77,8 +79,10 @@ public class CrudEmpleadoController {
     }
 
     @GetMapping("/actualizarAdmin")
-    public String actualizarAdmin(@RequestParam("idTemporal") Integer id, Model model){
+    public String actualizarAdmin(@RequestParam("idTemporal") Integer id, HttpSession session,Model model){
         Administrador admin = (Administrador) empleadoService.getById(id);
+        //agregamos los datos del usuario loggeado
+        recuperarAdmin(session,model);
 
         model.addAttribute("adminFormulario",admin);
 
@@ -186,11 +190,13 @@ public class CrudEmpleadoController {
     }
 
     @GetMapping("/formularioAses")
-    public String formularioAses(Model model){
+    public String formularioAses(HttpSession session, Model model){
         //Instancio un Asesor vacio
         Asesor asesor = new Asesor();
 
         cargarDatosFormularioAsesor(asesor,model);
+        //agregamos los datos del usuario loggeado
+        recuperarAdmin(session,model);
 
         return "formularioAses";
     }
@@ -214,9 +220,12 @@ public class CrudEmpleadoController {
     }
 
     @GetMapping("/actualizarAses")
-    public String actualizarAses(@RequestParam("idTemporal") Integer id, Model model){
+    public String actualizarAses(@RequestParam("idTemporal") Integer id,HttpSession session, Model model){
         //Rescato el Asesor
         Asesor asesor = (Asesor) empleadoService.getById(id);
+
+        //agregamos los datos del usuario loggeado
+        recuperarAdmin(session,model);
 
         cargarDatosFormularioAsesor(asesor,model);
 

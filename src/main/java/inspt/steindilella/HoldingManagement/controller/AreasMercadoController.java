@@ -25,6 +25,15 @@ public class AreasMercadoController {
         this.empleadoService = empleadoService;
     }
 
+    private void recuperarAdmin(HttpSession session, Model model){
+        Integer id = Integer.valueOf( (String) session.getAttribute("id"));
+
+        //recupero al admin
+        Administrador adm = (Administrador) empleadoService.getById(id);
+
+        model.addAttribute("admin",adm);
+    }
+
     @GetMapping("/listar")
     public String listarAreas(HttpSession session, Model model){
         Set<AreasMercado> set = areasMercadoService.getAll();
@@ -41,8 +50,9 @@ public class AreasMercadoController {
     }
 
     @GetMapping("/formulario")
-    public String mostrarFormulario(Model model){
+    public String mostrarFormulario(HttpSession session, Model model){
         AreasMercado area = new AreasMercado();
+        recuperarAdmin(session,model);
 
         model.addAttribute("area",area);
 
@@ -67,8 +77,9 @@ public class AreasMercadoController {
     }
 
     @GetMapping("/actualizar")
-    public String actualizar(@RequestParam("idTemporal") Integer id,Model model){
+    public String actualizar(@RequestParam("idTemporal") Integer id,HttpSession session, Model model){
         AreasMercado area = areasMercadoService.getById(id);
+        recuperarAdmin(session,model);
 
         model.addAttribute("area",area);
 

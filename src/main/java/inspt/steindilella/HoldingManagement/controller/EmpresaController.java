@@ -33,19 +33,24 @@ public class EmpresaController {
         this.areasMercadoService = areasMercadoService;
     }
 
+    private void recuperarAdmin(HttpSession session, Model model){
+        Integer id = Integer.valueOf( (String) session.getAttribute("id"));
+
+        //recupero al admin
+        Administrador adm = (Administrador) empleadoService.getById(id);
+
+        model.addAttribute("admin",adm);
+    }
+
     @GetMapping("/listar")
     public String listarAreas(HttpSession session, Model model){
         Set<Empresa> set = empresaService.getAll();
-
-        String idtemp = (String) session.getAttribute("id");
-        Integer id = Integer.valueOf(idtemp);
-
-        Administrador admin = (Administrador) empleadoService.getById(id);
+        recuperarAdmin(session,model);
 
         //buscamos las areas relacionadas a las empresas.
 
         model.addAttribute("empresas",set);
-        model.addAttribute("admin",admin);
+
 
         return "listar-empresas.html";
     }
@@ -54,11 +59,7 @@ public class EmpresaController {
     public String mostrarFormulario(HttpSession session, Model model){
         Empresa empresa = new Empresa();
 
-        String idtemp = (String) session.getAttribute("id");
-        Integer id = Integer.valueOf(idtemp);
-
-        Administrador admin = (Administrador) empleadoService.getById(id);
-        model.addAttribute("admin",admin);
+        recuperarAdmin(session,model);
         model.addAttribute("empresa",empresa);
 
         //agrego el listado de ciudades al html
@@ -108,11 +109,7 @@ public class EmpresaController {
 
     @GetMapping("/actualizar")
     public String actualizar(@RequestParam("idTemporal") Integer id, HttpSession session, Model model){
-        //Recuperamos el usuario para el nav-bar
-        String idtemp = (String) session.getAttribute("id");
-        Integer idAdmin = Integer.valueOf(idtemp);
-        Administrador admin = (Administrador) empleadoService.getById(idAdmin);
-        model.addAttribute("admin",admin);
+        recuperarAdmin(session,model);
 
         //agregamos a la session http la empresa a modificar
         session.setAttribute("idEmpresa", empresaService.getById(id));

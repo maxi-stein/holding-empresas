@@ -125,7 +125,8 @@ public class VendedorController {
     }
 
     @GetMapping("/actualizar")
-    public String actualizar(@RequestParam("idTemporal") Integer id, Model model){
+    public String actualizar(@RequestParam("idTemporal") Integer id,HttpSession session, Model model){
+        recuperarAdmin(session,model);
         //Rescato al Vendedor
         Vendedor vendedor = (Vendedor) empleadoService.getById(id);
 
