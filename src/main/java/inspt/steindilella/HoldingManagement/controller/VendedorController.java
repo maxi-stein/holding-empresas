@@ -3,6 +3,7 @@ package inspt.steindilella.HoldingManagement.controller;
 import inspt.steindilella.HoldingManagement.entity.Administrador;
 import inspt.steindilella.HoldingManagement.entity.Empresa;
 import inspt.steindilella.HoldingManagement.entity.Vendedor;
+import inspt.steindilella.HoldingManagement.entity.VendedorCaptado;
 import inspt.steindilella.HoldingManagement.service.AreasMercadoService;
 import inspt.steindilella.HoldingManagement.service.EmpleadoService;
 import inspt.steindilella.HoldingManagement.service.EmpresaService;
@@ -160,12 +161,16 @@ public class VendedorController {
 
         Vendedor vendedor = (Vendedor) empleadoService.getById(idVendedor);
 
-        vendedor.setVendedoresCaptados(empleadoService.getVendedoresCaptados(idVendedor));
+        Set<VendedorCaptado> listadoCaptados = empleadoService.getVendedoresCaptados(idVendedor);
+
+        if(listadoCaptados != null){
+            vendedor.setVendedoresCaptados(listadoCaptados);
+        }
 
         vendedor.setEmpresa(empresaService.getEmpresaByVendedorId(idVendedor));
 
         //si el vendedor tiene una empresa, se la elimino
-        if(!vendedor.getVendedoresCaptados().isEmpty() || vendedor.getVendedoresCaptados() != null){
+        if(vendedor.getVendedoresCaptados() != null){
              empleadoService.eliminarTodosLosVendedoresCaptados(idVendedor);
         }
 
