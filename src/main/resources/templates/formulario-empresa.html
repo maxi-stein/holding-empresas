@@ -10,67 +10,9 @@
 <body>
 <!--        NAVBAR  -->
     <div th:replace="navbar :: navbar"></div>
-<!--        NAVBAR            
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"><span th:text="${admin.apellido} + ' ' + ${admin.nombre}">Nombre Empleado no encontrado</span></a>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/admin}" aria-current="page" href="#">Inicio</a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Usuarios
-                        </a>
-
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Administradores</a></li>
-                            <li><a class="dropdown-item" href="#">Asesores</a></li>
-                            <li><a class="dropdown-item" href="#">Vendedores</a></li>
-                        </ul>
-
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link active" style="font-weight: bold;" th:href="@{/admin/empresas/listar}">Empresas</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a  class="nav-link"  th:href="@{/admin/areasMercado/listar}">Areas de Mercado</a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Ubicaciones
-                        </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
-                                <li><a class="nav-link" th:href="@{/admin/empresas/ubicaciones/listar}">Ciudades</a></li>
-                                <li><a class="nav-link" th:href="@{/admin/empresas/ubicaciones/listarPaises}">Paises</a></li>
-                            </ul>
-                        </li>
-
-                </ul>
-
-                <form th:action="@{/logout}" method="post">
-                    <input type="submit" value="Salir" class="btn btn-outline-success">
-                </form>
-
-            </div>
-        </div>
-    </nav>  
--->
     
     <div>
     <a class="btn btn-sm center btn" th:href="@{/admin/empresas/listar}">Volver al listado de Empresas</a>
-   <!--
-    <a class="btn btn-sm center btn" th:href="@{/admin/empresas/ubicaciones/formularioCiudad}">Crear Ciudad</a>
-    <a class="btn btn-sm center btn" th:href="@{/admin/empresas/ubicaciones/listar}">ABM Ubicaciones</a>
-   --> 
    </div>
     <div class="container mt-4">
         <form th:action="@{/admin/empresas/agregar(idTemporal=${empresa.id})}" method="post" th:object="${empresa}" class="mb-3">
@@ -129,8 +71,6 @@
                 </tr>
             </tbody>
         </div>
-      
-        <hr>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

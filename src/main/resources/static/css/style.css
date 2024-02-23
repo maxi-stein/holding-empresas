@@ -52,3 +52,7 @@ label {
     text-decoration: underline;
     cursor: pointer;
 }
+
+.align-right {
+    float: right;
+}
