@@ -9,12 +9,10 @@
 <body>
   <div th:replace="navbar :: navbar"></div>
 
-<h3>Seleccionar una Empresa para el Vendedor</h3>
-<hr>
-
 <div class="container mt-3">
   <form th:action="@{/admin/vendedor/agregarEmpresa/{idVendedor}(idVendedor=${vendFormulario.id})}" method="post">
-
+    <h3>Seleccionar una Empresa para el Vendedor</h3>
+    <hr>
     <div th:each="empresa : ${empresas}">
       <div th:text="${empresa.nombre}"></div>
       <input type="radio" th:value="${empresa.id}" name="idEmpresa"/>
