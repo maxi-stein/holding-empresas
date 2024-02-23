@@ -97,9 +97,11 @@ public class VendedorController {
     }
 
     @GetMapping("/formulario")
-    public String formularioVendedor(Model model){
+    public String formularioVendedor(Model model, HttpSession session){
         //Instancio un Vendedor vacio
         Vendedor vendedor = new Vendedor();
+
+        recuperarAdmin(session,model);
 
         cargarDatosFormulario(vendedor,model);
 
@@ -143,10 +145,12 @@ public class VendedorController {
     }
 
     @PostMapping("/listarEmpresas/{id}")
-    public String listarEmpresas(@PathVariable("id") Integer id, Model model){
+    public String listarEmpresas(@PathVariable("id") Integer id, Model model, HttpSession session){
         model.addAttribute("vendFormulario", (Vendedor) empleadoService.getById(id));
         model.addAttribute("empresas",empresaService.getAll());
         model.addAttribute("empresa", new Empresa());
+
+        recuperarAdmin(session,model);
 
         return "formularioVendEmpresa";
     }

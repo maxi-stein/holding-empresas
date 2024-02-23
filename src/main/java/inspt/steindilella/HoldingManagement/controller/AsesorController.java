@@ -13,11 +13,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Controller
-@RequestMapping("/admin/usuarios")
-public class CrudEmpleadoController {
+@RequestMapping("/admin/asesor")
+public class AsesorController {
 
     @Autowired
     private EmpleadoService empleadoService;
@@ -37,68 +40,7 @@ public class CrudEmpleadoController {
         model.addAttribute("admin",adm);
     }
 
-
-    //Metodos para el CRUD de ADMINISTRADOR
-
-    @GetMapping("/listarAdmin")
-    public String listarAdmin(HttpSession session, Model model){
-        recuperarAdmin(session,model);
-        Set<Administrador> admins = empleadoService.getAdministradores();
-        model.addAttribute("admins",admins);
-
-        return "listarAdmin";
-    }
-
-    @GetMapping("/formularioAdmin")
-    public String formularioAdmin(HttpSession session,Model model){
-        Administrador admin = new Administrador();
-        //agregamos los datos del usuario loggeado
-        recuperarAdmin(session,model);
-
-        model.addAttribute("adminFormulario", admin);
-
-        return "formularioAdmin";
-    }
-
-    @PostMapping("/agregarAdmin")
-    public String agregarAdmin(@ModelAttribute("adminFormulario") Administrador administrador){
-
-        administrador.setEliminado(0);
-
-        //si el id es null, es porque estoy creando el admin
-        if(administrador.getId() == null){
-
-            empleadoService.save(administrador);
-        }
-        else{
-
-            empleadoService.update(administrador);
-        }
-
-        return "redirect:/admin/usuarios/listarAdmin";
-    }
-
-    @GetMapping("/actualizarAdmin")
-    public String actualizarAdmin(@RequestParam("idTemporal") Integer id, HttpSession session,Model model){
-        Administrador admin = (Administrador) empleadoService.getById(id);
-        //agregamos los datos del usuario loggeado
-        recuperarAdmin(session,model);
-
-        model.addAttribute("adminFormulario",admin);
-
-        return "formularioAdmin";
-    }
-
-    @GetMapping("/eliminarAdmin")
-    public String eliminar(@RequestParam("idTemporal") Integer id){
-        empleadoService.delete(id);
-
-        return "redirect:/admin/usuarios/listarAdmin";
-    }
-
-    //Metodos para el CRUD de ASESOR
-
-    private void cargarDatosFormularioAsesor(Asesor asesor, Model model){
+    private void cargarDatosFormulario(Asesor asesor, Model model){
         //Rescato las areas asesoradas
         Set<AreasMercado> areasAsesoradas = empleadoService.getAreasAsesoradasPorAsesor(asesor.getId());
 
@@ -174,7 +116,7 @@ public class CrudEmpleadoController {
 
     }
 
-    @GetMapping("/listarAses")
+    @GetMapping("/listar")
     public String listarAses(HttpSession session, Model model){
         recuperarAdmin(session,model);
         Set<Asesor> asesores = empleadoService.getAsesores();
@@ -189,19 +131,20 @@ public class CrudEmpleadoController {
         return "listarAses";
     }
 
-    @GetMapping("/formularioAses")
+    @GetMapping("/formulario")
     public String formularioAses(HttpSession session, Model model){
         //Instancio un Asesor vacio
         Asesor asesor = new Asesor();
 
-        cargarDatosFormularioAsesor(asesor,model);
+        cargarDatosFormulario(asesor,model);
+
         //agregamos los datos del usuario loggeado
         recuperarAdmin(session,model);
 
         return "formularioAses";
     }
 
-    @PostMapping("/agregarAses")
+    @PostMapping("/agregar")
     public String agregarAses(@ModelAttribute("asesFormulario") Asesor asesor){
 
         asesor.setEliminado(0);
@@ -216,27 +159,27 @@ public class CrudEmpleadoController {
             empleadoService.update(asesor);
         }
 
-        return "redirect:/admin/usuarios/listarAses";
+        return "redirect:/admin/asesor/listar";
     }
 
-    @GetMapping("/actualizarAses")
-    public String actualizarAses(@RequestParam("idTemporal") Integer id,HttpSession session, Model model){
+    @GetMapping("/actualizar")
+    public String actualizarAses(@RequestParam("idTemporal") Integer id, HttpSession session, Model model){
         //Rescato el Asesor
         Asesor asesor = (Asesor) empleadoService.getById(id);
 
         //agregamos los datos del usuario loggeado
         recuperarAdmin(session,model);
 
-        cargarDatosFormularioAsesor(asesor,model);
+        cargarDatosFormulario(asesor,model);
 
         return "formularioAses";
     }
 
-    @GetMapping("/eliminarAses")
+    @GetMapping("/eliminar")
     public String eliminarAsesor(@RequestParam("idTemporal") Integer id){
         empleadoService.delete(id);
 
-        return "redirect:/admin/usuarios/listarAses";
+        return "redirect:/admin/asesor/listar";
     }
 
     @PostMapping("/eliminarAreaAsesorada/{idArea}/{idAsesor}")
@@ -247,9 +190,9 @@ public class CrudEmpleadoController {
 
         empleadoService.desvincularAreaMercado(areasMercadoService.getById(idArea),asesor.getId());
 
-        cargarDatosFormularioAsesor(asesor,model);
+        cargarDatosFormulario(asesor,model);
 
-        return "redirect:/admin/usuarios/actualizarAses?idTemporal="+asesor.getId();
+        return "redirect:/admin/asesor/actualizar?idTemporal="+asesor.getId();
 
     }
 
@@ -261,9 +204,9 @@ public class CrudEmpleadoController {
 
         empleadoService.cubrirAreaMercado(areasMercadoService.getById(idArea),asesor.getId());
 
-        cargarDatosFormularioAsesor(asesor,model);
+        cargarDatosFormulario(asesor,model);
 
-        return "redirect:/admin/usuarios/actualizarAses?idTemporal="+asesor.getId();
+        return "redirect:/admin/asesor/actualizar?idTemporal="+asesor.getId();
     }
 
     @PostMapping("/agregarEmpresaAsesorada/{idEmpresa}/{idAsesor}")
@@ -276,9 +219,9 @@ public class CrudEmpleadoController {
         //creo el AsesorEmpresa
         empresaService.agregarAsesor(asesor,fechaInicio,idEmpresa);
 
-        cargarDatosFormularioAsesor(asesor,model);
+        cargarDatosFormulario(asesor,model);
 
-        return "redirect:/admin/usuarios/actualizarAses?idTemporal="+asesor.getId();
+        return "redirect:/admin/asesor/actualizar?idTemporal="+asesor.getId();
     }
 
     @PostMapping("eliminarEmpresaAsesorada/{idEmpresa}/{idAsesor}")
@@ -289,13 +232,9 @@ public class CrudEmpleadoController {
 
         empresaService.desvincularAsesor(asesor,idEmpresa);
 
-        cargarDatosFormularioAsesor(asesor,model);
+        cargarDatosFormulario(asesor,model);
 
-        return "redirect:/admin/usuarios/actualizarAses?idTemporal="+asesor.getId();
+        return "redirect:/admin/asesor/actualizar?idTemporal="+asesor.getId();
     }
-
-
-
-    //Metodos para el CRUD de VENDEDOR
-
 }
+
