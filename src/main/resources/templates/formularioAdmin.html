@@ -14,7 +14,7 @@
 
 
 <div class="container mt-3">
-  <form th:action="@{/admin/usuarios/agregarAdmin}" method="post" th:object="${adminFormulario}">
+  <form th:action="@{/admin/panelAdmin/agregar}" method="post" th:object="${adminFormulario}">
     <h3>Directorio de Administradores</h3>
   <hr>
     <input type="hidden" th:field="*{id}">
