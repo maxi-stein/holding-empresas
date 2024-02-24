@@ -72,7 +72,14 @@ public class VendedorController {
         model.addAttribute("empresas",empresaService.getAll());
 
         //agrego los vendedores captados
-        model.addAttribute("vendedoresCaptados", empleadoService.getVendedoresCaptados(vendedor.getId()));
+        try{
+            model.addAttribute("vendedoresCaptados", empleadoService.getVendedoresCaptados(vendedor.getId()));
+        }catch (Exception e){
+            System.out.println("Vendedor sin captados");
+        }
+
+
+
     }
 
     @GetMapping("/listar")
