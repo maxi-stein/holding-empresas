@@ -9,6 +9,9 @@ public interface EmpleadosDAOInterface {
 
     Empleado getById(Integer id);
     Set<Empleado> getAll();
+
+    Set<Empleado> getUsuariosgetCredencialesAll();
+
     Set<Administrador> getAdministradores();
     Set<Asesor> getAsesores();
     Set<Empleado> getEmpleadosPorEmpresa(Integer id);
@@ -34,6 +37,8 @@ public interface EmpleadosDAOInterface {
     void savePass(Credencial password);
     void updatePass(Credencial password);
     void deletePass(Credencial password);
+
+    Credencial getCredencial(Empleado usuario);
 
     String getPass(Empleado usuario);
     String getRol(Empleado usuario);

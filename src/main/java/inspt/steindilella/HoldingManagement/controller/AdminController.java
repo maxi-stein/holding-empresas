@@ -1,6 +1,8 @@
 package inspt.steindilella.HoldingManagement.controller;
 
 import inspt.steindilella.HoldingManagement.entity.Administrador;
+import inspt.steindilella.HoldingManagement.entity.Credencial;
+import inspt.steindilella.HoldingManagement.entity.Empleado;
 import inspt.steindilella.HoldingManagement.service.AreasMercadoService;
 import inspt.steindilella.HoldingManagement.service.EmpleadoService;
 import inspt.steindilella.HoldingManagement.service.EmpresaService;
@@ -89,6 +91,57 @@ public class AdminController {
 
         return "redirect:/admin/panelAdmin/listar";
     }
+
+    /*@GetMapping("/accesos")
+    public String accesos(@RequestParam("idTemporal") Integer id){
+
+        return "redirect:/admin/listarAccesos";
+    }*/
+
+    @GetMapping("/listarAccesos")
+    public String usuarios(HttpSession session, Model model){
+        recuperarAdmin(session,model);
+        //Buscamos la colección de empleados registrados
+        Set<Empleado> empleadosRegistrados = empleadoService.getAll();
+        Set<Empleado> usuarios = empleadoService.getUsuariosgetCredencialesAll();
+        model.addAttribute("empleados", empleadosRegistrados);
+        model.addAttribute("usuarios", usuarios);
+
+        return "listar-usuarios.html";
+    }
+
+    @GetMapping("/habilitarUsuario")
+    public String habilitarUsuario(@RequestParam("idTemporal") Integer id,HttpSession session, Model model){
+        recuperarAdmin(session,model);
+        //busco al usuario
+        Empleado usuario = empleadoService.getById(id);
+        Credencial credencial = new Credencial();
+        credencial.setUsuario(usuario);
+        model.addAttribute("idTemporal", id);
+        model.addAttribute("credencial", credencial);
+
+        return "credencial.html";
+    }
+
+    @PostMapping("/habilitarUsuario")
+    public String habilitarCredencial(@RequestParam("pass") String pass,@RequestParam("idTemporal") String idUsuario){
+       Empleado usuario = empleadoService.getById(Integer.valueOf(idUsuario));
+
+       Credencial credencial = new Credencial(pass, usuario, empleadoService.getRol(usuario));
+       empleadoService.savePass(credencial);
+
+        return "redirect:/admin/panelAdmin/listarAccesos";
+    }
+
+    @GetMapping("/deshabilitarUsuario")
+    public String eliminarCredencial(@RequestParam("idTemporal") String idUsuario){
+        Empleado usuario = empleadoService.getById(Integer.valueOf(idUsuario));
+        Credencial credencial = empleadoService.getCredencial(usuario);
+        empleadoService.deletePass(credencial);
+
+        return "redirect:/admin/panelAdmin/listarAccesos";
+    }
+
 
 
 }

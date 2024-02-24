@@ -10,6 +10,8 @@ public interface EmpleadoServiceInterface {
 
     Set<Empleado> getAll();
 
+    Set<Empleado> getUsuariosgetCredencialesAll();
+
     Set<Empleado> getEmpleadosPorEmpresa(Integer id);
 
     Set<Administrador> getAdministradores();
@@ -54,6 +56,8 @@ public interface EmpleadoServiceInterface {
     void deletePass(Credencial password);
 
     String getPass(Empleado usuario);
+
+    Credencial getCredencial(Empleado usuario);
 
     String getRol(Empleado user);
 

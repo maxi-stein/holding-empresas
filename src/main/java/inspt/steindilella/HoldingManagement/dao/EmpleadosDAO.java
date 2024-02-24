@@ -36,6 +36,12 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     }
 
     @Override
+    public Set<Empleado> getUsuariosgetCredencialesAll() {
+        TypedQuery<Empleado> queryCredecial = entityManager.createQuery("SELECT c.usuario FROM Credencial c",Empleado.class);
+        return new HashSet<>(queryCredecial.getResultList());
+    }
+
+    @Override
     public Set<Administrador> getAdministradores() {
         TypedQuery<Administrador> query = entityManager.createQuery("SELECT a FROM Administrador a WHERE a.eliminado = 0 ORDER BY a.apellido, a.nombre ASC ", Administrador.class);
 
@@ -284,7 +290,24 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     @Override
     @Transactional
     public void deletePass(Credencial password){
-        entityManager.merge(password);
+        entityManager.remove(password);
+    }
+
+    @Override
+    public Credencial getCredencial(Empleado usuario){
+        TypedQuery<Credencial> query = entityManager
+        .createQuery("SELECT s FROM Credencial s WHERE s.usuario = :usuario", Credencial.class);
+        query.setParameter("usuario",usuario);
+
+        //manejamos la excepcion en caso de no encontrar usuario o contrasenia
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            // Devolver una contraseña predeterminada o lanzar una excepción
+            System.out.println("no se halló credencial");
+            return null; // O ajusta según tu lógica
+        }
+
     }
 
     @Override
@@ -320,8 +343,21 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
             Credencial rol = query.getSingleResult();
             return rol.getRol();
         } catch (NoResultException e) {
-            // Devolver una contraseña predeterminada o lanzar una excepción
-            return "contraseñaPredeterminada"; // O ajusta según tu lógica
+            if (usuario instanceof Administrador) {
+                return "ADM";
+            }
+
+            if (usuario instanceof Vendedor) {
+                return "VEND";
+            }
+
+            if (usuario instanceof Asesor) {
+                return "ASES";
+            }else{
+                // Devolver una contraseña predeterminada o lanzar una excepción
+                return "contraseñaPredeterminada"; // O ajusta según tu lógica
+            }
+
         }
     }
 

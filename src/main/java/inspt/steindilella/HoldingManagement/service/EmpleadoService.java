@@ -38,6 +38,10 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     }
 
     @Override
+    public Set<Empleado> getUsuariosgetCredencialesAll() {
+        return empleadoDao.getUsuariosgetCredencialesAll();
+    }
+    @Override
     public Set<Empleado> getEmpleadosPorEmpresa(Integer id) {
         return empleadoDao.getEmpleadosPorEmpresa(id);
     }
@@ -221,6 +225,7 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     }
 
     @Override
+    @Transactional
     public void deletePass(Credencial password) {
         empleadoDao.deletePass(password);
     }
@@ -229,6 +234,11 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     public String getPass(Empleado usuario) {
         return empleadoDao.getPass(usuario);
     }
+    @Override
+    public Credencial getCredencial(Empleado usuario){
+        return empleadoDao.getCredencial(usuario);
+    }
+
 
     @Override
     public String getRol(Empleado user) {
