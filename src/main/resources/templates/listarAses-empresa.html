@@ -10,7 +10,7 @@
 </head>
 <body>
 
-  <div th:replace="navbar :: navbar"></div>
+  <div th:replace="~{navbar :: navbar}"></div>
 
 <div class="container mt-5" id="container">
   <h3 th:text="'Asesores de ' + ${empresa.nombre}">>Vendedores</h3>

@@ -8,7 +8,7 @@
   <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-  <div th:replace="navbar :: navbar"></div>
+  <div th:replace="~{navbar :: navbar}"></div>
   <a th:href="@{/admin/vendedor/listar}" class="btn btn-sm">Volver al Directorio de Vendedores</a>
 
 <div class="container mt-3">

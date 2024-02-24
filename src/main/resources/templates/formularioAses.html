@@ -8,7 +8,7 @@
   <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-  <div th:replace="navbar :: navbar"></div>
+  <div th:replace="~{navbar :: navbar}"></div>
 <a th:href="@{/admin/asesor/listar}" class="btn btn-sm center btn" >Volver al Directorio de Asesores</a>
 <div class="container mt-3">
   <form th:action="@{/admin/asesor/agregar}" method="post" th:object="${asesFormulario}">

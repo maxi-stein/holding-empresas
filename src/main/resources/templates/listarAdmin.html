@@ -9,7 +9,7 @@
 </head>
 </head>
 <body>
-  <div th:replace="navbar :: navbar"></div>
+  <div th:replace="~{navbar :: navbar}"></div>
 
 <div class="container mt-3 " id="container">
   <h3>Administradores</h3>
@@ -38,11 +38,11 @@
       <td th:text="${adminTemp.apellido}"></td>
 
       <td>
-        <a th:href="@{/admin/panelAdmin/actualizar(idTemporal=${adminTemp.id})}" class="btn btn-primary btn-sm mb-3 col-6">
+        <a th:href="@{/admin/panelAdmin/actualizar(idTemporal=${adminTemp.id})}" class="btn btn-info btn-sm mb-1 col-4">
           Actualizar</a>
 
         <a th:href="@{/admin/usuarios/eliminarAdmin(idTemporal=${adminTemp.id})}"
-           class="btn btn-danger btn-sm mb-3 col-6"
+           class="btn btn-danger btn-sm mb-1 col-4"
            onclick="if (! (confirm('Seguro desea eliminar el registro?'))) return false">Eliminar</a>
       </td>
 

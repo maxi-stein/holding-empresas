@@ -15,60 +15,6 @@
 </head>
 <body>
     <div th:replace="navbar :: navbar"></div>
-    <!-- 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"><span th:text="${admin.apellido} + ' ' + ${admin.nombre}">Nombre Empleado no encontrado</span></a>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/admin}" aria-current="page" href="#">Inicio</a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Usuarios
-                        </a>
-                        
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Administradores</a></li>
-                            <li><a class="dropdown-item" href="#">Asesores</a></li>
-                            <li><a class="dropdown-item" href="#">Vendedores</a></li>
-                        </ul>
-
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link active" style="font-weight: bold;" th:href="@{/admin/empresas/listar}">Empresas</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a  class="nav-link"  th:href="@{/admin/areasMercado/listar}">Areas de Mercado</a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Ubicaciones
-                    </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
-                            <li><a class="nav-link" th:href="@{/admin/empresas/ubicaciones/listar}">Ciudades</a></li>
-                            <li><a class="nav-link" th:href="@{/admin/empresas/ubicaciones/listarPaises}">Paises</a></li>
-                        </ul>
-                    </li>
-                </ul>
-
-
-                <form th:action="@{/logout}" method="post">
-                    <input type="submit" value="Salir" class="btn btn-outline-success">
-                </form>
-
-            </div>
-        </div>
-    </nav> -->
-
 
     <div class="container mt-3 "id="container">
         <h3>Empresas</h3>
@@ -134,14 +80,13 @@
     </div>
     <!--AGREGO FILTROS A LA VISTA -->
    <script>
-        $(document).ready(function() {
-            $('#tablaEmpresas').DataTable(
-                {"language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
-            }}
-            );
-        });
-        
+           $(document).ready(function() {
+                $('#tablaEmpresas').DataTable(
+                    {"language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
+                }}
+                );
+            });  
     </script>
 </body>
 </html>
