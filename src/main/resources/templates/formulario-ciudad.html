@@ -20,7 +20,7 @@
             <input type="hidden" th:field="*{id}" />
             
             <input type="text" th:field="*{nombre}" placeholder="nombre"
-            class="form-control">
+            class="form-control" required>
 
             <label for="pais_ciudad">Pais:</label>
             <select id="pais_ciudad" name="pais_ciudad.id" class="form-control mb-4" th:field="*{pais_ciudad.id}">

@@ -18,13 +18,13 @@
     <input type="hidden" th:field="*{id}">
 
     <input type="text" th:field="*{nombre}" placeholder="Nombre"
-           class="form-control mb-4">
+           class="form-control mb-4" maxlength="25" required>
 
     <input type="text" th:field="*{apellido}" placeholder="Apellido"
-           class="form-control mb-4">
+           class="form-control mb-4" maxlength="25" required>
 
     <input type="text" th:field="*{direccion}" placeholder="Direccion"
-           class="form-control mb-4">
+           class="form-control mb-4" maxlength="25" required>
 
     <button type="submit" class="btn btn-primary col-2">Guardar Datos Personales</button>
     <br>
@@ -118,7 +118,7 @@
             <td th:text="${vend.apellido} + ', ' + ${vend.nombre}"></td>
 
             <td>
-              <input type="date" th:name="fechaCaptado">
+              <input type="date" th:name="fechaCaptado" required>
             </td>
 
             <td>

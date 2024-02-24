@@ -18,16 +18,16 @@
     <input type="hidden" th:field="*{id}">
 
     <input type="text" th:field="*{nombre}" placeholder="Nombre"
-           class="form-control mb-2">
+           class="form-control mb-2" maxlength="25" required>
 
     <input type="text" th:field="*{apellido}" placeholder="Apellido"
-           class="form-control mb-2">
+           class="form-control mb-2" maxlength="25" required>
 
     <input type="text" th:field="*{titulacion}" placeholder="Titulacion"
-           class="form-control mb-2">
+           class="form-control mb-2" maxlength="25" required>
 
     <input type="text" th:field="*{direccion}" placeholder="Direccion"
-           class="form-control mb-2">
+           class="form-control mb-2" maxlength="25" required>
 
 
     <button type="submit" class="btn btn-primary ">Guardar Datos Personales</button>
@@ -119,7 +119,7 @@
           <td th:text="${empre.nombre}"></td>
 
           <td>
-            <input type="date" th:name="fechaInicio">
+            <input type="date" th:name="fechaInicio" required>
           </td>
 
           <td>

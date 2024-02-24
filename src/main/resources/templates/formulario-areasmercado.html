@@ -18,10 +18,10 @@
             <input type="hidden" th:field="*{id}">
             
             <input type="text" th:field="*{nombre}" placeholder="Nombre"
-            class="form-control mb-4">
+            class="form-control mb-4" maxlength="25" required>
 
             <input type="text" th:field="*{descripcion}" placeholder="descripción"
-            class="form-control mb-2">
+            class="form-control mb-2" maxlength="25" required>
 
             <button type="submit" class="btn btn-primary col-2">Agregar</button>
             <br>

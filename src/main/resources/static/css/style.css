@@ -56,3 +56,6 @@ label {
 .align-right {
     float: right;
 }
+.form-control{
+    max-length: 25;
+}

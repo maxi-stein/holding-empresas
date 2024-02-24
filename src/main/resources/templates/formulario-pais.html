@@ -20,18 +20,18 @@
 
             
             <input type="text" th:field="*{nombre}" placeholder="nombre"
-            class="form-control mb-4">
+            class="form-control mb-4" maxlength="25" required>
 
             <input type="text" th:field="*{pbi}" placeholder="pbi"
-                   class="form-control mb-3">
+                   class="form-control mb-3" required>
 
             <label class="mt-0 mb-1" for="capital">Capital:</label>
-            <select id="capital" name="capital.id" class="form-control mb-4" th:field="*{capital.id}">
-                <option th:each="ciudad : ${ciudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}"></option>
+            <select id="capital" name="capital.id" class="form-control mb-4" th:field="*{capital.id}" required>
+                <option th:each="ciudad : ${ciudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}" required></option>
             </select>
 
             <input type="text" th:field="*{habitantes}" placeholder="habitantes"
-                   class="form-control mb-4">
+                   class="form-control mb-4" required>
 
 
             <input type="hidden" th:field="*{eliminado}" />

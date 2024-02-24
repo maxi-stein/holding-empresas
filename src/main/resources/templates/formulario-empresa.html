@@ -22,7 +22,7 @@
             <input type="hidden" th:field="*{id}" />
             <!--NOMBRE-->
             <input type="text" th:field="*{nombre}" placeholder="nombre"
-            class="form-control">
+            class="form-control" maxlength="25" required>
             <!--CREAMOS EL LISTADO DE CIUDADES PARA ELEGIR-->
             <label for="sede" class="mb-2">Sede:</label>
         <select id="sede" name="sede.id" class="form-control mb-4" th:field="*{sede.id}">
@@ -30,10 +30,10 @@
         </select>
         <!--INICIO-->
             <input type="date" th:field="*{inicio}" placeholder="inicio"
-                   class="form-control mb-4">
+                   class="form-control mb-4" required>
             <!--FACTURACION-->
             <input type="text" th:field="*{facturacion}" placeholder="facturacion"
-                   class="form-control mb-4">
+                   class="form-control mb-4" required>
              
             <!--ELIMINADO-->
             <input type="hidden" th:field="*{eliminado}" placeholder="eliminado"
