@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Asesores</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+</head>
+<body>
+
+  <div th:replace="navbar :: navbar"></div>
+
+<div class="container mt-5" id="container">
+  <h3 th:text="'Asesores de ' + ${empresa.nombre}">>Vendedores</h3>
+  <hr>
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+    <tr>
+      <th class="col-1">ID</th>
+      <th class="col-1">Nombre</th>
+      <th class="col-1">Apellido</th>
+      <th class="col-2">Titulación</th>
+      <th class="col-2">Dirección</th>
+      <th class="col-2">Areas Asoradas</th>
+      <th class="col-2">Empresas Asesoradas</th>
+      <th class="col-1">ABM</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="asesTemp : ${asesores}">
+      <td th:text="${asesTemp.id}"></td>
+      <td th:text="${asesTemp.nombre}"></td>
+      <td th:text="${asesTemp.apellido}"></td>
+      <td th:text="${asesTemp.titulacion}"></td>
+      <td th:text="${asesTemp.direccion}"></td>
+
+      <td>
+        <div th:each="areaMerc : ${asesTemp.areasAsesoradas}">
+          <ul>
+            <li th:text="${areaMerc.nombre}"></li>
+          </ul>
+        </div>
+      </td>
+
+      <td>
+        <div th:each="aseEmp : ${asesTemp.empresasAsesoradas}">
+          <div th:text="${aseEmp.empresa.nombre}"></div>
+          <div th:text="'Fecha inicio: ' + ${aseEmp.fechaInicio}" style="font-style: italic;"></div>
+          <br>
+        </div>
+      </td>
+
+      <td>
+        <a th:href="@{/admin/asesor/actualizar(idTemporal=${asesTemp.id})}" class="btn btn-info btn-sm mb-2 col-12">Actualizar</a>
+
+        <a th:href="@{/admin/asesor/eliminar(idTemporal=${asesTemp.id})}" class="btn btn-danger btn-sm  col-12"
+           onclick="if (! (confirm('Seguro desea eliminar el registro?'))) return false">Eliminar</a>
+
+      </td>
+
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+
+</body>
+</html>
+

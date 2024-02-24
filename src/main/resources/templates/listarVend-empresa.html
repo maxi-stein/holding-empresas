@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Vendedores</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+</head>
+<body>
+  <div th:replace="navbar :: navbar"></div>
+
+<div class="container mt-5" id="container">
+  <h3 th:text="'Vendedores de ' + ${empresa.nombre}">>Vendedores</h3>
+  <hr>
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+    <tr>
+      <th class="col-1">ID</th>
+      <th class="col-1">Nombre</th>
+      <th class="col-1">Apellido</th>
+      <th class="col-2">Dirección</th>
+      <th class="col-2">Empresa</th>
+      <th class="col-2">Vendedores Captados</th>
+      <th class="col-1">ABM</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="vendTemp : ${vendedores}">
+      <td th:text="${vendTemp.id}"></td>
+      <td th:text="${vendTemp.nombre}"></td>
+      <td th:text="${vendTemp.apellido}"></td>
+      <td th:text="${vendTemp.direccion}"></td>
+      <td th:text="${vendTemp.empresa != null ? vendTemp.empresa.nombre : ''}"></td>
+
+      <td>
+        <div th:each="vendCapt : ${vendTemp.vendedoresCaptados}">
+          <ul>
+            <li th:text="${vendCapt.vendedorCaptado.apellido} + ', ' + ${vendCapt.vendedorCaptado.nombre}"></li>
+            <div th:text="'Fecha captado: ' + ${vendCapt.fechaCaptado}" style="font-style: italic;"></div>
+          </ul>
+        </div>
+      </td>
+
+      <td>
+        <a th:href="@{/admin/vendedor/actualizar(idTemporal=${vendTemp.id})}" class="btn btn-info btn-sm mb-1 col-8">Actualizar</a>
+
+        <a th:href="@{/admin/vendedor/eliminar(idTemporal=${vendTemp.id})}" class="btn btn-danger btn-sm col-8"
+           onclick="if (! (confirm('Seguro desea eliminar el registro?'))) return false">Eliminar</a>
+
+      </td>
+
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+
+</body>
+</html>

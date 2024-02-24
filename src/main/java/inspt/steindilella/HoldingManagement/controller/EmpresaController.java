@@ -1,9 +1,6 @@
 package inspt.steindilella.HoldingManagement.controller;
 
-import inspt.steindilella.HoldingManagement.entity.Administrador;
-import inspt.steindilella.HoldingManagement.entity.AreasMercado;
-import inspt.steindilella.HoldingManagement.entity.Ciudad;
-import inspt.steindilella.HoldingManagement.entity.Empresa;
+import inspt.steindilella.HoldingManagement.entity.*;
 import inspt.steindilella.HoldingManagement.service.AreasMercadoService;
 import inspt.steindilella.HoldingManagement.service.EmpleadoService;
 import inspt.steindilella.HoldingManagement.service.EmpresaService;
@@ -145,6 +142,26 @@ public class EmpresaController {
         empresaService.desbloquear(id);
 
         return "redirect:/admin/empresas/listar";
+    }
+
+    @GetMapping("/vendedoresEmpresa")
+    public String vendedoresEmpresa(@RequestParam("idTemporal") Integer id, HttpSession session, Model model){
+        recuperarAdmin(session,model);
+        Set<Vendedor> listadoVendedores = empresaService.getVendedoresPorEmpresa(id);
+        Empresa empresa = empresaService.getById(id);
+        model.addAttribute("vendedores", listadoVendedores);
+        model.addAttribute("empresa", empresa);
+        return "listarVend-empresa";
+    }
+
+    @GetMapping("/asesoresEmpresa")
+    public String asesoresEmpresa(@RequestParam("idTemporal") Integer id, HttpSession session, Model model){
+        recuperarAdmin(session,model);
+        Set<Asesor> listadoAsesores = empresaService.getAsesoresPorEmpresa(id);
+        Empresa empresa = empresaService.getById(id);
+        model.addAttribute("asesores", listadoAsesores);
+        model.addAttribute("empresa", empresa);
+        return "listarAses-empresa";
     }
 
     @PostMapping("/cubrirArea")

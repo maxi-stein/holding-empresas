@@ -117,8 +117,14 @@
                         onclick="if (! (confirm('Seguro desea eliminar el registro?'))) return false">Bloquear</a>
 
                         <a th:if="${empresa.eliminado != 0}" th:href="@{/admin/empresas/desbloquear(idTemporal=${empresa.id})}"
-                        class="btn btn-info btn-sm ms-1 mb-3 col-6"
+                        class="btn btn-info btn-sm ms-1 mb-3 col-5"
                         onclick="if (! (confirm('Seguro desea desbloquear el registro?'))) return false">Desbloquear</a>
+                        <!--AGREGO BOTON QUE ESTARA DISPONIBLE SOLO PARA EMPRESA CON VENDEDORES REGISTRADOS-->    
+                        <a th:if="${not #sets.isEmpty(empresa.vendedores)}" class="btn btn-success btn-xs-1 btn-sm ms-1 mb-3 col-5" th:href="@{/admin/empresas/vendedoresEmpresa(idTemporal=${empresa.id})}">
+                            Vendedores</a>
+                        <!--AGREGO BOTON QUE ESTARA DISPONIBLE SOLO PARA EMPRESA CON ASESORES REGISTRADOS-->    
+                        <a th:if="${not #sets.isEmpty(empresa.asesores)}" class="btn btn-success btn-xs-1 btn-sm ms-1 mb-3 col-5" th:href="@{/admin/empresas/asesoresEmpresa(idTemporal=${empresa.id})}">
+                            Asesores</a>    
                     </td>
 
                 </tr>
