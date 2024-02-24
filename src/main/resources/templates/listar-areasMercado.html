@@ -36,11 +36,12 @@
                     <td th:text="${area.descripcion}"></td>
 
                     <td>
-                        <a th:href="@{/admin/areasMercado/actualizar(idTemporal=${area.id})}" class="btn btn-primary btn-sm mb-3 col-6">
+                        <a th:href="@{/admin/areasMercado/actualizar(idTemporal=${area.id})}" class="btn btn-info btn-sm mb-1 col-4">
                             Actualizar</a>
 
                         <a th:href="@{/admin/areasMercado/eliminar(idTemporal=${area.id})}"
-                        class="btn btn-danger btn-sm mb-3 col-6"
+                        class="btn btn-danger btn-sm mb-1 col-
+                        4"
                         onclick="if (! (confirm('Seguro desea eliminar el registro?'))) return false">Eliminar</a>
                     </td>
 
