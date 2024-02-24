@@ -14,10 +14,9 @@
 
 <div class="container mt-3 " id="container">
   <h3>Asesores</h3>
-
   <div>
     <a th:href="@{/admin/asesor/formulario}"
-       class="btn btn-primary btn-sm mb-3">
+       class="btn btn-primary btn-sm mt-1 mb-3">
       Registrar Asesor
     </a>
   </div>
@@ -60,7 +59,7 @@
         </div>
       </td>
 
-      <td class="row">
+      <td>
         <a th:href="@{/admin/asesor/actualizar(idTemporal=${asesTemp.id})}" class="btn btn-primary btn-sm mb-3 col-6">Actualizar</a>
 
         <a th:href="@{/admin/asesor/eliminar(idTemporal=${asesTemp.id})}" class="btn btn-danger btn-sm mb-3 col-6"
