@@ -46,7 +46,7 @@ public class ControllerUbicaciones {
         //agrego al modelo las ciudades y paises
         model.addAttribute("ciudades",set);
 
-        return "listar-ubicaciones.html";
+        return "listar-ciudades.html";
     }
 
     @GetMapping("/listarPaises")
