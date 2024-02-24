@@ -173,8 +173,13 @@ public class VendedorController {
         if(listadoCaptados != null){
             vendedor.setVendedoresCaptados(listadoCaptados);
         }
+        //manejo la excepción en caso de no encontrar una empresa asignada al vendedor
+        try{
+            vendedor.setEmpresa(empresaService.getEmpresaByVendedorId(idVendedor));
+        }catch(Exception e){
+            System.out.println("Vendedor sin empresa asignada");
+        }
 
-        vendedor.setEmpresa(empresaService.getEmpresaByVendedorId(idVendedor));
 
         //si el vendedor tiene una empresa, se la elimino
         if(vendedor.getVendedoresCaptados() != null){

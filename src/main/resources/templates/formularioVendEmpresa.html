@@ -5,17 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Empresa para el Vendedor</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
   <div th:replace="~{navbar :: navbar}"></div>
+  <a th:href="@{/admin/vendedor/listar}" class= "btn btn-sm">Volver al Directorio de Vendedores</a>
 
 <div class="container mt-3">
   <form th:action="@{/admin/vendedor/agregarEmpresa/{idVendedor}(idVendedor=${vendFormulario.id})}" method="post">
     <h3>Seleccionar una Empresa para el Vendedor</h3>
     <hr>
     <div th:each="empresa : ${empresas}">
-      <div th:text="${empresa.nombre}"></div>
-      <input type="radio" th:value="${empresa.id}" name="idEmpresa"/>
+     <!--  <div th:text="${empresa.nombre}"></div> -->
+      <input class="mb-4" th:text="' '+${empresa.nombre}" type="radio" th:value="${empresa.id}" name="idEmpresa"/>
     </div>
 
     <br>
@@ -25,8 +27,6 @@
   </form>
 
   <br>
-  <a th:href="@{/admin/vendedor/listar}">Volver al Directorio de Vendedores</a>
-
 </div>
 
 </body>
