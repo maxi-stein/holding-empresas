@@ -9,19 +9,21 @@
     <title th:text="'¡Bienvenido ' + ${vendedor.nombre} + '!'"></title>
 </head>
 <body>
-    <header>
+   
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             
             <div class="container-fluid">
 
                 <div>
                     <h2 th:text="${vendedor.apellido} + ' ' + ${vendedor.nombre}">Nombre y Apellido no encontrado</h2>
-                </div>
+                </div>            
+                <h6  style="margin-left: 20px;">Vendedor</h6>
+           
 
-                <div>
-                    <h2 th:text="${vendedor.empresa.nombre}">Empresa no encontrada</h2>
-                </div>
-        
+                <ul class="mx-auto my-auto"> 
+                    <h4 th:text="${vendedor.empresa.nombre}" >Empresa no encontrada</h4>
+                </ul>
+
                 <form th:action="@{/logout}" method="post" style="margin-left: auto;">
                         <input type="submit" value="Salir" class="btn btn-outline-success">
                     </form>
@@ -31,47 +33,59 @@
         </nav>
         
 
-    </header>
-
-    <main>
-        <section class="container">
-            <p th:text="${vendedor.id}">ID del vendedor no encontrado</p>
+   
+       
+            <div class="container mt-6 col-6">
+                
+            <p th:text="'Código de Usuario: '+${vendedor.id}">ID del vendedor no encontrado</p>
             
-            <p th:text="${vendedor.direccion}">Direccion no encontrada</p>
-            <section>
-                <button id="toggleTable">Vendedores Captados</button>
+            <p th:text="'Domicilio: '+${vendedor.direccion}">Direccion no encontrada</p>
 
-                <table id="captadosTable" style="display: none;">
-
-                    <thead>
-                        <tr>
-                            <th>Codigo</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Fecha captacion</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr th:each="captado : ${vendedor.vendedoresCaptados}">
-                            <td th:text="${captado.vendedorCaptado.id}">N/A</td>
-                            <td th:text="${captado.vendedorCaptado.nombre}">N/A</td>
-                            <td th:text="${captado.vendedorCaptado.apellido}">N/A</td>
-                            <td th:text="${captado.fechaCaptado}">N/A</td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
-            </section>
+            <p th:text="'Empresa: '+${vendedor.empresa.nombre}">Direccion no encontrada</p>
             
-        </section>
+                <button th:if="${not #sets.isEmpty(vendedor.vendedoresCaptados)}"  class="btn btn-success" id="toggleTable">Vendedores Captados</button>
+            </div>
 
-    </main>
+            <div th:if="${#sets.isEmpty(vendedor.vendedoresCaptados)}"  class="container mt-1 col-6">
+                <a>Este Vendedor no posee vendedores captados</a>
+            </div>
+        
     
-    <footer>
-        <p>Stein&DiLella Inc.</p>
-    </footer>
+
+            <div th:if="${not #sets.isEmpty(vendedor.vendedoresCaptados)}"   class="container mt-6 col-6">
+                <div class="table-responsive">
+                    <table id="captadosTable" class="table table-bordered  table-striped">
+                        <p style="text-align: center;">Vendedores Captados</p>   
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Fecha captacion</th>
+                            </tr>
+                        </thead>
+    
+                        <tbody>
+                            <tr th:each="captado : ${vendedor.vendedoresCaptados}">
+                                <td th:text="${captado.vendedorCaptado.id}">N/A</td>
+                                <td th:text="${captado.vendedorCaptado.nombre}">N/A</td>
+                                <td th:text="${captado.vendedorCaptado.apellido}">N/A</td>
+                                <td th:text="${captado.fechaCaptado}">N/A</td>
+                            </tr>
+    
+                        </tbody>
+                    </table>
+                </div>
+                
+         
+            
+        </div>
+
+    
+    
+    <div class="footer">
+        <p>©Stein&DiLella Inc. </p>
+    </div>
 
     <script>
     document.getElementById('toggleTable').addEventListener('click', function() {
