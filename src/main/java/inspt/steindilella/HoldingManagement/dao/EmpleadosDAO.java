@@ -98,8 +98,8 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
 
     @Override
     public Set<Vendedor> getVendedores() {
-        TypedQuery<Vendedor> query = entityManager.createQuery("SELECT v FROM Vendedor v ORDER BY v.apellido ASC", Vendedor.class);
-        return new HashSet<>(query.getResultList());
+        TypedQuery<Vendedor> query = entityManager.createQuery("SELECT v FROM Vendedor v ORDER BY v.apellido,v.nombre ASC", Vendedor.class);
+        return new LinkedHashSet<>(query.getResultList());
     }
 
     @Override
