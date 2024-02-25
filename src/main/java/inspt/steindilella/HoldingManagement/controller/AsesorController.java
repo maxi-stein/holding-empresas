@@ -65,7 +65,12 @@ public class AsesorController {
 
         //Obtengo todas las Empresas asesoradas y no Asesoradas
         Set<Empresa> empresas = empresaService.getAll();
-        Set<AsesorEmpresa> empresasAsesoradas = empleadoService.getEmpresasAsesoradas(asesor.getId());
+        Set<AsesorEmpresa> empresasAsesoradas = null;
+        
+        if(asesor.getId() != null){
+            empresasAsesoradas = empleadoService.getEmpresasAsesoradas(asesor.getId());
+        }
+
         Set<Empresa> empresasNoAsesoradas = new HashSet<>();
 
         boolean hayEmpresasAsesoradas = (empresasAsesoradas != null);
@@ -73,6 +78,7 @@ public class AsesorController {
         for(Empresa e : empresas) {
 
             if(e.getEliminado() == 0){ //agrego unicamente las empresas no eliminadas
+
                 boolean existe = false;
 
                 if (hayEmpresasAsesoradas) {
@@ -81,21 +87,22 @@ public class AsesorController {
                             existe = true;
                         }
                     }
-                }
 
-                //antes de agregar al set de empresas no asesoradas, verifico que sea "asesorable" (deben tener Asesor y Empresa la misma Area de Mercado)
-                if (!existe && asesor.getAreasAsesoradas() != null) { /*si estoy creando un asesor, no listo ninguna empresa disponible para asesorar*/
+                    //antes de agregar al set de empresas no asesoradas, verifico que sea "asesorable" (deben tener Asesor y Empresa la misma Area de Mercado)
+                    if (!existe && asesor.getAreasAsesoradas() != null) { /*si estoy creando un asesor, no listo ninguna empresa disponible para asesorar*/
 
-                    //itero las Areas de Mercado del Asesor para verificar que tambien dicha area esté en la Empresa
-                    boolean asesorable = false;
-                    for (AreasMercado ae : asesor.getAreasAsesoradas()) {
-                        if (e.getAreasMercados().contains(ae)) {
-                            asesorable = true;
+                        //itero las Areas de Mercado del Asesor para verificar que tambien dicha area esté en la Empresa
+                        boolean asesorable = false;
+                        for (AreasMercado ae : asesor.getAreasAsesoradas()) {
+                            if (e.getAreasMercados().contains(ae)) {
+                                asesorable = true;
+                            }
+                        }
+                        if (asesorable) {
+                            empresasNoAsesoradas.add(e);
                         }
                     }
-                    if (asesorable) {
-                        empresasNoAsesoradas.add(e);
-                    }
+
                 }
             }
         }
@@ -105,6 +112,8 @@ public class AsesorController {
         model.addAttribute("areasMercadoAsesoradas", areasAsesoradas);
         model.addAttribute("empresasAsesoradas",empresasAsesoradas);
         model.addAttribute("empresasNoAsesoradas",empresasNoAsesoradas);
+
+
 
     }
 
