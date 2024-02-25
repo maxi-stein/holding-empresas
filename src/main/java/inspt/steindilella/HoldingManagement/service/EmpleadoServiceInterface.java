@@ -24,6 +24,8 @@ public interface EmpleadoServiceInterface {
 
     Set<AsesorEmpresa> getEmpresasAsesoradas(Integer idAsesor);
 
+    Empresa getEmpresaVendedor(Integer idVendedor);
+
     Set<AreasMercado> getAreasAsesoradasPorAsesor(Integer idAsesor);
 
 

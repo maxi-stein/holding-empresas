@@ -90,6 +90,14 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     }
 
     @Override
+    public Empresa getEmpresaVendedor(Integer idVendedor) {
+        TypedQuery<Empresa> query = entityManager.createQuery("SELECT v.empresa FROM Vendedor v WHERE v.id = :idVendedor ", Empresa.class);
+        query.setParameter("idVendedor",idVendedor);
+
+        return query.getSingleResult();
+    }
+
+    @Override
     public Set<AreasMercado> getAreasAsesoradasPorAsesor(Integer idAsesor) {
         TypedQuery<AreasMercado> query = entityManager.createQuery("SELECT a.areasAsesoradas FROM Asesor a WHERE a.id = :idAsesor", AreasMercado.class);
         query.setParameter("idAsesor",idAsesor);
