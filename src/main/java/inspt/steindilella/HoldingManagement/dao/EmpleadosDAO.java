@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 @Repository
 public class EmpleadosDAO implements EmpleadosDAOInterface{
@@ -52,7 +49,7 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     public Set<Asesor> getAsesores() {
         TypedQuery<Asesor> query = entityManager.createQuery("SELECT a FROM Asesor a ORDER BY a.apellido,a.nombre ASC", Asesor.class);
 
-        return new TreeSet<>(query.getResultList());
+        return new LinkedHashSet<>(query.getResultList());
     }
 
     @Override

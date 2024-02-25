@@ -66,7 +66,7 @@ public class AsesorController {
         //Obtengo todas las Empresas asesoradas y no Asesoradas
         Set<Empresa> empresas = empresaService.getAll();
         Set<AsesorEmpresa> empresasAsesoradas = null;
-        
+
         if(asesor.getId() != null){
             empresasAsesoradas = empleadoService.getEmpresasAsesoradas(asesor.getId());
         }
@@ -112,8 +112,6 @@ public class AsesorController {
         model.addAttribute("areasMercadoAsesoradas", areasAsesoradas);
         model.addAttribute("empresasAsesoradas",empresasAsesoradas);
         model.addAttribute("empresasNoAsesoradas",empresasNoAsesoradas);
-
-
 
     }
 
