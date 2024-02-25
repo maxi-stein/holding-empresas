@@ -87,8 +87,8 @@
         </div>
 
     
-    
-    <div class="footer">
+    <!-- 
+<div class="footer">
         <div class="container mt-6 col-6">
             <h5>Opciones de usuario</h5>
             <a class="btn btn-info mt-4 ml-4 mb-2 col-3" th:href="@{/cambiarPass}">Cambiar Contraseña</a>
@@ -96,6 +96,9 @@
         </div>
         <p>©Stein&DiLella Inc. </p>
     </div>
+    -->
+    <div th:replace="~{navbar :: footer}"></div>
+    
 
     <script>
     document.getElementById('toggleTable').addEventListener('click', function() {
