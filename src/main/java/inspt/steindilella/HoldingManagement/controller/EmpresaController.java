@@ -149,6 +149,15 @@ public class EmpresaController {
         recuperarAdmin(session,model);
         Set<Vendedor> listadoVendedores = empresaService.getVendedoresPorEmpresa(id);
         Empresa empresa = empresaService.getById(id);
+
+        for(Vendedor v : listadoVendedores){
+            Set<VendedorCaptado> vCaptados = empleadoService.getVendedoresCaptados(v.getId());
+
+            if(vCaptados != null){
+                v.setVendedoresCaptados(vCaptados);
+            }
+        }
+
         model.addAttribute("vendedores", listadoVendedores);
         model.addAttribute("empresa", empresa);
         return "listarVend-empresa";
