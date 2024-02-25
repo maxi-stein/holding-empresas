@@ -31,7 +31,7 @@
       <td th:text="${empleado.nombre}"></td>
       <td th:text="${empleado.apellido}"></td>
       <td>
-            <th:block th:if="${!usuarios.contains(empleado)}">
+            <th:block th:if="${!usuarios.contains(empleado)}" >
               <p class="text">Deshabilitado</p>  
             </th:block>
             <th:block th:if="${usuarios.contains(empleado)}">
@@ -41,7 +41,8 @@
       <td>
         <a th:if="${!usuarios.contains(empleado)}" th:href="@{/admin/panelAdmin/habilitarUsuario(idTemporal=${empleado.id})}" class="btn btn-success ms-1 btn-sm mb-3 col-5">
             Habilitar</a>
-        <a th:if="${usuarios.contains(empleado)}" th:href="@{/admin/panelAdmin/deshabilitarUsuario(idTemporal=${empleado.id})}"  method="post" class="btn btn-danger ms-1 btn-sm mb-3 col-5">
+        <a th:if="${usuarios.contains(empleado)}" th:href="@{/admin/panelAdmin/deshabilitarUsuario(idTemporal=${empleado.id})}"  
+        method="post" class="btn btn-danger ms-1 btn-sm mb-3 col-5" onclick="if (! (confirm('Desea quitar las credenciales al usuario?'))) return false">
           Deshabilitar</a>    
       </td>
     </tr>

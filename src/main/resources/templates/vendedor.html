@@ -15,7 +15,10 @@
             <div class="container-fluid">
 
                 <div>
-                    <h2 th:text="${vendedor.apellido} + ' ' + ${vendedor.nombre}">Nombre y Apellido no encontrado</h2>
+                
+                <h2 id="datosUsuario" th:text="${vendedor.apellido} + ' ' + ${vendedor.nombre}">Nombre y Apellido no encontrado</h2>
+                   
+                   
                 </div>            
                 <h6  style="margin-left: 20px;">Vendedor</h6>
            
@@ -31,7 +34,9 @@
             </div>
             
         </nav>
-        
+        <div>
+            <a id="cambiarPassword" style="display: none;" class="btn btn-info mt-4 ml-4 mb-2 col-3" th:href="@{/}">Cambiar Contraseña</a>
+        </div>
 
    
        
@@ -84,6 +89,11 @@
     
     
     <div class="footer">
+        <div class="container mt-6 col-6">
+            <h5>Opciones de usuario</h5>
+            <a class="btn btn-info mt-4 ml-4 mb-2 col-3" th:href="@{/cambiarPass}">Cambiar Contraseña</a>
+                
+        </div>
         <p>©Stein&DiLella Inc. </p>
     </div>
 
