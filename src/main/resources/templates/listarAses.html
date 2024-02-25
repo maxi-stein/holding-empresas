@@ -23,6 +23,7 @@
   <table class="table table-bordered table-striped">
     <thead class="table-dark">
     <tr>
+      <th class="col-1">Eliminado</th>
       <th class="col-1">ID</th>
       <th class="col-1">Nombre</th>
       <th class="col-1">Apellido</th>
@@ -36,6 +37,7 @@
 
     <tbody>
     <tr th:each="asesTemp : ${asesores}">
+      <td th:text="${asesTemp.eliminado}"></td>
       <td th:text="${asesTemp.id}"></td>
       <td th:text="${asesTemp.nombre}"></td>
       <td th:text="${asesTemp.apellido}"></td>
