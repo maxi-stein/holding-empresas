@@ -42,11 +42,11 @@ public class VendedorController {
 
     private void cargarDatosFormulario(Vendedor vendedor, Model model){
 
-        Empresa empresaVendedor = vendedor.getEmpresa();
+        Empresa empresaVendedor = empleadoService.getEmpresaVendedor(vendedor.getId());
 
         //Obtengo todos los empleados de la empresa que esten disponibles para ser captados
         if(empresaVendedor != null){
-            Integer idEmpresa = vendedor.getEmpresa().getId();
+            Integer idEmpresa = empresaVendedor.getId();
 
             Set <Vendedor> vendedoresDeLaEmpresa = empresaService.getVendedoresPorEmpresa(idEmpresa);
 
@@ -147,6 +147,15 @@ public class VendedorController {
 
     @GetMapping("/eliminar")
     public String eliminar(@RequestParam("idTemporal") Integer id){
+
+        Vendedor vendedorEliminar = (Vendedor) empleadoService.getById(id);
+        Empresa empresaDesvincular = empleadoService.getEmpresaVendedor(id);
+
+        //desvinculo al vendedor de la empresa (si trabaja)
+        if(empresaDesvincular != null){
+            empresaService.desvincularVendedor(vendedorEliminar,empresaDesvincular.getId());
+        }
+        
         empleadoService.delete(id);
 
         return "redirect:/admin/vendedor/listar";
