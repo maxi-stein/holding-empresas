@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/css/style.css" /> <!-- para trabajar con VSC-->
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
     <title th:text="'¡Bienvenido ' + ${asesor.nombre} + '!'"></title>
 </head>
     <body>
@@ -35,44 +36,45 @@
     
         <div class="container mt-6 col-6" id="container">
         
-        
-                <button th:if="${not #sets.isEmpty(asesor.areasAsesoradas)}" class="btn btn-success mt-4 mb-2" id="toggleTable">Areas Cubiertas</button>
+            <h4 th:if="${#sets.isEmpty(asesor.areasAsesoradas)}" >No posee Areas de Mercados asignadas</h4>
+            <button th:if="${not #sets.isEmpty(asesor.areasAsesoradas)}" class="btn btn-success mt-4 mb-2" id="toggleTable">Areas Cubiertas</button>
 
-                <table id="areasTable" style="display: none;" class="table table-bordered  table-striped">
+            <table id="areasTable" style="display: none;" class="table table-bordered  table-striped">
 
-                    <thead>
-                        <tr>
-                            <th>Codigo</th>
-                            <th>Nombre</th>
-                            <th>Descripcion</th>
-                        </tr>
-                    </thead>
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                    </tr>
+                </thead>
 
-                    <tbody>
-                        <tr th:each="asesorada : ${asesor.areasAsesoradas}">
-                            <td th:text="${asesorada.id}">N/A</td>
-                            <td th:text="${asesorada.nombre}">N/A</td>
-                            <td th:text="${asesorada.descripcion}">N/A</td>
-                        </tr>
+                <tbody>
+                    <tr th:each="asesorada : ${asesor.areasAsesoradas}">
+                        <td th:text="${asesorada.id}">N/A</td>
+                        <td th:text="${asesorada.nombre}">N/A</td>
+                        <td th:text="${asesorada.descripcion}">N/A</td>
+                    </tr>
 
-                    </tbody>
+                </tbody>
 
-                </table>
+            </table>
         
         </div>
 
 
         <div class="container mt-6 col-6" id="container">
+            <h4 th:if="${#sets.isEmpty(asesor.empresasAsesoradas)}" >No posee empresas asignadas</h4>
             <button class="btn btn-success mt-4 mb-2" id="toggleTableEmpresas" th:if="${not #sets.isEmpty(asesor.empresasAsesoradas)}">Empresas asesoradas</button>
 
-            <table id="empresasTable" style="display: none;" class="table table-bordered  table-striped">
+            <table id="empresasTable" style="display: none;" class="table table-bordered  table-striped table-responsive">
 
                 <thead>
                 <tr>
-                    <th>Codigo</th>
-                    <th>Nombre</th>
-                    <th>Sede</th>
-                    <th>Facturacion</th>
+                    <th  class="col-4">Codigo</th>
+                    <th class="col-4">Nombre</th>
+                    <th class="col-4">Sede</th>
+                    <th class="col-4">Facturacion</th>
                 </tr>
                 </thead>
 
@@ -87,10 +89,6 @@
                 </tbody>
 
             </table>
-        </div>
-
-        <div class="footer">
-            <p>Stein&DiLella Inc.</p>
         </div>
 
         <script>
