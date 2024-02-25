@@ -6,7 +6,6 @@ import inspt.steindilella.HoldingManagement.service.EmpleadoService;
 import inspt.steindilella.HoldingManagement.service.EmpresaService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,63 +49,56 @@ public class AsesorController {
 
         if(areasAsesoradas != null){
             for(AreasMercado a : areas){
-                boolean existe = false;
-                for(AreasMercado a_aux : areasAsesoradas){
-                    if(a.equals(a_aux)){
-                        existe = true;
+                if(a.getEliminado()==0){ //agrego unicamente las areas de mercado no eliminadas
+                    boolean existe = false;
+                    for(AreasMercado a_aux : areasAsesoradas){
+                        if(a.equals(a_aux)){
+                            existe = true;
+                        }
                     }
-                }
-                if(!existe){
-                    areasSinAsesorar.add(a);
+                    if(!existe){
+                        areasSinAsesorar.add(a);
+                    }
                 }
             }
         }
 
         //Obtengo todas las Empresas asesoradas y no Asesoradas
         Set<Empresa> empresas = empresaService.getAll();
-        Set<AsesorEmpresa> empresasAsesoradas = null;
-
-        try{
-            empresasAsesoradas = empleadoService.getEmpresasAsesoradas(asesor.getId());
-        }
-        catch (EmptyResultDataAccessException e){
-
-        }
-
+        Set<AsesorEmpresa> empresasAsesoradas = empleadoService.getEmpresasAsesoradas(asesor.getId());
         Set<Empresa> empresasNoAsesoradas = new HashSet<>();
 
         boolean hayEmpresasAsesoradas = (empresasAsesoradas != null);
 
         for(Empresa e : empresas) {
 
-            boolean existe = false;
+            if(e.getEliminado() == 0){ //agrego unicamente las empresas no eliminadas
+                boolean existe = false;
 
-            if (hayEmpresasAsesoradas) {
-                for (AsesorEmpresa ae : empresasAsesoradas) {
-                    if (Objects.equals(ae.getEmpresa().getId(), e.getId())) {
-                        existe = true;
+                if (hayEmpresasAsesoradas) {
+                    for (AsesorEmpresa ae : empresasAsesoradas) {
+                        if (Objects.equals(ae.getEmpresa().getId(), e.getId())) {
+                            existe = true;
+                        }
+                    }
+                }
+
+                //antes de agregar al set de empresas no asesoradas, verifico que sea "asesorable" (deben tener Asesor y Empresa la misma Area de Mercado)
+                if (!existe && asesor.getAreasAsesoradas() != null) { /*si estoy creando un asesor, no listo ninguna empresa disponible para asesorar*/
+
+                    //itero las Areas de Mercado del Asesor para verificar que tambien dicha area esté en la Empresa
+                    boolean asesorable = false;
+                    for (AreasMercado ae : asesor.getAreasAsesoradas()) {
+                        if (e.getAreasMercados().contains(ae)) {
+                            asesorable = true;
+                        }
+                    }
+                    if (asesorable) {
+                        empresasNoAsesoradas.add(e);
                     }
                 }
             }
-
-            //antes de agregar al set de empresas no asesoradas, verifico que sea "asesorable" (deben tener Asesor y Empresa la misma Area de Mercado)
-            if (!existe && asesor.getAreasAsesoradas() != null) { /*si estoy creando un asesor, no listo ninguna empresa disponible para asesorar*/
-
-                //itero las Areas de Mercado del Asesor para verificar que tambien dicha area esté en la Empresa
-                boolean asesorable = false;
-                for (AreasMercado ae : asesor.getAreasAsesoradas()) {
-                    if (e.getAreasMercados().contains(ae)) {
-                        asesorable = true;
-                    }
-                }
-                if (asesorable) {
-                    empresasNoAsesoradas.add(e);
-                }
-            }
-
         }
-
-        System.out.println("El asesor tiene id: " + asesor.getId());
 
         model.addAttribute("asesFormulario",asesor);
         model.addAttribute("areasMercadoSinAses", areasSinAsesorar);
@@ -177,6 +169,18 @@ public class AsesorController {
 
     @GetMapping("/eliminar")
     public String eliminarAsesor(@RequestParam("idTemporal") Integer id){
+
+        //Obtengo las empresas que asesora el asesor a eliminar (para desvincularlo)
+        Set<AsesorEmpresa> empresasAsesoradas = empleadoService.getEmpresasAsesoradas(id);
+
+        //desvinculo al asesor de todas las empresas
+        if(empresasAsesoradas != null){
+            Asesor asesor = (Asesor) empleadoService.getById(id);
+            for(AsesorEmpresa asesorEmpresa : empresasAsesoradas){
+                empresaService.desvincularAsesor(asesor,asesorEmpresa.getEmpresa().getId());
+            }
+        }
+
         empleadoService.delete(id);
 
         return "redirect:/admin/asesor/listar";
