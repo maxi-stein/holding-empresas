@@ -52,8 +52,14 @@ public class EmpresaDAO implements EmpresaDAOInterface {
     public Set<Vendedor> getVendedoresPorEmpresa(Integer id) {
         TypedQuery<Empresa> empresaQuery = entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.vendedores WHERE e.id = :idEmpresa", Empresa.class);
         empresaQuery.setParameter("idEmpresa",id);
+        Set<Vendedor> coleccion = null;
+        try {
+            coleccion = new HashSet<>(empresaQuery.getSingleResult().getVendedores());
+        }catch (Exception e){
+            System.out.println("Empresa sin Vendedores");
+        }
 
-        return new HashSet<>(empresaQuery.getSingleResult().getVendedores());
+        return coleccion;
     }
 
     @Override

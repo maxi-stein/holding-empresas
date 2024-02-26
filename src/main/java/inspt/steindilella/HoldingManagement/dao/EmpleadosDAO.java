@@ -93,8 +93,15 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     public Empresa getEmpresaVendedor(Integer idVendedor) {
         TypedQuery<Empresa> query = entityManager.createQuery("SELECT v.empresa FROM Vendedor v WHERE v.id = :idVendedor ", Empresa.class);
         query.setParameter("idVendedor",idVendedor);
+        Empresa empresa = null;
+        try{
+            empresa = query.getSingleResult();
+        }catch (Exception e){
+            System.out.println("Sin empresas asignadas");
+        }
 
-        return query.getSingleResult();
+
+        return empresa;
     }
 
     @Override

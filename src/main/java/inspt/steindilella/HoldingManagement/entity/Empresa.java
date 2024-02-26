@@ -173,11 +173,16 @@ public class Empresa {
     }
 
     public void agregarVendedor(Vendedor vendedor){
-        //le cargo la empresa al vendedor
-        vendedor.setEmpresa(this);
+        try{
+            //le cargo la empresa al vendedor
+            vendedor.setEmpresa(this);
 
-        //agrego el vendedor al listado de vendedores
-        vendedores.add(vendedor);
+            //agrego el vendedor al listado de vendedores
+            vendedores.add(vendedor);
+        }catch (Exception e){
+            System.out.println("Entity Empresa Error: "+ e.toString());
+        }
+
     }
 
     public void desvincularVendedor(Vendedor vendedor){
