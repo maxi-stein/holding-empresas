@@ -34,18 +34,18 @@
             <h6 id="direccion" style="display: none;">Direccion: <a th:text="${asesor.direccion}"></a></h6>
         </div>
     
-        <div class="container mt-6 col-6" id="container">
+        <div class="container mt-6 col-4" id="container">
         
             <h4 th:if="${#sets.isEmpty(asesor.areasAsesoradas)}" >No posee Areas de Mercados asignadas</h4>
             <button th:if="${not #sets.isEmpty(asesor.areasAsesoradas)}" class="btn btn-success mt-4 mb-2" id="toggleTable">Areas Cubiertas</button>
 
-            <table id="areasTable" style="display: none;" class="table table-bordered  table-striped">
+            <table id="areasTable" style="display: none;" class="table table-bordered  table-striped table-responsive">
 
                 <thead>
                     <tr>
-                        <th>Codigo</th>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>
+                        <th class="col-4">Codigo</th>
+                        <th class="col-4">Nombre</th>
+                        <th class="col-4">Descripcion</th>
                     </tr>
                 </thead>
 
@@ -63,7 +63,7 @@
         </div>
 
 
-        <div class="container mt-6 col-6" id="container">
+        <div class="container mt-6 col-4" id="container">
             <h4 th:if="${#sets.isEmpty(asesor.empresasAsesoradas)}" >No posee empresas asignadas</h4>
             <button class="btn btn-success mt-4 mb-2" id="toggleTableEmpresas" th:if="${not #sets.isEmpty(asesor.empresasAsesoradas)}">Empresas asesoradas</button>
 
