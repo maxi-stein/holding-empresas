@@ -51,12 +51,18 @@ public class ControllerUbicaciones {
 
     @GetMapping("/listarPaises")
     public String listarPaises(HttpSession session, Model model){
-        //traigo todas las ciudades registradas
-        Set<Pais> set = ubicacionesService.getAllPaises();
-        //traigo el usuario admin
-        recuperarAdmin(session,model);
-        //agrego al modelo las ciudades y paises
-        model.addAttribute("paises",set);
+
+        try{
+            //traigo todas las ciudades registradas
+            Set<Pais> set = ubicacionesService.getAllPaises();
+            //traigo el usuario admin
+            recuperarAdmin(session,model);
+            //agrego al modelo las ciudades y paises
+            model.addAttribute("paises",set);
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
+
 
         return "listar-paises.html";
     }
@@ -110,18 +116,23 @@ public class ControllerUbicaciones {
     @GetMapping("/actualizarPais")
     public String actualizarPais(@RequestParam("idTemporal") Integer id, HttpSession session, Model model){
         recuperarAdmin(session,model);
+        try{
+            //agregamos a la session http la empresa a modificar
+            session.setAttribute("idPais", ubicacionesService.getPaisById(id));
+            Pais pais = (Pais) session.getAttribute("idPais");
+            model.addAttribute("pais",pais);
+            //LOG
+            System.out.println("Se actualiza "+pais.toString());
 
-        //agregamos a la session http la empresa a modificar
-        session.setAttribute("idPais", ubicacionesService.getPaisById(id));
-        Pais pais = (Pais) session.getAttribute("idPais");
-        model.addAttribute("pais",pais);
-        //LOG
-        System.out.println("Se actualiza "+pais.toString());
+            //agrego el listado de ciudades al html
+            Set<Ciudad> ciudades = ubicacionesService.getAllCiudades();
+            model.addAttribute("ciudades", ciudades);
+            model.addAttribute("selectedCapitalId", pais.getCapital().getId()); // Suponiendo que empresa tiene un objeto Sede
 
-        //agrego el listado de ciudades al html
-        Set<Ciudad> ciudades = ubicacionesService.getAllCiudades();
-        model.addAttribute("ciudades", ciudades);
-        model.addAttribute("selectedCapitalId", pais.getCapital().getId()); // Suponiendo que empresa tiene un objeto Sede
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
+
 
         return "formulario-pais";
     }

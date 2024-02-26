@@ -43,7 +43,7 @@
             <tbody>
                 <tr th:each="pais : ${paises}">
                     <td th:text="${pais.nombre}"></td>
-                    <td th:text="${pais.capital.nombre}">N/A</td>
+                    <td th:text="${pais.capital != null} ? ${pais.capital.nombre} : ''">N/A</td>
                     <td th:text="${pais.pbi}">N/A</td>
                     <td th:text="${pais.habitantes}">N/A</td>
                     <td th:text="${pais.eliminado == 1 ? 'Si' : 'No'}"></td>
