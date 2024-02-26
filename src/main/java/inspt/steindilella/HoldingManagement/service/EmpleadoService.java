@@ -38,8 +38,8 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     }
 
     @Override
-    public Set<Empleado> getUsuariosgetCredencialesAll() {
-        return empleadoDao.getUsuariosgetCredencialesAll();
+    public Set<Empleado> getAllCredenciales() {
+        return empleadoDao.getAllCredenciales();
     }
     @Override
     public Set<Empleado> getEmpleadosPorEmpresa(Integer id) {

@@ -33,7 +33,7 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
     }
 
     @Override
-    public Set<Empleado> getUsuariosgetCredencialesAll() {
+    public Set<Empleado> getAllCredenciales() {
         TypedQuery<Empleado> queryCredecial = entityManager.createQuery("SELECT c.usuario FROM Credencial c",Empleado.class);
         return new HashSet<>(queryCredecial.getResultList());
     }
