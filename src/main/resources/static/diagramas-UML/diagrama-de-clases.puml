@@ -1,0 +1,357 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package controller{
+
+    class AdminController{
+
+    }
+
+    class AreasMercadoController{
+
+    }
+
+    class AsesorController{
+
+    }
+
+    class ControllerUbicaciones {
+
+    }
+
+    class EmpleadoController {
+
+    }
+
+    class EmpresaController {
+
+    }
+
+    class LogInController {
+
+    }
+
+    class VendedorController {
+
+    }
+}
+
+package service {
+
+    class AreasMercadoService{
+        +AreasMercadoService(AreasMercadoDAOInterface)
+        +getById(Integer) : AreasMercado
+        +getAll() : AreasMercado[]
+        +getAsesoresPorArea(Integer) : Empleado[]
+        +save(AreasMercado)
+        +update(AreasMercado)
+        +delete(Integer)
+    }
+
+    class EmpleadosService{
+        +EmpleadosService(EmpleadosDAOInterface,EmpresaDAOInterface,AreasMercadoDAOInterface)
+        +getById(Integer) : Empleado[]
+        +getAll() : Empleado[]
+        +getAllCredenciales() : Empleado[]
+        +getAdministradores() : Administrador[]
+        +getAsesores() : Asesor[]
+        +getEmpleadosPorEmpresa(Integer) : Empleado[]
+        +getEmpresasAsesoradas(Integer) : AsesorEmpresa[]
+        +getEmpresaVendedor(Integer) : Empresa
+        +getAreasAsesoradasPorAsesor(Integer) : AreasMercado
+        +getVendedores() : Vendedor[]
+        +getFechaAsesorEmpresa(Integer, Integer) : Date
+        +getVendedoresCaptados(Integer) : VendedorCaptado[]
+        +getVendedorCaptado(Integer,Integer) : VendedorCaptado
+        +getCaptadorDelVendedor(Integer) : Vendedor
+        +getFechaCaptado(Integer,Integer) : Date
+        +agregarVendedorCaptado(Integer, Integer, Date)
+        +eliminarVendedorCaptado(Integer, Integer)
+        +save(Empleado emp)
+        +save(VendedorCaptado)
+        +update(Empleado)
+        +delete(Integer)
+        +savePass(Credencial)
+        +updatePass(Credencial)
+        +deletePass(Credencial)
+        +getCredencial(Empleado) : Credencial
+        +getPass(Empleado usuario) : String
+        +getRol(Empleado usuario) : String
+        +eliminarTodosLosVendedoresCaptados(Integer)
+        +vendedorEsCaptable(Integer,Integer) : Boolean
+        -vendedorCaptableIteracion(Integer,Integer) : Boolean
+    }
+
+    class EmpresaService{
+        +EmpresaService(EmpresaDAOInterface,EmpleadosDAOInterface,AreasMercadoDAOInterface,UbicacionesServiceInterface)
+        +AreasMercadoDAO(EntityManager)
+        +getById(Integer) : AreasMercado
+        +getAll() : AreasMercado[]
+        +getAsesoresPorArea(Integer) : Empleado[]
+        +save(AreasMercado)
+        +update(AreasMercado)
+        +delete(Integer)
+    }
+
+    class UbicacionesService {
+        +UbicacionesService(UbicacionesDAOInterface)
+        +save(Pais)
+        +save(Ciudad)
+        +getPaisById(Integer) : Pais
+        +getCiudadById(Integer) : Ciudad
+        +getAllPaises() : Pais[]
+        +getAllCiudades() : Ciudad[]
+        +updatePais(Pais)
+        +updateCiudad(Ciudad)
+        +deleteCiudad(Integer)
+        +deletePais(Integer)
+    }
+
+    interface UbicacionesServiceInterface <<Interface>> {
+        +save(Pais)
+        +save(Ciudad)
+        +getPaisById(Integer) : Pais
+        +getCiudadById(Integer) : Ciudad
+        +getAllPaises() : Pais[]
+        +getAllCiudades() : Ciudad[]
+        +updatePais(Pais)
+        +updateCiudad(Ciudad)
+        +deleteCiudad(Integer)
+        +deletePais(Integer)
+    }
+
+    interface EmpresaServiceInterface <<Interface>> {
+        +getById(Integer) : Empresa;
+        +getEmpresaByVendedorId(Integer) : Empresa
+        +getAll() : Empresa[]
+        +getAreasMercadoPorEmpresa(Integer) : AreasMercado
+        +getVendedoresPorEmpresa(Integer) : Vendedor[]
+        +getCiudadesPorEmpresa(Integer) : Ciudad[]
+        +getAsesoresPorEmpresa(Empresa) : Asesor
+        +getAsesoresPorEmpresaConFechaInicio(Empresa) : AsesorEmpresa[]
+        +save(Empresa)
+        +save(AsesorEmpresa)
+        +update(Empresa)
+        +delete(Integer)
+        +desbloquear(Integer)
+        delete(AsesorEmpresa)
+    }
+
+    interface AreasMercadoServiceInterface <<Interface>> {
+        +AreasMercadoDAO(EntityManager)
+        +getById(Integer) : AreasMercado
+        +getAll() : AreasMercado[]
+        +getAsesoresPorArea(Integer) : Empleado[]
+        +save(AreasMercado)
+        +update(AreasMercado)
+        +delete(Integer)
+    }
+
+    interface EmpleadosServiceInterface <<Interface>> {
+        +getById(Integer) : Empleado[]
+        +getAll() : Empleado[]
+        +etAllCredenciales() : Empleado[]
+        +getAdministradores() : Administrador[]
+        +getAsesores() : Asesor[]
+        +getEmpleadosPorEmpresa(Integer) : Empleado[]
+        +getEmpresasAsesoradas(Integer) : AsesorEmpresa[]
+        +getEmpresaVendedor(Integer) : Empresa
+        +getAreasAsesoradasPorAsesor(Integer) : AreasMercado
+        +getVendedores() : Vendedor[]
+        +getFechaAsesorEmpresa(Integer, Integer) : Date
+        +getVendedoresCaptados(Integer) : VendedorCaptado[]
+        +getVendedorCaptado(Integer,Integer) : VendedorCaptado
+        +getCaptadorDelVendedor(Integer) : Vendedor
+        +getFechaCaptado(Integer,Integer) : Date
+        +agregarVendedorCaptado(Integer, Integer, Date)
+        +eliminarVendedorCaptado(Integer, Integer)
+        +save(Empleado emp)
+        +save(VendedorCaptado)
+        +update(Empleado)
+        +delete(Integer)
+        +savePass(Credencial)
+        +updatePass(Credencial)
+        +deletePass(Credencial)
+        +getCredencial(Empleado) : Credencial
+        +getPass(Empleado usuario) : String
+        +getRol(Empleado usuario) : String
+        +eliminarTodosLosVendedoresCaptados(Integer)
+    }
+
+}
+
+package dao {
+
+    class AreasMercadoDAO{
+        +AreasMercadoDAO(EntityManager)
+        +getById(Integer) : AreasMercado
+        +getAll() : AreasMercado[]
+        +getAsesoresPorArea(Integer) : Empleado[]
+        +save(AreasMercado)
+        +update(AreasMercado)
+        +delete(Integer)
+    }
+
+    class EmpleadosDAO{
+        +EmpleadosDAO(EntityManager)
+        +getById(Integer) : Empleado[]
+        +getAll() : Empleado[]
+        +getAllCredenciales() : Empleado[]
+        +getAdministradores() : Administrador[]
+        +getAsesores() : Asesor[]
+        +getEmpleadosPorEmpresa(Integer) : Empleado[]
+        +getEmpresasAsesoradas(Integer) : AsesorEmpresa[]
+        +getEmpresaVendedor(Integer) : Empresa
+        +getAreasAsesoradasPorAsesor(Integer) : AreasMercado
+        +getVendedores() : Vendedor[]
+        +getFechaAsesorEmpresa(Integer, Integer) : Date
+        +getVendedoresCaptados(Integer) : VendedorCaptado[]
+        +getVendedorCaptado(Integer,Integer) : VendedorCaptado
+        +getCaptadorDelVendedor(Integer) : Vendedor
+        +getFechaCaptado(Integer,Integer) : Date
+        +agregarVendedorCaptado(Integer, Integer, Date)
+        +eliminarVendedorCaptado(Integer, Integer)
+        +save(Empleado emp)
+        +save(VendedorCaptado)
+        +update(Empleado)
+        +delete(Integer)
+        +savePass(Credencial)
+        +updatePass(Credencial)
+        +deletePass(Credencial)
+        +getCredencial(Empleado) : Credencial
+        +getPass(Empleado usuario) : String
+        +getRol(Empleado usuario) : String
+        +eliminarTodosLosVendedoresCaptados(Integer)
+    }
+
+    class EmpresaDAO{
+        +EmpresaDAO(EntityManager)
+        +AreasMercadoDAO(EntityManager)
+        +getById(Integer) : AreasMercado
+        +getAll() : AreasMercado[]
+        +getAsesoresPorArea(Integer) : Empleado[]
+        +save(AreasMercado)
+        +update(AreasMercado)
+        +delete(Integer)
+    }
+
+    class UbicacionesDAO {
+        +UbicacionesDAO(EntityManager)
+        +save(Pais)
+        +save(Ciudad)
+        +getPaisById(Integer) : Pais
+        +getCiudadById(Integer) : Ciudad
+        +getAllPaises() : Pais[]
+        +getAllCiudades() : Ciudad[]
+        +updatePais(Pais)
+        +updateCiudad(Ciudad)
+        +deleteCiudad(Integer)
+        +deletePais(Integer)
+    }
+
+    interface UbicacionesDAOInterface <<Interface>> {
+        +save(Pais)
+        +save(Ciudad)
+        +getPaisById(Integer) : Pais
+        +getCiudadById(Integer) : Ciudad
+        +getAllPaises() : Pais[]
+        +getAllCiudades() : Ciudad[]
+        +updatePais(Pais)
+        +updateCiudad(Ciudad)
+        +deleteCiudad(Integer)
+        +deletePais(Integer)
+    }
+
+    interface EmpresaDAOInterface <<Interface>> {
+        +getById(Integer) : Empresa;
+        +getEmpresaByVendedorId(Integer) : Empresa
+        +getAll() : Empresa[]
+        +getAreasMercadoPorEmpresa(Integer) : AreasMercado
+        +getVendedoresPorEmpresa(Integer) : Vendedor[]
+        +getCiudadesPorEmpresa(Integer) : Ciudad[]
+        +getAsesoresPorEmpresa(Empresa) : Asesor
+        +getAsesoresPorEmpresaConFechaInicio(Empresa) : AsesorEmpresa[]
+        +save(Empresa)
+        +save(AsesorEmpresa)
+        +update(Empresa)
+        +delete(Integer)
+        +desbloquear(Integer)
+        delete(AsesorEmpresa)
+    }
+
+    interface AreasMercadoDAOInterface <<Interface>> {
+        +AreasMercadoDAO(EntityManager)
+        +getById(Integer) : AreasMercado
+        +getAll() : AreasMercado[]
+        +getAsesoresPorArea(Integer) : Empleado[]
+        +save(AreasMercado)
+        +update(AreasMercado)
+        +delete(Integer)
+    }
+
+    interface EmpleadosDAOInterface <<Interface>> {
+        +getById(Integer) : Empleado[]
+        +getAll() : Empleado[]
+        +etAllCredenciales() : Empleado[]
+        +getAdministradores() : Administrador[]
+        +getAsesores() : Asesor[]
+        +getEmpleadosPorEmpresa(Integer) : Empleado[]
+        +getEmpresasAsesoradas(Integer) : AsesorEmpresa[]
+        +getEmpresaVendedor(Integer) : Empresa
+        +getAreasAsesoradasPorAsesor(Integer) : AreasMercado
+        +getVendedores() : Vendedor[]
+        +getFechaAsesorEmpresa(Integer, Integer) : Date
+        +getVendedoresCaptados(Integer) : VendedorCaptado[]
+        +getVendedorCaptado(Integer,Integer) : VendedorCaptado
+        +getCaptadorDelVendedor(Integer) : Vendedor
+        +getFechaCaptado(Integer,Integer) : Date
+        +agregarVendedorCaptado(Integer, Integer, Date)
+        +eliminarVendedorCaptado(Integer, Integer)
+        +save(Empleado emp)
+        +save(VendedorCaptado)
+        +update(Empleado)
+        +delete(Integer)
+        +savePass(Credencial)
+        +updatePass(Credencial)
+        +deletePass(Credencial)
+        +getCredencial(Empleado) : Credencial
+        +getPass(Empleado usuario) : String
+        +getRol(Empleado usuario) : String
+        +eliminarTodosLosVendedoresCaptados(Integer)
+    }
+
+    interface EntityManager
+}
+
+EntityManager <--o AreasMercadoDAO
+EntityManager <--o EmpleadosDAO
+EntityManager <--o EmpresaDAO
+EntityManager <--o UbicacionesDAO
+
+AreasMercadoDAO ..|> AreasMercadoDAOInterface
+EmpleadosDAO ..|> EmpleadosDAOInterface
+EmpresaDAO ..|> EmpresaDAOInterface
+UbicacionesDAO ..|> UbicacionesDAOInterface
+
+AreasMercadoService ..|> AreasMercadoServiceInterface
+EmpleadosService ..|> EmpleadosServiceInterface
+EmpresaService ..|> EmpresaServiceInterface
+UbicacionesService ..|> UbicacionesServiceInterface
+
+AreasMercadoService o-> AreasMercadoDAOInterface
+
+EmpleadosService o-> EmpleadosDAOInterface
+EmpleadosService o-> EmpresaDAOInterface
+EmpleadosService o-> AreasMercadoDAOInterface
+
+EmpresaService o-> EmpresaDAOInterface
+EmpresaService o-> EmpleadosDAOInterface
+EmpresaService o-> AreasMercadoDAOInterface
+EmpresaService o-> UbicacionesServiceInterface
+
+UbicacionesService o-> UbicacionesDAOInterface
+
+EmpresaService o-> EmpresaDAO
+UbicacionesService o-> UbicacionesDAO
+
+@enduml
