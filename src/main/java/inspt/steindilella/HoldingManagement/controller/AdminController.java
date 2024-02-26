@@ -103,7 +103,7 @@ public class AdminController {
         recuperarAdmin(session,model);
         //Buscamos la colección de empleados registrados
         Set<Empleado> empleadosRegistrados = empleadoService.getAll();
-        Set<Empleado> usuarios = empleadoService.getUsuariosgetCredencialesAll();
+        Set<Empleado> usuarios = empleadoService.getAllCredenciales();
         model.addAttribute("empleados", empleadosRegistrados);
         model.addAttribute("usuarios", usuarios);
 
