@@ -176,7 +176,6 @@ public class EmpresaController {
     @PostMapping("/cubrirArea")
     public String cubrirArea(@RequestParam ("idTemporal") Integer idEmpresa,
                              @RequestParam ("idArea") Integer idArea){
-        System.out.println("Se agrega area a empresa: "+idArea+ " " + idEmpresa);
         if(idArea!= null && idEmpresa != null){
             //recupero el objeto Empresa
             Empresa empresa = empresaService.getById(idEmpresa);
@@ -197,7 +196,6 @@ public class EmpresaController {
     @PostMapping("/quitarArea")
     public String quitarArea(@RequestParam ("idTemporal") Integer idEmpresa,
                              @RequestParam ("idArea") Integer idArea){
-        System.out.println("Se quita area a empresa: "+idArea+ " " + idEmpresa);
         if(idArea!= null && idEmpresa != null){
             //recupero el objeto Empresa
             Empresa empresa = empresaService.getById(idEmpresa);

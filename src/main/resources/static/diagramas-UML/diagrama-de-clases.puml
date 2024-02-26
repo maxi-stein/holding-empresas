@@ -4,35 +4,105 @@
 package controller{
 
     class AdminController{
-
+        +adminController(EmpleadoService,AreasMercadoService,EmpresaService)
+        +recuperarAdmin(HttpSession,Model)
+        +listarAdmin(HttpSession,Model) : String
+        +formularioAdmin(HttpSession,Model) : String
+        +agregarAdmin(Administrador) : String
+        +actualizarAdmin(Integer,HttpSession,Model) : String
+        +eliminar(Integer) : String
+        +usuarios(HttpSession,Model) : String
+        +habilitarUsuario(Integer,HttpSession,Model) : String
+        +habilitarCredencial(String, String) : String
+        +eliminarCredencial(String) : String
     }
 
     class AreasMercadoController{
-
+        +areasMercadoController(AreasMercadoService,EmpleadoService)
+        +recuperarAdmin(HttpSession, Model)
+        +listarAreas(HttpSession, Model) : String
+        +mostrarFormulario(HttpSession, Model) : String
+        +agregar(AreasMercado) : String
+        +actualizar(Integer,HttpSession, Model) : String
+        +eliminar(Integer) : String
     }
 
     class AsesorController{
-
+        +asesorController(EmpleadoService,AreasMercadoService,EmpresaService)
+        +recuperarAdmin(HttpSession, Model)
+        +cargarDatosFormulario(Asesor,Model)
+        +listarAses(HttpSession, Model) : String
+        +formularioAses(HttpSession, Model) : String
+        +agregarAses(Asesor) : String
+        +actualizarAses(Integer, HttpSession, Model) : String
+        +eliminarAsesor(Integer) : String
+        +eliminarAreaAsesorada(Integer,Integer,Model) : String
+        +agregarAreaAsesorada(Integer,Integer,Date,Model) : String
+        +agregarEmpresaAsesorada(Integer,Integer,Date,Model) : String
+        +eliminarEmpresaAsesorada(Integer,Integer,Model) : String
     }
 
     class ControllerUbicaciones {
+        +controllerUbicaciones(EmpleadoService, EmpresaService, UbicacionesService)
+        +recuperarAdmin(HttpSession,Model)
+        +listarCiudades(HttpSession,Model) : String
+        +listarPaises(HttpSession,Model) : String
+        +mostrarFormularioCiudad(HttpSession,Model) : String
+        +mostrarFormularioPais(HttpSession,Model) : String
+        +actualizar(Integer,HttpSession,Model) : String
+        +actualizarPais(Integer,HttpSession,Model) : String
+        +agregarCiudad(Integer,Ciudad) : String
+        +agregarPais(Integer,Pais) : String
+        +eliminarPais(Integer) : String
+        +eliminarCiudad(Integer) : String
 
     }
 
     class EmpleadoController {
-
+        +empleadoController(EmpleadoService,EmpresaService)
+        +administrador(Model,HttpSession) : String
+        +vendedor(Model,HttpSession) : String
+        +asesor(Model,HttpSession) : String
+        +recuperarAdmin(HttpSession,Model)
+        +cambiarPass(HttpSession,Model)
+        +cambiarPass(String,HttpSession)
+        +cancelaProceso(HttpSession)
     }
 
     class EmpresaController {
-
+        +empresaController(EmpresaService,UbicacionesService,EmpleadoService,AreasMercadoService)
+        +recuperarAdmin(HttpSession,Model)
+        +listarAreas(HttpSession,Model) : String
+        +mostrarFormulario(HttpSession,Model) : String
+        +agregar(Integer,Empresa) : String
+        +actualizar(Integer,HttpSession,Model) : String
+        +eliminar(Integer) : String
+        +vendedoresEmpresa(Integer,HttpSession,Model) : String
+        +asesoresEmpresa(Integer,HttpSession,Model) : String
+        +cubrirArea(Integer,Integer) : String
+        +quitarArea(Integer,Integer) : String
     }
 
     class LogInController {
-
+        +logInController(EmpleadoService)
+        +redirectLogin() : String
+        +login() : String
+        +redirect(String,HttpSession) : String
     }
 
     class VendedorController {
-
+        +vendedorController(EmpleadoService,AreasMercadoService,EmpresaService)
+        +recuperarAdmin(HttpSession,Model)
+        +cargarDatosFormulario(Vendedor,Model) : String
+        +listarVendedores(HttpSession,Model) : String
+        +formularioVendedor(HttpSession,Model) : String
+        +agregar(Vendedor) : String
+        +actualizar(Integer,HttpSession,Model) : String
+        +eliminar(Integer) : String
+        +listarEmpresas(Integer,HttpSession,Model) : String
+        +agregarEmpresa(Integer,Integer) : String
+        +captarVendedor(Integer,Integer,Date,Model) : String
+        +desvincularVendedorCaptado(Integer,Model) : String
     }
 }
 
@@ -48,8 +118,8 @@ package service {
         +delete(Integer)
     }
 
-    class EmpleadosService{
-        +EmpleadosService(EmpleadosDAOInterface,EmpresaDAOInterface,AreasMercadoDAOInterface)
+    class EmpleadoService{
+        +EmpleadoService(EmpleadosDAOInterface,EmpresaDAOInterface,AreasMercadoDAOInterface)
         +getById(Integer) : Empleado[]
         +getAll() : Empleado[]
         +getAllCredenciales() : Empleado[]
@@ -147,7 +217,7 @@ package service {
         +delete(Integer)
     }
 
-    interface EmpleadosServiceInterface <<Interface>> {
+    interface EmpleadoServiceInterface <<Interface>> {
         +getById(Integer) : Empleado[]
         +getAll() : Empleado[]
         +etAllCredenciales() : Empleado[]
@@ -328,30 +398,55 @@ EntityManager <--o EmpleadosDAO
 EntityManager <--o EmpresaDAO
 EntityManager <--o UbicacionesDAO
 
-AreasMercadoDAO ..|> AreasMercadoDAOInterface
-EmpleadosDAO ..|> EmpleadosDAOInterface
-EmpresaDAO ..|> EmpresaDAOInterface
-UbicacionesDAO ..|> UbicacionesDAOInterface
+AreasMercadoDAO ...|> AreasMercadoDAOInterface
+EmpleadosDAO ...|> EmpleadosDAOInterface
+EmpresaDAO ...|> EmpresaDAOInterface
+UbicacionesDAO ...|> UbicacionesDAOInterface
 
 AreasMercadoService ..|> AreasMercadoServiceInterface
-EmpleadosService ..|> EmpleadosServiceInterface
+EmpleadoService ..|> EmpleadoServiceInterface
 EmpresaService ..|> EmpresaServiceInterface
 UbicacionesService ..|> UbicacionesServiceInterface
 
-AreasMercadoService o-> AreasMercadoDAOInterface
+AreasMercadoService o---> AreasMercadoDAOInterface
 
-EmpleadosService o-> EmpleadosDAOInterface
-EmpleadosService o-> EmpresaDAOInterface
-EmpleadosService o-> AreasMercadoDAOInterface
+EmpleadoService o----> EmpleadosDAOInterface
+EmpleadoService o----> EmpresaDAOInterface
+EmpleadoService o----> AreasMercadoDAOInterface
 
-EmpresaService o-> EmpresaDAOInterface
-EmpresaService o-> EmpleadosDAOInterface
-EmpresaService o-> AreasMercadoDAOInterface
-EmpresaService o-> UbicacionesServiceInterface
+EmpresaDAOInterface <----o EmpresaService
+EmpleadosDAOInterface <----o EmpresaService
+AreasMercadoDAOInterface <----o EmpresaService
+UbicacionesDAOInterface <----o EmpresaService
 
-UbicacionesService o-> UbicacionesDAOInterface
+UbicacionesService o----> UbicacionesDAOInterface
 
-EmpresaService o-> EmpresaDAO
-UbicacionesService o-> UbicacionesDAO
+AdminController o----> EmpleadoService
+AdminController o----> AreasMercadoService
+AdminController o----> EmpresaService
+
+AreasMercadoController o----> AreasMercadoService
+AreasMercadoController o----> EmpleadoService
+
+AsesorController o----> EmpleadoService
+AsesorController o----> AreasMercadoService
+AsesorController o----> EmpresaService
+
+ControllerUbicaciones o----> EmpleadoService
+ControllerUbicaciones o----> UbicacionesService
+ControllerUbicaciones o----> AreasMercadoService
+
+EmpresaController o----> EmpresaService
+EmpresaController o----> UbicacionesService
+EmpresaController o----> EmpleadoService
+EmpresaController o----> AreasMercadoService
+
+LogInController o----> EmpleadoService
+
+VendedorController o----> EmpleadoService
+VendedorController o----> AreasMercadoService
+VendedorController o----> EmpresaService
+
+
 
 @enduml

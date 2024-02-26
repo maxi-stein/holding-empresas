@@ -105,7 +105,7 @@ public class VendedorController {
     }
 
     @GetMapping("/formulario")
-    public String formularioVendedor(Model model, HttpSession session){
+    public String formularioVendedor(HttpSession session, Model model){
         //Instancio un Vendedor vacio
         Vendedor vendedor = new Vendedor();
 
