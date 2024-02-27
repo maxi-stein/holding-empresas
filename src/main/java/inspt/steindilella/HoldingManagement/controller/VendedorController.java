@@ -164,7 +164,13 @@ public class VendedorController {
     @PostMapping("/listarEmpresas/{id}")
     public String listarEmpresas(@PathVariable("id") Integer id, Model model, HttpSession session){
         model.addAttribute("vendFormulario", (Vendedor) empleadoService.getById(id));
-        model.addAttribute("empresas",empresaService.getAll());
+        Set<Empresa> listadoEmpresas = empresaService.getAll();
+        for(Empresa e : listadoEmpresas){
+            if(e.getEliminado() == 1){
+                listadoEmpresas.remove(e);
+            }
+        }
+        model.addAttribute("empresas",listadoEmpresas);
         model.addAttribute("empresa", new Empresa());
 
         recuperarAdmin(session,model);

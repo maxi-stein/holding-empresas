@@ -65,6 +65,11 @@ public class AsesorController {
 
         //Obtengo todas las Empresas asesoradas y no Asesoradas
         Set<Empresa> empresas = empresaService.getAll();
+        for(Empresa e : empresas){
+            if(e.getEliminado() == 1){
+                empresas.remove(e);
+            }
+        }
         Set<AsesorEmpresa> empresasAsesoradas = null;
 
         if(asesor.getId() != null){
