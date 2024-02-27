@@ -393,6 +393,24 @@ package dao {
     interface EntityManager
 }
 
+package security {
+
+    class UserDetailsService {
+        +userDetailsService(EmpleadoServiceInterface)
+        +loadUserByUsername(String)
+    }
+
+    class WebSecurityConfig {
+        +webSecurityConfig(UserDetailsService)
+        +securityFilterChain(HttpSession) : SecurityFilterChain
+        +addResourceHandlers(ResourceHandlerRegistry)
+    }
+
+}
+
+UserDetailsService <--o UserDetailsService
+WebSecurityConfig <--o WebMvcConfigurer
+
 EntityManager <--o AreasMercadoDAO
 EntityManager <--o EmpleadosDAO
 EntityManager <--o EmpresaDAO
