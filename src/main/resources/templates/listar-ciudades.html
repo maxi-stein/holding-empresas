@@ -32,7 +32,7 @@
             <thead class="table-dark">
                 <tr>
                     <th class="col-3" style="text-align: center;">Nombre</th>
-                    <th class="col-3" style="text-align: center;">Pais</th>
+                    <th class="col-3" style="text-align: center;">Pais</th>                
                     <th class="col-6" style="text-align: center;">ABM</th>
                 </tr>
             </thead>
@@ -41,13 +41,19 @@
                 <tr th:each="ciudad : ${ciudades}">
                     <td th:text="${ciudad.nombre}"></td>
                     <td th:text="${ciudad.pais_ciudad.nombre}">N/A</td>
-
+                    <!--
+                        <td th:text="${ciudad.eliminado == 1 ? 'Si' : 'No'}"></td>
+                    -->
+                    
                     <td>                        
                         <a th:href="@{/admin/empresas/ubicaciones/actualizar(idTemporal=${ciudad.id})}" class="btn btn-info btn-sm ms-1 mb-3 col-5">
                         Modificar</a>
+                        <!-- 
                         <a th:href="@{/admin/empresas/ubicaciones/eliminarCiudad(idTemporal=${ciudad.id})}"
                         class="btn btn-danger btn-sm ms-1 mb-3 col-5"
                         onclick="if (! (confirm('Seguro desea eliminar el registro?'))) return false">Eliminar</a>
+                        -->
+                        
                         <a th:href="@{/admin/empresas/ubicaciones/actualizarPais(idTemporal=${ciudad.pais_ciudad.id})}" class="btn btn-info btn-sm  ms-1 mb-3 col-5">
                             Modificar Pais</a>
                     </td>
