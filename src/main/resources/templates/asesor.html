@@ -36,16 +36,16 @@
     
         <div class="container mt-6 col-4" id="container">
         
-            <h4 th:if="${#sets.isEmpty(asesor.areasAsesoradas)}" >No posee Areas de Mercados asignadas</h4>
+            <h4 th:if="${#sets.isEmpty(asesor.areasAsesoradas)}" >No posee Áreas de Mercados asignadas</h4>
             <button th:if="${not #sets.isEmpty(asesor.areasAsesoradas)}" class="btn btn-success mt-4 mb-2" id="toggleTable">Areas Cubiertas</button>
 
             <table id="areasTable" style="display: none;" class="table table-bordered  table-striped table-responsive">
 
                 <thead>
                     <tr>
-                        <th class="col-4">Codigo</th>
+                        <th class="col-4">Código</th>
                         <th class="col-4">Nombre</th>
-                        <th class="col-4">Descripcion</th>
+                        <th class="col-4">Descripción</th>
                     </tr>
                 </thead>
 
@@ -71,10 +71,10 @@
 
                 <thead>
                 <tr>
-                    <th  class="col-4">Codigo</th>
+                    <th  class="col-4">Código</th>
                     <th class="col-4">Nombre</th>
                     <th class="col-4">Sede</th>
-                    <th class="col-4">Facturacion</th>
+                    <th class="col-4">Facturación</th>
                 </tr>
                 </thead>
 
