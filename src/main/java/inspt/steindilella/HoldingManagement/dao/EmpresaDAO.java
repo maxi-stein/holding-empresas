@@ -41,6 +41,12 @@ public class EmpresaDAO implements EmpresaDAOInterface {
     }
 
     @Override
+    public Set<Empresa> getAllHabilitados() {
+        TypedQuery<Empresa> empresas = entityManager.createQuery("SELECT e FROM Empresa e where e.eliminado = 0 ORDER BY e.nombre ASC",Empresa.class);
+        return new HashSet<>(empresas.getResultList());
+    }
+
+    @Override
     public Set<AreasMercado> getAreasMercadoPorEmpresa(Integer id) {
         TypedQuery<Empresa> empresaQuery = entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.areasMercados WHERE e.id = :idEmpresa", Empresa.class);
         empresaQuery.setParameter("idEmpresa",id);

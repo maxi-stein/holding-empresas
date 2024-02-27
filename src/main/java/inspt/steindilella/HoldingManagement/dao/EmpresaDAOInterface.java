@@ -11,6 +11,9 @@ public interface EmpresaDAOInterface {
     Empresa getEmpresaByVendedorId(Integer id);
 
     Set<Empresa> getAll();
+
+    Set<Empresa> getAllHabilitados();
+
     Set<AreasMercado> getAreasMercadoPorEmpresa(Integer id);
     Set<Vendedor> getVendedoresPorEmpresa(Integer id);
     Set<Ciudad> getCiudadesPorEmpresa(Integer id);

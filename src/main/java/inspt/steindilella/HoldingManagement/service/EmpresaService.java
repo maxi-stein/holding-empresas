@@ -44,6 +44,11 @@ public class EmpresaService implements EmpresaServiceInterface{
     }
 
     @Override
+    public Set<Empresa> getAllHabilitados(){
+        return empresaDAO.getAllHabilitados();
+    }
+
+    @Override
     public Set<AreasMercado> getAreasMercadoPorEmpresa(Integer id) {
         return empresaDAO.getAreasMercadoPorEmpresa(id);
     }
