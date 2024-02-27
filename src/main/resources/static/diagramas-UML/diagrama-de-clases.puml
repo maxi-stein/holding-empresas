@@ -395,7 +395,7 @@ package dao {
 package entity{
 
     Interface CapazDeDespacharVista{
-        - despacharVista() : String
+        +despacharVista() : String
     }
 
     class AreasMercado{
@@ -403,8 +403,6 @@ package entity{
         - nombre : String
         - descripcion : String
         - eliminado : Integer
-        - empresas : Set<Empresa>
-        - asesores : Set<Asesores>
         + getId() : Integer
         + setId(Integer) : void
         + getNombre() : String
@@ -427,7 +425,6 @@ package entity{
             - pbi : Double
             - habitantes : Integer
             - capital : Ciudad
-            - ciudad : Set<Ciudad>
             + getId() : Integer
             + setId(Integer) : void
             + getNombre() : String
@@ -463,7 +460,7 @@ package entity{
         + getPais() : Pais
         + setPais(Pais) : void
     }
-    abstract Empleado{
+    abstract Empleado implements CapazDeDespacharVista{
                 -id : Integer
                 -nombre : String
                 -apellido : String
@@ -485,83 +482,76 @@ package entity{
             }
 
     class Asesor extends Empleado{
-                    - titulacion : String
-                    - direccion : String
-                    - empresasAsesoradas : Set<EmpresasAsesoradas>
-                    - areasAsesoradas : Set<AreasAsesoradas>
-                    + getTitulacion() : String
-                    + setTitulacion(String) : void
-                    + getAreasAsesoradas() : Set<AreasAsesoradas>
-                    + setAreasAsesoradas(Set<AreasAsesoradas>) : void
-                    + getEmpresasAsesoradas() : Set<EmpresasAsesoradas>
-                    + setEmpresasAsesoradas(Set<EmpresasAsesoradas>) : void
-                    + despacharVista() : String
-                }
+            - titulacion : String
+            - direccion : String
+            + getTitulacion() : String
+            + setTitulacion(String) : void
+            + getAreasAsesoradas() : AreasMercado[]
+            + setAreasAsesoradas(AreasMercado[]) : void
+            + getEmpresasAsesoradas() : Empresa[]
+            + setEmpresasAsesoradas(Empresa[]) : void
+            + despacharVista() : String
+        }
 
     class VendedorCaptadoId{
-                        - idVendedor : Integer
-                        - idVendedorCaptado : Integer
-                        - vendedorCaptado : Vendedor
-                        + getIdVendedorCaptado() : Integer
-                        + setIdVendedorCaptado(Integer) : void
-                        + getVendedorCaptado() : Integer
-                        + setVendedorCaptado(Integer) : void
+            - idVendedor : Integer
+            - idVendedorCaptado : Integer
+            - vendedorCaptado : Vendedor
+            + getIdVendedorCaptado() : Integer
+            + setIdVendedorCaptado(Integer) : void
+            + getVendedorCaptado() : Integer
+            + setVendedorCaptado(Integer) : void
 
-            }
+        }
 
 
     class VendedorCaptado{
-                    - id : VendedorCaptadoId
-                    - vendedorPadre : Vendedor
-                    - vendedorCaptado : Vendedor
-                    - fechaCaptado : LocalDate
-                    + setId(VendedorCaptadoId) : void
-                    + getid() : VendedorCaptadoId
-                    + getFechaCaptado() : LocalDate
-                    + setFechaCaptado(Vendedor) : void
-                    + getVendedorPadre() : Vendedor
-                    +  setVendedorPadre(Vendedor) : void
+            - fechaCaptado : Date
+            + setId(VendedorCaptadoId) : void
+            + getid() : VendedorCaptadoId
+            + getFechaCaptado() : Date
+            + setFechaCaptado(Vendedor) : void
+            + getVendedorPadre() : Vendedor
+            +  setVendedorPadre(Vendedor) : void
 
-                }
+        }
 
 
 
     class Vendedor extends Empleado{
-                - direccion : String
-                - empresa : Empresa
-                - vendedorcaptado : vendedor
-                + despacharVista() : String
-                + getDireccion() : String
-                + setDireccion(String) : void
-                + getVendedoresCaptados() : Set<VendedorCaptado>
-                + setVendedoresCaptados(Set<VendedorCaptado>) : void
-                + getEmpresa() : empresa;
-                + setEmpresa(Empresa) : void
-                + tieneEmpresaAsignada() : boolean
-                + eliminarVendedoresCaptados() : void
-            }
+            - direccion : String
+            - empresa : Empresa
+            + despacharVista() : String
+            + getDireccion() : String
+            + setDireccion(String) : void
+            + getVendedoresCaptados() : VendedorCaptado[]
+            + setVendedoresCaptados(VendedorCaptado[]) : void
+            + getEmpresa() : empresa;
+            + setEmpresa(Empresa) : void
+            + tieneEmpresaAsignada() : boolean
+            + eliminarVendedoresCaptados() : void
+        }
 
     class Empresa{
-                    - id : Integer
-                    - nombre : String
-                    - inicio : LocalDate
-                    - sede : Ciudad
-                    - facturacion : Decimal
-                    -eliminado : Integer
+            - id : Integer
+            - nombre : String
+            - inicio : LocalDate
+            - facturacion : Decimal
+            -eliminado : Integer
 
-                    + getId() : Integer
-                    + setId(Integer) : void
-                    + getNombre(String) : String
-                    + setNombre(String) : void
-                    + getSede() : Ciudad
-                    + setSede(Ciudad) : void
-                    + getFacturacion() : String
-                    + setFacturacion(Decimal) : void
-                    + getEliminado() : Integer
-                    + setEliminado(Integer) : void
-                    + toString() : String
+            + getId() : Integer
+            + setId(Integer) : void
+            + getNombre(String) : String
+            + setNombre(String) : void
+            + getSede() : Ciudad
+            + setSede(Ciudad) : void
+            + getFacturacion() : String
+            + setFacturacion(Decimal) : void
+            + getEliminado() : Integer
+            + setEliminado(Integer) : void
+            + toString() : String
 
-                }
+        }
 
 }
 
@@ -579,6 +569,19 @@ package security {
     }
 
 }
+
+Vendedor <--* VendedorCaptado : vendedorCaptado
+VendedorCaptado <--* Vendedor : vendedorPadre
+VendedorCaptado <--* Vendedor : vendedorCaptado
+VendedorCaptado <--* VendedorCaptadoId : vendedorCaptadoId
+
+Asesor <--o Empresa : empresasAsesoradas
+Asesor <--o AreasMercado : areasAsesoradas
+
+Empresa <--o Ciudad : sede
+Ciudad <--o Empresa : empresas
+
+Ciudad <--o Pais : ciudades
 
 UserDetailsService <--o UserDetailsService
 WebSecurityConfig <--o WebMvcConfigurer
