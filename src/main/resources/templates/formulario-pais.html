@@ -9,12 +9,12 @@
 </head>
 <body>
     <div th:replace="~{navbar :: navbar}"></div>
-    <a class="btn btn-sm center btn" th:href="@{/admin/empresas/ubicaciones/listarPaises}">Volver al listado de Paises</a>
+    <a class="btn btn-sm center btn" th:href="@{/admin/empresas/ubicaciones/listarPaises}">Volver al listado de Países</a>
     <a class="btn btn-sm center btn" th:href="@{/admin/empresas/ubicaciones/listar}">Volver al listado de Ciudades</a>
     <div class="container mt-4">
        
         <form th:action="@{/admin/empresas/ubicaciones/agregarPais(idTemporal=${pais.id})}" method="post" th:object="${pais}">
-            <h3 class="mt-0">Regitro de País</h3>
+            <h3 class="mt-0">Registro de País</h3>
             <hr>
             <input type="hidden" th:field="*{id}" />
 

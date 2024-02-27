@@ -46,10 +46,10 @@
 
   <table class="table table-striped">
     <thead>
-    <h3>ABM - Areas de Mercado Asesoradas</h3>
+    <h3>ABM - Áreas de Mercado Asesoradas</h3>
     <hr>
     <tr>
-      <th>Area de Mercado</th>
+      <th>Área de Mercado</th>
       <th>Acción</th>
     </tr>
     </thead>
@@ -65,7 +65,7 @@
     </tbody>
   </table>
 
-  <h4>Agregar un Area Asesorada</h4>
+  <h4>Agregar un Área Asesorada</h4>
   <div th:each="area : ${areasMercadoSinAses}">
     <form th:action="@{/admin/asesor/agregarAreaAsesorada/{idArea}/{idAsesor}(idArea=${area.id}, idAsesor=${asesFormulario.id})}" method="post">
       <button type="submit" class="btn btn-outline-success mb-2" th:text="${area.nombre}"></button>
