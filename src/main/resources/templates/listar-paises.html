@@ -35,7 +35,10 @@
                     <th class="col-3" style="text-align: center;">Capital</th>
                     <th class="col-6" style="text-align: center;">PBI</th>
                     <th class="col-3" style="text-align: center;">Habitantes</th>
-                    <th class="col-3" style="text-align: center;">Bloqueado</th>
+                    <!--
+                        <th class="col-3" style="text-align: center;">Bloqueado</th>
+                    -->                   
+                    
                     <th class="col-4" style="text-align: center;">ABM</th>
                 </tr>
             </thead>
@@ -46,14 +49,20 @@
                     <td th:text="${pais.capital != null} ? ${pais.capital.nombre} : ''">N/A</td>
                     <td th:text="${pais.pbi}">N/A</td>
                     <td th:text="${pais.habitantes}">N/A</td>
-                    <td th:text="${pais.eliminado == 1 ? 'Si' : 'No'}"></td>
+                    <!--
+                        <td th:text="${pais.eliminado == 1 ? 'Si' : 'No'}"></td>
+                    -->
+                    
 
                     <td >
                         <a th:href="@{/admin/empresas/ubicaciones/actualizarPais(idTemporal=${pais.id})}" class="btn btn-info btn-sm mb-1">
                             Modificar</a>
-                        <a th:href="@{/admin/empresas/ubicaciones/eliminarPais(idTemporal=${pais.id})}"
-                        class="btn btn-danger btn-sm mb-1"
-                        onclick="if (! (confirm('Seguro desea eliminar el registro?'))) return false">Eliminar</a>
+                            <!--
+                            <a th:href="@{/admin/empresas/ubicaciones/eliminarPais(idTemporal=${pais.id})}"
+                            class="btn btn-danger btn-sm mb-1"
+                            onclick="if (! (confirm('Seguro desea eliminar el registro?'))) return false">Eliminar</a>
+                            -->
+                        
                     </td>
                 </tr>
             </tbody>
