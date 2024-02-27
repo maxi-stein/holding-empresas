@@ -20,10 +20,10 @@
         <h3 >Iniciar sesión</h3>
         <form th:action="@{/home}" method="post">
             <div class="mb-3">
-                <div><label for="Usuario ID" class="form-label"> Usuario ID: <input type="text" id="id" name="id"/> </label></div>
+                <div class="d-flex justify-content-end"><label for="Usuario ID" class="form-label margin-right"> Usuario ID:  <input type="text" id="id" name="id" required/> </label></div>
             </div>
             <div class="mb-3">
-                 <div><label for="password" class="form-label"> Contraseña: <input type="password" name="password"/> </label></div>
+                 <div><label for="password" class="form-label">Contraseña: <input type="password" name="password" required/> </label></div>
             </div>
 
             <button type="submit" class="btn btn-primary">Ingresar</button>
