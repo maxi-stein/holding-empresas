@@ -40,9 +40,9 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
 
     @Override
     public Set<Administrador> getAdministradores() {
-        TypedQuery<Administrador> query = entityManager.createQuery("SELECT a FROM Administrador a WHERE a.eliminado = 0 ORDER BY a.apellido, a.nombre ASC ", Administrador.class);
+        TypedQuery<Administrador> query = entityManager.createQuery("SELECT a FROM Administrador a WHERE a.eliminado = 0 ORDER BY a.apellido, a.nombre, a.id ASC ", Administrador.class);
 
-        return new TreeSet<>(query.getResultList());
+        return new HashSet<>(query.getResultList());
     }
 
     @Override

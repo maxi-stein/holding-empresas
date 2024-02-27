@@ -32,12 +32,22 @@ public abstract class Empleado implements CapazDeDespacharVista, Comparable<Empl
         eliminado=0;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Empleado empleado = (Empleado) o;
         return id.equals(empleado.id) && nombre.equals(empleado.nombre) && apellido.equals(empleado.apellido);
+    }*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Empleado empleado = (Empleado) o;
+        return Objects.equals(id, empleado.id) &&
+                Objects.equals(nombre, empleado.nombre) &&
+                Objects.equals(apellido, empleado.apellido);
     }
 
     @Override
