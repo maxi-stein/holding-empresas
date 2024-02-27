@@ -167,6 +167,7 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
 
     @Override
     public VendedorCaptado getVendedorCaptado(Integer idPadre, Integer idVendCaptado) {
+
         TypedQuery<VendedorCaptado> query = entityManager
                 .createQuery("SELECT vc FROM VendedorCaptado vc " +
                         "WHERE vc.vendedorPadre.id = :idPadre AND " +
@@ -174,7 +175,14 @@ public class EmpleadosDAO implements EmpleadosDAOInterface{
         query.setParameter("idPadre",idPadre);
         query.setParameter("idVendCaptado",idVendCaptado);
 
-        return query.getSingleResult();
+        VendedorCaptado captado = null;
+                try{
+                    captado = query.getSingleResult();
+                }catch (NullPointerException e){
+                    System.out.println(e.toString());
+                }
+
+        return captado;
     }
 
     @Override
