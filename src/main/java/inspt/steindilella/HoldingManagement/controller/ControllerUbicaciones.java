@@ -141,6 +141,7 @@ public class ControllerUbicaciones {
     @PostMapping("/agregar")
     public String agregarCiudad(@Param("idTemporal") Integer id,
                           @ModelAttribute("ciudad") Ciudad ciudad){
+        System.out.println("Ciudad"+ ciudad.toString());
 
         //si el id es null, es porque estoy creando la ciudad
         if(id != null){
@@ -153,7 +154,9 @@ public class ControllerUbicaciones {
                 System.out.println("Se actualiza registro de Ciudad");
                 //Para actualizar la ciudad, necesito recuperarla con el service
                 Ciudad ciudadActualizada = ubicacionesService.getCiudadById(id);
+                ciudadActualizada.setNombre(ciudad.getNombre());
                 //Como el html me devuelve solo el ID del pais, recupero el pais
+
                 Pais pais = ubicacionesService.getPaisById(ciudad.getPais_ciudad().getId());
                 //seteo la ciudad que recupere con el pais:
                 ciudadActualizada.setPais_ciudad(pais);
@@ -186,6 +189,9 @@ public class ControllerUbicaciones {
                     System.out.println("Se actualiza registro de Pais");
                     //Para actualizar la ciudad, necesito recuperarla con el service
                     Pais paisActualizado = ubicacionesService.getPaisById(id);
+                    paisActualizado.setNombre(pais.getNombre());
+                    paisActualizado.setPbi(pais.getPbi());
+                    paisActualizado.setHabitantes(pais.getHabitantes());
                     //Como el html me devuelve solo el ID del pais, recupero el pais
                     Ciudad ciudad = ubicacionesService.getCiudadById(pais.getCapital().getId());
                     //seteo la ciudad que recupere con el pais:
