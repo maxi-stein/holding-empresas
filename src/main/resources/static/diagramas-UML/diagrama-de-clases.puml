@@ -392,6 +392,178 @@ package dao {
 
     interface EntityManager
 }
+package entity{
+
+    Interface CapazDeDespacharVista{
+        - despacharVista() : String
+    }
+
+    class AreasMercado{
+        - id : Integer
+        - nombre : String
+        - descripcion : String
+        - eliminado : Integer
+        - empresas : Set<Empresa>
+        - asesores : Set<Asesores>
+        + getId() : Integer
+        + setId(Integer) : void
+        + getNombre() : String
+        + setNombre(String) : void
+        + getDescripcion() : String
+        + setDescripcion(String) : void
+        + setEliminado(Integer) : void
+        + getEliminado() : Integer
+        + getEmpresas() : Set<Empresa>
+        + setEmpresas(Set<Empresa>) : void
+        + getAsesores() : Set<Asesor>
+        + setAsesores(Set<Asesor> : void
+        + toString() : String
+
+    }
+    class Pais{
+            - id : Integer
+            - nombre : String
+            - eliminado : Integer
+            - pbi : Double
+            - habitantes : Integer
+            - capital : Ciudad
+            - ciudad : Set<Ciudad>
+            + getId() : Integer
+            + setId(Integer) : void
+            + getNombre() : String
+            + setNombre(String) : void
+            + getEliminado() : Integer
+            + setEliminado(Integer) : void
+            + getCiudad() : Set<Ciudad>
+            + setCiudad(Set<Ciudad>) : void
+            + toString() : String
+            + getHabitantes() : Integer
+            + setHabitantes(Integer) : void
+            + getFacturacion() : Double
+            + setFacturacion(Double) : void
+            + getCapital() : Ciudad
+            + setCiudad(Ciudad) : void
+        }
+
+    class Ciudad{
+        - id : Integer
+        - nombre : String
+        - eliminado : Integer
+        - pais_ciudad : Pais
+        - empresas : Set<Empresa>
+        + getId() : Integer
+        + setId(Integer) : void
+        + getNombre() : String
+        + setNombre(String) : void
+        + getEliminado() : Integer
+        + setEliminado(Integer) : void
+        + getEmpresas() : Set<Empresa>
+        + setEmpresa(Set<Empresa>) : void
+        + toString() : String
+        + getPais() : Pais
+        + setPais(Pais) : void
+    }
+    abstract Empleado{
+                -id : Integer
+                -nombre : String
+                -apellido : String
+                -eliminado : Integer
+                + getId() : Integer
+                + setId(Integer) : void
+                + getNombre(String) : String
+                + setNombre(String) : void
+                + getApellido() : String
+                + setApellido(String) : void
+                + getEliminado() : Integer
+                + setEliminado(Integer) : void
+                + toString() : String
+
+            }
+
+    class Administrador extends Empleado{
+                + despacharVista() : String
+            }
+
+    class Asesor extends Empleado{
+                    - titulacion : String
+                    - direccion : String
+                    - empresasAsesoradas : Set<EmpresasAsesoradas>
+                    - areasAsesoradas : Set<AreasAsesoradas>
+                    + getTitulacion() : String
+                    + setTitulacion(String) : void
+                    + getAreasAsesoradas() : Set<AreasAsesoradas>
+                    + setAreasAsesoradas(Set<AreasAsesoradas>) : void
+                    + getEmpresasAsesoradas() : Set<EmpresasAsesoradas>
+                    + setEmpresasAsesoradas(Set<EmpresasAsesoradas>) : void
+                    + despacharVista() : String
+                }
+
+    class VendedorCaptadoId{
+                        - idVendedor : Integer
+                        - idVendedorCaptado : Integer
+                        - vendedorCaptado : Vendedor
+                        + getIdVendedorCaptado() : Integer
+                        + setIdVendedorCaptado(Integer) : void
+                        + getVendedorCaptado() : Integer
+                        + setVendedorCaptado(Integer) : void
+
+            }
+
+
+    class VendedorCaptado{
+                    - id : VendedorCaptadoId
+                    - vendedorPadre : Vendedor
+                    - vendedorCaptado : Vendedor
+                    - fechaCaptado : LocalDate
+                    + setId(VendedorCaptadoId) : void
+                    + getid() : VendedorCaptadoId
+                    + getFechaCaptado() : LocalDate
+                    + setFechaCaptado(Vendedor) : void
+                    + getVendedorPadre() : Vendedor
+                    +  setVendedorPadre(Vendedor) : void
+
+                }
+
+
+
+    class Vendedor extends Empleado{
+                - direccion : String
+                - empresa : Empresa
+                - vendedorcaptado : vendedor
+                + despacharVista() : String
+                + getDireccion() : String
+                + setDireccion(String) : void
+                + getVendedoresCaptados() : Set<VendedorCaptado>
+                + setVendedoresCaptados(Set<VendedorCaptado>) : void
+                + getEmpresa() : empresa;
+                + setEmpresa(Empresa) : void
+                + tieneEmpresaAsignada() : boolean
+                + eliminarVendedoresCaptados() : void
+            }
+
+    class Empresa{
+                    - id : Integer
+                    - nombre : String
+                    - inicio : LocalDate
+                    - sede : Ciudad
+                    - facturacion : Decimal
+                    -eliminado : Integer
+
+                    + getId() : Integer
+                    + setId(Integer) : void
+                    + getNombre(String) : String
+                    + setNombre(String) : void
+                    + getSede() : Ciudad
+                    + setSede(Ciudad) : void
+                    + getFacturacion() : String
+                    + setFacturacion(Decimal) : void
+                    + getEliminado() : Integer
+                    + setEliminado(Integer) : void
+                    + toString() : String
+
+                }
+
+}
 
 package security {
 
